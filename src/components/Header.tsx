@@ -31,7 +31,7 @@ export default function Header({
             DreamPlay
           </a>
           <nav className="nav-links">
-            <a href="#">Shop</a>
+            <a href="/shop">Shop</a>
             <a href="#">Collections</a>
             <a href="#">Explore</a>
             <a href="#">Compare</a>
@@ -57,7 +57,7 @@ export default function Header({
       </header>
 
       <div className={`mobile-menu${menuOpen ? " open" : ""}`} id="mobileMenu">
-        <a href="#" onClick={toggleMenu}>Shop</a>
+        <a href="/shop" onClick={toggleMenu}>Shop</a>
         <a href="#" onClick={toggleMenu}>Collections</a>
         <a href="#" onClick={toggleMenu}>Explore</a>
         <a href="#" onClick={toggleMenu}>Compare</a>
