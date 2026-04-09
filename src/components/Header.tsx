@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import NavDropdown from "./NavDropdown";
 
-export default function Header({
-  cartCount,
-}: {
+interface CartCountProps {
   cartCount: number;
-}) {
+}
+
+export default function Header({ cartCount }: CartCountProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -25,24 +26,61 @@ export default function Header({
 
   return (
     <>
-      <header className={`header${scrolled ? " scrolled" : ""}`} id="header">
+      <header 
+        className={`header${scrolled ? " scrolled" : ""}`} 
+        id="header"
+        style={{ position: scrolled ? "fixed" : "sticky", top: 0, zIndex: 1000 }}
+      >
         <div className="container">
           <a href="#" className="logo">
             DreamPlay
           </a>
           <nav className="nav-links">
             <a href="/shop">Shop</a>
-            <a href="#">Collections</a>
-            <a href="#">Explore</a>
-            <a href="#">Compare</a>
-            <a href="#">Contact</a>
+            <a href="#collections">Collections</a>
+            <NavDropdown
+              label="Features"
+              items={[
+                { text: "Grand 6", href: "/piano/grand-6" },
+                { text: "Digital Piano", href: "/piano/digital-piano" },
+                { text: "Upright 4", href: "/piano/upright-4" },
+                { text: "Digital 5", href: "/piano/digital-5" },
+              ]}
+            />
+            <NavDropdown
+              label="Resources"
+              items={[
+                { text: "Piano Guides", href: "/resources/piano-guides" },
+                { text: "Comparison Charts", href: "/resources/comparisons" },
+                { text: "FAQs", href: "/resources/faqs" },
+                {
+                  text: "Documentation",
+                  href: "/help/docs",
+                  isExternal: true,
+                },
+              ]}
+            />
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
           </nav>
           <div className="header-actions">
-            <button>&#9740;</button>
-            <button>&#9825;</button>
-            <button className="cart-btn">
-              &#8863; <span className={`cart-count${cartCount === 0 ? " hidden" : ""}`} id="cartCount">{cartCount}</span>
-            </button>
+            <button className="search-btn">&#128269;</button>
+            <button className="account-btn">&#9825;</button>
+            <a
+              href="/cart"
+              className="cart-btn"
+              aria-label={`Cart with ${cartCount} items`}
+            >
+              &#8863;{" "}
+              <span
+                className={`cart-count${
+                  cartCount === 0 ? " hidden" : ""
+                }`}
+                id="cartCount"
+              >
+                {cartCount}
+              </span>
+            </a>
             <div
               className={`hamburger${menuOpen ? " active" : ""}`}
               id="hamburger"
@@ -58,10 +96,11 @@ export default function Header({
 
       <div className={`mobile-menu${menuOpen ? " open" : ""}`} id="mobileMenu">
         <a href="/shop" onClick={toggleMenu}>Shop</a>
-        <a href="#" onClick={toggleMenu}>Collections</a>
-        <a href="#" onClick={toggleMenu}>Explore</a>
-        <a href="#" onClick={toggleMenu}>Compare</a>
-        <a href="#" onClick={toggleMenu}>Contact</a>
+        <a href="#collections" onClick={toggleMenu}>Collections</a>
+        <a href="#features" onClick={toggleMenu}>Features</a>
+        <a href="#resources" onClick={toggleMenu}>Resources</a>
+        <a href="/about" onClick={toggleMenu}>About</a>
+        <a href="/contact" onClick={toggleMenu}>Contact</a>
       </div>
     </>
   );
