@@ -28,7 +28,7 @@ export default function Header({
       <header className={`header${scrolled ? " scrolled" : ""}`} id="header">
         <div className="container">
           <a href="#" className="logo">
-            Harmony Sound
+            DreamPlay
           </a>
           <nav className="nav-links">
             <a href="#">Shop</a>
@@ -41,7 +41,7 @@ export default function Header({
             <button>&#9740;</button>
             <button>&#9825;</button>
             <button className="cart-btn">
-              &#8863; <span className="cart-count" id="cartCount">{cartCount}</span>
+              &#8863; <span className={`cart-count${cartCount === 0 ? " hidden" : ""}`} id="cartCount">{cartCount}</span>
             </button>
             <div
               className={`hamburger${menuOpen ? " active" : ""}`}

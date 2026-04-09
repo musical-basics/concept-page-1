@@ -91,7 +91,7 @@ export default function FeaturedProduct({
           </div>
         </div>
         <div className="product-info">
-          <h2>Harmony Elite Pro</h2>
+          <h2>DreamPlay Elite Pro</h2>
           <div className="product-price">
             <span className="current">$99</span>
             <span className="original">$299</span>
@@ -101,7 +101,7 @@ export default function FeaturedProduct({
             &#9733;&#9733;&#9733;&#9733;&#9733; <span>(128 reviews)</span>
           </div>
           <p className="product-desc">
-            Experience unparalleled audio quality with the Harmony Elite Pro.
+            Experience unparalleled audio quality with the DreamPlay Elite Pro.
             Featuring 40mm custom drivers, active noise cancellation, and 60-hour
             battery life. Crafted with premium materials for all-day comfort.
           </p>

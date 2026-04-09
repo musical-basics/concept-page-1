@@ -15,7 +15,7 @@ export default function BrandIntro() {
           </div>
           <div className="brand-intro-right">
             <p>
-              At Harmony Sound, we craft audio experiences that transcend the ordinary.
+              At DreamPlay, we craft audio experiences that transcend the ordinary.
               Every product is meticulously engineered to deliver pristine clarity, deep
               bass, and an immersive soundscape that brings your music to life. Founded by
               audiophiles, for audiophiles — we&apos;re on a mission to make premium sound

@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-col">
-            <div className="footer-logo">Harmony Sound</div>
+            <div className="footer-logo">DreamPlay</div>
             <p>
               Premium audio equipment crafted for those who demand excellence.
               Redefining the way you experience sound since 2018.
@@ -25,8 +25,8 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Contact</h4>
             <ul>
-              <li><a href="#">support@harmonysound.com</a></li>
-              <li><a href="#">1-800-HARMONY</a></li>
+              <li><a href="#">support@dreamplay.com</a></li>
+              <li><a href="#">1-800-DREAMPLAY</a></li>
               <li><a href="#">123 Audio Lane, Sound City</a></li>
               <li><a href="#">Mon&ndash;Fri: 9am &ndash; 6pm EST</a></li>
             </ul>
@@ -48,7 +48,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer-bottom">
-          <p>&copy; 2026 Harmony Sound. All rights reserved.</p>
+          <p>&copy; 2026 DreamPlay. All rights reserved.</p>
           <div className="payment-icons">
             <span className="payment-icon">VISA</span>
             <span className="payment-icon">MC</span>

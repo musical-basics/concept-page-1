@@ -5,7 +5,7 @@ export default function SocialFeed() {
         <div className="social-feed-header">
           <h2>Shop the Feed</h2>
           <div className="handle">
-            <span>@Harmony</span>
+            <span>@DreamPlay</span>
             <button className="follow-btn">Follow</button>
           </div>
         </div>

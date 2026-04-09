@@ -45,14 +45,17 @@ export default function CountdownTimer({
             <div className="number">{time.d}</div>
             <div className="label">Days</div>
           </div>
+          <span className="countdown-separator">:</span>
           <div className="countdown-unit">
             <div className="number">{time.h}</div>
             <div className="label">Hours</div>
           </div>
+          <span className="countdown-separator">:</span>
           <div className="countdown-unit">
             <div className="number">{time.m}</div>
             <div className="label">Minutes</div>
           </div>
+          <span className="countdown-separator">:</span>
           <div className="countdown-unit">
             <div className="number">{time.s}</div>
             <div className="label">Seconds</div>
