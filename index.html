@@ -1,0 +1,2061 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harmony Sound — Premium Audio Equipment</title>
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+:root {
+  --bg: #f5f5f0;
+  --white: #ffffff;
+  --charcoal: #1a1a1a;
+  --black: #000000;
+  --gold: #c9a96e;
+  --gray: #888;
+  --light-gray: #eee;
+  --transition: all 0.3s ease;
+}
+html { scroll-behavior: smooth; }
+body { font-family: system-ui, -apple-system, sans-serif; color: var(--charcoal); background: var(--bg); line-height: 1.6; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+button { cursor: pointer; border: none; background: none; font-family: inherit; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+.container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+
+/* ANNOUNCEMENT BAR */
+.announcement-bar {
+  background: var(--black);
+  color: var(--white);
+  height: 40px;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  position: relative;
+  z-index: 1001;
+}
+.announcement-bar .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.announcement-social { display: flex; gap: 12px; }
+.announcement-social a { color: var(--white); opacity: 0.7; transition: var(--transition); font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+.announcement-social a:hover { opacity: 1; }
+.announcement-promo { display: flex; align-items: center; gap: 16px; position: absolute; left: 50%; transform: translateX(-50%); }
+.announcement-promo button { color: var(--white); opacity: 0.5; font-size: 14px; transition: var(--transition); }
+.announcement-promo button:hover { opacity: 1; }
+.promo-text { letter-spacing: 1px; text-transform: uppercase; font-weight: 500; white-space: nowrap; }
+.announcement-options { display: flex; gap: 16px; }
+.announcement-options select {
+  background: transparent;
+  color: var(--white);
+  border: none;
+  font-size: 11px;
+  letter-spacing: 1px;
+  cursor: pointer;
+  outline: none;
+}
+.announcement-options select option { background: var(--black); }
+
+/* HEADER */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: var(--white);
+  border-bottom: 1px solid var(--light-gray);
+  transition: var(--transition);
+}
+.header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+.header .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  transition: var(--transition);
+}
+.header.scrolled .container { height: 60px; }
+.logo {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  transition: var(--transition);
+}
+.header.scrolled .logo { font-size: 18px; }
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 500;
+  position: relative;
+  transition: var(--transition);
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--black);
+  transition: var(--transition);
+}
+.nav-links a:hover::after { width: 100%; }
+.header-actions { display: flex; align-items: center; gap: 20px; }
+.header-actions button {
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: var(--transition);
+  position: relative;
+}
+.header-actions button:hover { color: var(--gold); }
+.cart-count {
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  background: var(--gold);
+  color: var(--white);
+  font-size: 9px;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+.hamburger span { width: 24px; height: 2px; background: var(--black); transition: var(--transition); }
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* MOBILE MENU */
+.mobile-menu {
+  position: fixed;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100vh;
+  background: var(--white);
+  z-index: 999;
+  transition: left 0.4s ease;
+  padding: 120px 40px 40px;
+}
+.mobile-menu.open { left: 0; }
+.mobile-menu a {
+  display: block;
+  font-size: 24px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--light-gray);
+}
+
+/* HERO SLIDER */
+.hero {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  background: var(--black);
+}
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease;
+}
+.hero-slide.active { opacity: 1; }
+.hero-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: var(--white);
+  padding: 0 20px;
+}
+.hero-overlay h1 {
+  font-size: clamp(36px, 6vw, 72px);
+  font-weight: 300;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  line-height: 1.1;
+}
+.hero-cta {
+  display: inline-block;
+  padding: 16px 48px;
+  border: 1px solid var(--white);
+  color: var(--white);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition: var(--transition);
+}
+.hero-cta:hover { background: var(--white); color: var(--black); }
+.hero-arrows { position: absolute; top: 50%; width: 100%; display: flex; justify-content: space-between; padding: 0 24px; transform: translateY(-50%); z-index: 5; }
+.hero-arrows button {
+  color: var(--white);
+  font-size: 28px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: var(--transition);
+}
+.hero-arrows button:hover { opacity: 1; }
+.hero-dots {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 5;
+}
+.hero-dots button {
+  width: 12px;
+  height: 12px;
+  border: 1px solid var(--white);
+  background: transparent;
+  transition: var(--transition);
+}
+.hero-dots button.active { background: var(--white); }
+.hero-pause {
+  position: absolute;
+  bottom: 32px;
+  right: 32px;
+  color: var(--white);
+  font-size: 16px;
+  opacity: 0.6;
+  z-index: 5;
+  transition: var(--transition);
+}
+.hero-pause:hover { opacity: 1; }
+
+/* BRAND INTRO */
+.brand-intro { padding: 100px 0; background: var(--white); }
+.brand-intro-top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  margin-bottom: 80px;
+}
+.brand-intro-left h2 {
+  font-size: clamp(28px, 3.5vw, 48px);
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: 1px;
+}
+.story-btn {
+  display: inline-block;
+  margin-top: 32px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 4px;
+  transition: var(--transition);
+}
+.story-btn:hover { color: var(--gold); border-color: var(--gold); }
+.brand-intro-right { display: flex; align-items: center; }
+.brand-intro-right p { font-size: 16px; color: var(--gray); line-height: 1.8; }
+.category-cards {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.category-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  aspect-ratio: 3/4;
+}
+.category-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.category-card:hover img { transform: scale(1.05); }
+.category-card-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.6));
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.category-card-overlay span {
+  color: var(--white);
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.category-card-overlay .arrow { color: var(--white); font-size: 20px; transition: var(--transition); }
+.category-card:hover .arrow { transform: translateX(4px); }
+
+/* VIDEO SECTION */
+.video-section {
+  position: relative;
+  height: 70vh;
+  min-height: 500px;
+  overflow: hidden;
+}
+.video-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  text-align: center;
+}
+.video-overlay h2 {
+  font-size: clamp(40px, 6vw, 80px);
+  font-weight: 300;
+  letter-spacing: 6px;
+  margin-bottom: 32px;
+}
+.pill-cta {
+  padding: 14px 40px;
+  border: 1px solid var(--white);
+  color: var(--white);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  border-radius: 50px;
+  transition: var(--transition);
+}
+.pill-cta:hover { background: var(--white); color: var(--black); }
+.play-btn {
+  position: absolute;
+  bottom: 40px;
+  right: 40px;
+  width: 70px;
+  height: 70px;
+  border: 2px solid var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  transition: var(--transition);
+}
+.play-btn:hover { background: var(--white); }
+.play-btn:hover .play-triangle { border-left-color: var(--black); }
+.play-triangle {
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 10px 0 10px 18px;
+  border-color: transparent transparent transparent var(--white);
+  margin-left: 4px;
+  transition: var(--transition);
+}
+
+/* VIDEO MODAL */
+.video-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.9);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+}
+.video-modal.active { display: flex; }
+.video-modal-content {
+  width: 80%;
+  max-width: 900px;
+  aspect-ratio: 16/9;
+  position: relative;
+}
+.video-modal-content iframe { width: 100%; height: 100%; border: none; }
+.video-modal-close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  color: var(--white);
+  font-size: 28px;
+  cursor: pointer;
+}
+
+/* FEATURED PRODUCT */
+.featured-product { padding: 100px 0; background: var(--white); }
+.featured-product .container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+}
+.product-gallery { display: flex; gap: 16px; }
+.thumbnail-strip { display: flex; flex-direction: column; gap: 8px; width: 80px; flex-shrink: 0; }
+.thumbnail-strip img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: var(--transition);
+  border: 2px solid transparent;
+}
+.thumbnail-strip img.active { opacity: 1; border-color: var(--black); }
+.thumbnail-strip img:hover { opacity: 1; }
+.main-image {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  cursor: zoom-in;
+}
+.main-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+.main-image:hover img { transform: scale(1.5); }
+.product-info { position: sticky; top: 120px; align-self: start; }
+.product-info h2 {
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  margin-bottom: 16px;
+}
+.product-price { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+.product-price .current { font-size: 28px; font-weight: 600; }
+.product-price .original { font-size: 18px; color: var(--gray); text-decoration: line-through; }
+.product-price .badge {
+  background: #e74c3c;
+  color: var(--white);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  font-weight: 600;
+}
+.star-rating { margin-bottom: 20px; color: var(--gold); font-size: 14px; letter-spacing: 2px; }
+.star-rating span { color: var(--gray); font-size: 13px; margin-left: 8px; }
+.product-desc { color: var(--gray); font-size: 14px; line-height: 1.8; margin-bottom: 28px; }
+.color-swatches { margin-bottom: 28px; }
+.color-swatches p { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; font-weight: 600; }
+.swatches { display: flex; gap: 10px; }
+.swatch {
+  width: 32px;
+  height: 32px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: var(--transition);
+  padding: 2px;
+}
+.swatch.active { border-color: var(--black); }
+.swatch-inner { width: 100%; height: 100%; }
+.stock-warning {
+  color: #e74c3c;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.stock-warning::before {
+  content: '●';
+  font-size: 8px;
+  animation: pulse 1.5s ease infinite;
+}
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+.add-to-cart-btn {
+  width: 100%;
+  padding: 18px;
+  background: var(--black);
+  color: var(--white);
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: var(--transition);
+  margin-bottom: 24px;
+}
+.add-to-cart-btn:hover { background: var(--gold); }
+.trust-icons {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid var(--light-gray);
+  padding-top: 24px;
+}
+.trust-icon { text-align: center; font-size: 11px; color: var(--gray); letter-spacing: 0.5px; }
+.trust-icon .icon { font-size: 20px; margin-bottom: 6px; display: block; }
+
+/* BEFORE/AFTER COMPARISON */
+.comparison {
+  position: relative;
+  height: 70vh;
+  min-height: 500px;
+  overflow: hidden;
+  cursor: ew-resize;
+  user-select: none;
+}
+.comparison-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.comparison-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.comparison-img.after { clip-path: inset(0 50% 0 0); }
+.comparison-img.before { clip-path: inset(0 0 0 50%); }
+.comparison-handle {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 4px;
+  height: 100%;
+  background: var(--white);
+  transform: translateX(-50%);
+  z-index: 5;
+}
+.comparison-handle-circle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  background: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: var(--black);
+  letter-spacing: 4px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}
+.comparison-label {
+  position: absolute;
+  bottom: 24px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--white);
+  background: rgba(0,0,0,0.5);
+  padding: 8px 16px;
+  z-index: 5;
+}
+.comparison-label.left { left: 24px; }
+.comparison-label.right { right: 24px; }
+
+/* BUNDLE BUILDER */
+.bundle-builder { padding: 100px 0; background: var(--bg); }
+.bundle-builder h2 {
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 400;
+  letter-spacing: 2px;
+  text-align: center;
+  margin-bottom: 12px;
+}
+.bundle-builder .subtitle {
+  text-align: center;
+  color: var(--gray);
+  font-size: 14px;
+  letter-spacing: 1px;
+  margin-bottom: 60px;
+}
+.bundle-content {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: 40px;
+}
+.bundle-products {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+.bundle-product {
+  background: var(--white);
+  padding: 20px;
+  display: flex;
+  gap: 16px;
+  cursor: pointer;
+  transition: var(--transition);
+  border: 2px solid transparent;
+}
+.bundle-product.selected { border-color: var(--gold); }
+.bundle-product:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+.bundle-checkbox {
+  width: 22px;
+  height: 22px;
+  border: 2px solid var(--light-gray);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  margin-top: 2px;
+}
+.bundle-product.selected .bundle-checkbox {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--white);
+}
+.bundle-product img { width: 70px; height: 70px; object-fit: cover; flex-shrink: 0; }
+.bundle-product-info h4 { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+.bundle-product-info p { font-size: 13px; color: var(--gray); }
+.bundle-summary {
+  background: var(--white);
+  padding: 40px;
+  position: sticky;
+  top: 120px;
+  align-self: start;
+}
+.bundle-summary h3 {
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 24px;
+}
+.bundle-progress { margin-bottom: 24px; }
+.bundle-progress-bar {
+  width: 100%;
+  height: 4px;
+  background: var(--light-gray);
+  margin-bottom: 8px;
+}
+.bundle-progress-fill {
+  height: 100%;
+  background: var(--gold);
+  transition: width 0.4s ease;
+  width: 0;
+}
+.bundle-progress-text { font-size: 12px; color: var(--gray); letter-spacing: 1px; }
+.bundle-items-list { margin-bottom: 24px; }
+.bundle-item-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 13px;
+  border-bottom: 1px solid var(--light-gray);
+}
+.bundle-total-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  padding-top: 16px;
+}
+.bundle-discount { color: #e74c3c; font-size: 12px; letter-spacing: 1px; margin-bottom: 24px; text-align: center; }
+.bundle-add-btn {
+  width: 100%;
+  padding: 18px;
+  background: var(--light-gray);
+  color: var(--gray);
+  font-size: 13px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: var(--transition);
+  pointer-events: none;
+}
+.bundle-add-btn.active {
+  background: var(--black);
+  color: var(--white);
+  pointer-events: auto;
+}
+.bundle-add-btn.active:hover { background: var(--gold); }
+
+/* MARQUEE */
+.marquee-section { padding: 60px 0; overflow: hidden; background: var(--white); }
+.marquee-track {
+  display: flex;
+  animation: marquee 15s linear infinite;
+  white-space: nowrap;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-text {
+  font-size: clamp(60px, 10vw, 140px);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 8px;
+  -webkit-text-stroke: 2px var(--charcoal);
+  color: transparent;
+  padding-right: 80px;
+  flex-shrink: 0;
+}
+
+/* INSTAGRAM / SOCIAL FEED */
+.social-feed { padding: 100px 0; background: var(--bg); }
+.social-feed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+.social-feed-header h2 { font-size: 32px; font-weight: 400; letter-spacing: 2px; }
+.social-feed-header .handle {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.social-feed-header .handle span { color: var(--gray); font-size: 14px; }
+.follow-btn {
+  padding: 10px 24px;
+  border: 1px solid var(--black);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: var(--transition);
+}
+.follow-btn:hover { background: var(--black); color: var(--white); }
+.social-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 4px;
+}
+.social-item {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  cursor: pointer;
+}
+.social-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.social-item:hover img { transform: scale(1.05); }
+.social-item-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: var(--transition);
+}
+.social-item:hover .social-item-overlay { opacity: 1; }
+.bag-icon { font-size: 24px; color: var(--white); }
+
+/* COUNTDOWN */
+.countdown-section {
+  position: relative;
+  height: 60vh;
+  min-height: 450px;
+  overflow: hidden;
+}
+.countdown-section img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.countdown-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  text-align: center;
+}
+.countdown-overlay h2 {
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 300;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.countdown-overlay .promo-sub { color: var(--gold); font-size: 14px; letter-spacing: 3px; margin-bottom: 40px; }
+.countdown-timer { display: flex; gap: 24px; margin-bottom: 40px; }
+.countdown-unit { text-align: center; }
+.countdown-unit .number {
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 200;
+  letter-spacing: 2px;
+  line-height: 1;
+}
+.countdown-unit .label {
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  opacity: 0.7;
+  margin-top: 8px;
+}
+.countdown-cta {
+  padding: 16px 48px;
+  background: var(--white);
+  color: var(--black);
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: var(--transition);
+}
+.countdown-cta:hover { background: var(--gold); color: var(--white); }
+
+/* PRODUCT GRID */
+.product-grid-section { padding: 100px 0; background: var(--white); }
+.section-heading {
+  text-align: center;
+  font-size: clamp(28px, 3vw, 42px);
+  font-weight: 400;
+  letter-spacing: 2px;
+  margin-bottom: 60px;
+}
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.product-card { position: relative; }
+.product-card-image {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  margin-bottom: 16px;
+}
+.product-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.product-card:hover .product-card-image img { transform: scale(1.05); }
+.product-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  padding: 4px 12px;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 600;
+  z-index: 2;
+}
+.product-badge.sale { background: #e74c3c; color: var(--white); }
+.product-badge.new { background: var(--gold); color: var(--white); }
+.quick-add {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--black);
+  color: var(--white);
+  padding: 14px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  transform: translateY(100%);
+  transition: var(--transition);
+}
+.product-card:hover .quick-add { transform: translateY(0); }
+.product-card-info h3 { font-size: 14px; font-weight: 500; letter-spacing: 1px; margin-bottom: 4px; }
+.product-card-info .price { font-size: 14px; color: var(--gray); }
+.product-card-info .price .sale-price { color: #e74c3c; margin-right: 8px; }
+.product-card-info .stars { color: var(--gold); font-size: 12px; margin-top: 4px; }
+
+/* TESTIMONIAL */
+.testimonial {
+  padding: 120px 40px;
+  text-align: center;
+  background: var(--white);
+}
+.testimonial blockquote {
+  font-size: clamp(20px, 3vw, 32px);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gray);
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto 24px;
+}
+.testimonial cite {
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* TABBED CATEGORIES */
+.tabbed-section { padding: 100px 0; background: var(--bg); }
+.tab-nav {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin-bottom: 60px;
+}
+.tab-btn {
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding-bottom: 8px;
+  border-bottom: 2px solid transparent;
+  transition: var(--transition);
+  color: var(--gray);
+}
+.tab-btn.active { color: var(--black); border-color: var(--black); }
+.tab-btn:hover { color: var(--black); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; animation: fadeIn 0.4s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.tab-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+.tab-product { background: var(--white); }
+.tab-product-image {
+  aspect-ratio: 1;
+  overflow: hidden;
+  position: relative;
+}
+.tab-product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.tab-product:hover .tab-product-image img { transform: scale(1.05); }
+.tab-product-info { padding: 16px; }
+.tab-product-info h4 { font-size: 13px; font-weight: 500; letter-spacing: 0.5px; margin-bottom: 4px; }
+.tab-product-info .price { font-size: 13px; color: var(--gray); }
+
+/* BLOG GRID */
+.blog-section { padding: 100px 0; background: var(--white); }
+.blog-grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 24px;
+}
+.blog-card {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+}
+.blog-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.blog-card:hover img { transform: scale(1.05); }
+.blog-card-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 32px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.7));
+  color: var(--white);
+}
+.blog-tag {
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 8px;
+}
+.blog-card-content h3 {
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.blog-card-content .meta { font-size: 12px; opacity: 0.7; margin-bottom: 8px; }
+.blog-card-content .read-more { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; border-bottom: 1px solid var(--white); padding-bottom: 2px; }
+.blog-large { aspect-ratio: auto; min-height: 500px; }
+.blog-stack { display: flex; flex-direction: column; gap: 24px; }
+.blog-stack .blog-card { flex: 1; }
+.blog-stack .blog-card-content h3 { font-size: 16px; }
+
+/* VALUE PROPS */
+.value-props { padding: 80px 0; background: var(--bg); border-top: 1px solid var(--light-gray); }
+.value-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  text-align: center;
+}
+.value-item .icon-circle {
+  width: 60px;
+  height: 60px;
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.value-item .icon-circle svg { width: 32px; height: 32px; stroke: var(--charcoal); fill: none; stroke-width: 1.5; }
+.value-item h4 { font-size: 13px; letter-spacing: 1px; text-transform: uppercase; font-weight: 600; margin-bottom: 8px; }
+.value-item p { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
+/* FOOTER */
+.footer { background: var(--charcoal); color: var(--white); padding: 80px 0 0; }
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
+  gap: 60px;
+  margin-bottom: 60px;
+}
+.footer-col h4 {
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  font-weight: 600;
+}
+.footer-logo {
+  font-size: 20px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.footer-col p { font-size: 13px; color: #999; line-height: 1.8; }
+.footer-col ul li { margin-bottom: 12px; }
+.footer-col ul a { font-size: 13px; color: #999; transition: var(--transition); }
+.footer-col ul a:hover { color: var(--gold); }
+.newsletter-form { display: flex; margin-top: 16px; }
+.newsletter-form input {
+  flex: 1;
+  padding: 12px 16px;
+  background: transparent;
+  border: 1px solid #444;
+  color: var(--white);
+  font-size: 13px;
+  outline: none;
+  font-family: inherit;
+}
+.newsletter-form input::placeholder { color: #666; }
+.newsletter-form button {
+  padding: 12px 24px;
+  background: var(--gold);
+  color: var(--white);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: var(--transition);
+}
+.newsletter-form button:hover { background: #b8944f; }
+.footer-bottom {
+  border-top: 1px solid #333;
+  padding: 24px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-bottom p { font-size: 12px; color: #666; }
+.payment-icons { display: flex; gap: 12px; }
+.payment-icon {
+  background: #333;
+  padding: 4px 10px;
+  font-size: 10px;
+  color: #999;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+/* NEWSLETTER POPUP */
+.newsletter-popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  z-index: 3000;
+  align-items: center;
+  justify-content: center;
+}
+.newsletter-popup.active { display: flex; }
+.popup-content {
+  background: var(--white);
+  max-width: 500px;
+  width: 90%;
+  padding: 48px;
+  text-align: center;
+  position: relative;
+}
+.popup-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--gray);
+  transition: var(--transition);
+}
+.popup-close:hover { color: var(--black); }
+.popup-content h3 {
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: 2px;
+  margin-bottom: 8px;
+}
+.popup-content p { color: var(--gray); font-size: 14px; margin-bottom: 24px; }
+.popup-form { display: flex; }
+.popup-form input {
+  flex: 1;
+  padding: 14px 16px;
+  border: 1px solid var(--light-gray);
+  font-size: 13px;
+  outline: none;
+  font-family: inherit;
+}
+.popup-form button {
+  padding: 14px 24px;
+  background: var(--black);
+  color: var(--white);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+  transition: var(--transition);
+}
+.popup-form button:hover { background: var(--gold); }
+
+/* BACK TO TOP */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 44px;
+  height: 44px;
+  background: var(--black);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  opacity: 0;
+  pointer-events: none;
+  transition: var(--transition);
+  z-index: 999;
+}
+.back-to-top.visible { opacity: 1; pointer-events: auto; }
+.back-to-top:hover { background: var(--gold); }
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .container { padding: 0 24px; }
+  .brand-intro-top { grid-template-columns: 1fr; gap: 32px; }
+  .category-cards { grid-template-columns: repeat(2, 1fr); }
+  .featured-product .container { grid-template-columns: 1fr; }
+  .product-info { position: static; }
+  .bundle-content { grid-template-columns: 1fr; }
+  .bundle-summary { position: static; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+  .tab-grid { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }
+  .blog-grid { grid-template-columns: 1fr; }
+  .blog-large { min-height: 350px; }
+  .value-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  .announcement-social, .announcement-options { display: none; }
+  .announcement-promo { position: static; transform: none; margin: 0 auto; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+  .hero { height: 80vh; }
+  .hero-overlay h1 { font-size: 28px; }
+  .category-cards { grid-template-columns: 1fr 1fr; }
+  .product-gallery { flex-direction: column-reverse; }
+  .thumbnail-strip { flex-direction: row; width: 100%; }
+  .social-grid { grid-template-columns: repeat(3, 1fr); }
+  .countdown-timer { gap: 16px; }
+  .product-grid { grid-template-columns: 1fr; }
+  .tab-grid { grid-template-columns: 1fr 1fr; }
+  .tab-nav { gap: 16px; flex-wrap: wrap; }
+  .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+  .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+  .value-grid { grid-template-columns: 1fr; }
+  .social-feed-header { flex-direction: column; gap: 16px; }
+  .bundle-products { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+  <div class="container">
+    <div class="announcement-social">
+      <a href="#">FB</a>
+      <a href="#">X</a>
+      <a href="#">IG</a>
+      <a href="#">YT</a>
+    </div>
+    <div class="announcement-promo">
+      <button class="promo-prev" onclick="changePromo(-1)">‹</button>
+      <span class="promo-text" id="promoText">Save up to 60% with code BLACKFRIDAY</span>
+      <button class="promo-next" onclick="changePromo(1)">›</button>
+    </div>
+    <div class="announcement-options">
+      <select><option>English</option><option>French</option><option>German</option></select>
+      <select><option>USD $</option><option>EUR €</option><option>GBP £</option></select>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="container">
+    <a href="#" class="logo">Harmony Sound</a>
+    <nav class="nav-links">
+      <a href="#">Shop</a>
+      <a href="#">Collections</a>
+      <a href="#">Explore</a>
+      <a href="#">Compare</a>
+      <a href="#">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button>☌</button>
+      <button>♡</button>
+      <button class="cart-btn" onclick="document.getElementById('cartCount').textContent=parseInt(document.getElementById('cartCount').textContent)+0">
+        ⊟ <span class="cart-count" id="cartCount">0</span>
+      </button>
+      <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" onclick="toggleMenu()">Shop</a>
+  <a href="#" onclick="toggleMenu()">Collections</a>
+  <a href="#" onclick="toggleMenu()">Explore</a>
+  <a href="#" onclick="toggleMenu()">Compare</a>
+  <a href="#" onclick="toggleMenu()">Contact</a>
+</div>
+
+<!-- HERO SLIDER -->
+<section class="hero" id="hero">
+  <div class="hero-slide active">
+    <img src="https://picsum.photos/seed/hero1/1600/900" alt="Hero 1">
+    <div class="hero-overlay">
+      <h1>Redefine Your<br>Sound Experience</h1>
+      <a href="#" class="hero-cta">Shop Now</a>
+    </div>
+  </div>
+  <div class="hero-slide">
+    <img src="https://picsum.photos/seed/hero2/1600/900" alt="Hero 2">
+    <div class="hero-overlay">
+      <h1>Premium Audio<br>Craftsmanship</h1>
+      <a href="#" class="hero-cta">Explore Collection</a>
+    </div>
+  </div>
+  <div class="hero-slide">
+    <img src="https://picsum.photos/seed/hero3/1600/900" alt="Hero 3">
+    <div class="hero-overlay">
+      <h1>Sound That<br>Moves You</h1>
+      <a href="#" class="hero-cta">Discover More</a>
+    </div>
+  </div>
+  <div class="hero-arrows">
+    <button onclick="changeSlide(-1)">‹</button>
+    <button onclick="changeSlide(1)">›</button>
+  </div>
+  <div class="hero-dots">
+    <button class="active" onclick="goToSlide(0)"></button>
+    <button onclick="goToSlide(1)"></button>
+    <button onclick="goToSlide(2)"></button>
+  </div>
+  <button class="hero-pause" id="heroPause" onclick="togglePause()">⏸</button>
+</section>
+
+<!-- BRAND INTRO -->
+<section class="brand-intro">
+  <div class="container">
+    <div class="brand-intro-top">
+      <div class="brand-intro-left">
+        <h2>We believe in the<br>power of sound</h2>
+        <a href="#" class="story-btn">Our Story →</a>
+      </div>
+      <div class="brand-intro-right">
+        <p>At Harmony Sound, we craft audio experiences that transcend the ordinary. Every product is meticulously engineered to deliver pristine clarity, deep bass, and an immersive soundscape that brings your music to life. Founded by audiophiles, for audiophiles — we're on a mission to make premium sound accessible to everyone.</p>
+      </div>
+    </div>
+    <div class="category-cards">
+      <div class="category-card">
+        <img src="https://picsum.photos/seed/catall/600/800" alt="All Products">
+        <div class="category-card-overlay">
+          <span>All Products</span>
+          <span class="arrow">→</span>
+        </div>
+      </div>
+      <div class="category-card">
+        <img src="https://picsum.photos/seed/catheadphones/600/800" alt="Headphones">
+        <div class="category-card-overlay">
+          <span>Headphones</span>
+          <span class="arrow">→</span>
+        </div>
+      </div>
+      <div class="category-card">
+        <img src="https://picsum.photos/seed/catearphones/600/800" alt="Earphones">
+        <div class="category-card-overlay">
+          <span>Earphones</span>
+          <span class="arrow">→</span>
+        </div>
+      </div>
+      <div class="category-card">
+        <img src="https://picsum.photos/seed/catspeakers/600/800" alt="Speakers">
+        <div class="category-card-overlay">
+          <span>Speakers</span>
+          <span class="arrow">→</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO SECTION -->
+<section class="video-section">
+  <img src="https://picsum.photos/seed/videobg/1600/900" alt="Video Background">
+  <div class="video-overlay">
+    <h2>Sound. Sculpted.</h2>
+    <button class="pill-cta">Experience Now</button>
+  </div>
+  <button class="play-btn" onclick="openVideoModal()">
+    <div class="play-triangle"></div>
+  </button>
+</section>
+
+<!-- VIDEO MODAL -->
+<div class="video-modal" id="videoModal">
+  <div class="video-modal-content">
+    <span class="video-modal-close" onclick="closeVideoModal()">✕</span>
+    <iframe id="videoIframe" src="" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+  </div>
+</div>
+
+<!-- FEATURED PRODUCT -->
+<section class="featured-product" id="featured">
+  <div class="container">
+    <div class="product-gallery">
+      <div class="thumbnail-strip" id="thumbnails">
+        <img src="https://picsum.photos/seed/prod1/200/200" alt="Thumb 1" class="active" onclick="switchImage(0)">
+        <img src="https://picsum.photos/seed/prod2/200/200" alt="Thumb 2" onclick="switchImage(1)">
+        <img src="https://picsum.photos/seed/prod3/200/200" alt="Thumb 3" onclick="switchImage(2)">
+        <img src="https://picsum.photos/seed/prod4/200/200" alt="Thumb 4" onclick="switchImage(3)">
+        <img src="https://picsum.photos/seed/prod5/200/200" alt="Thumb 5" onclick="switchImage(4)">
+        <img src="https://picsum.photos/seed/prod6/200/200" alt="Thumb 6" onclick="switchImage(5)">
+      </div>
+      <div class="main-image" id="mainImage">
+        <img src="https://picsum.photos/seed/prod1/800/800" alt="Main Product">
+      </div>
+    </div>
+    <div class="product-info">
+      <h2>Harmony Elite Pro</h2>
+      <div class="product-price">
+        <span class="current">$99</span>
+        <span class="original">$299</span>
+        <span class="badge">Save 67%</span>
+      </div>
+      <div class="star-rating">★★★★★ <span>(128 reviews)</span></div>
+      <p class="product-desc">Experience unparalleled audio quality with the Harmony Elite Pro. Featuring 40mm custom drivers, active noise cancellation, and 60-hour battery life. Crafted with premium materials for all-day comfort.</p>
+      <div class="color-swatches">
+        <p>Color: <span id="colorName">Midnight Black</span></p>
+        <div class="swatches">
+          <div class="swatch active" onclick="selectColor(this, 'Midnight Black', 'prodblack')" title="Midnight Black"><div class="swatch-inner" style="background:#1a1a1a"></div></div>
+          <div class="swatch" onclick="selectColor(this, 'Arctic White', 'prodwhite')" title="Arctic White"><div class="swatch-inner" style="background:#f0f0f0"></div></div>
+          <div class="swatch" onclick="selectColor(this, 'Navy Blue', 'prodblue')" title="Navy Blue"><div class="swatch-inner" style="background:#2c3e6b"></div></div>
+          <div class="swatch" onclick="selectColor(this, 'Rose Gold', 'prodrose')" title="Rose Gold"><div class="swatch-inner" style="background:#c9a96e"></div></div>
+          <div class="swatch" onclick="selectColor(this, 'Crimson Red', 'prodred')" title="Crimson Red"><div class="swatch-inner" style="background:#8b2500"></div></div>
+        </div>
+      </div>
+      <div class="stock-warning">Only 3 left in stock — order soon</div>
+      <button class="add-to-cart-btn" onclick="addToCart()">Add to Cart — $99</button>
+      <div class="trust-icons">
+        <div class="trust-icon"><span class="icon">🚚</span>Free Shipping</div>
+        <div class="trust-icon"><span class="icon">↩</span>30-Day Returns</div>
+        <div class="trust-icon"><span class="icon">🔒</span>Secure Checkout</div>
+        <div class="trust-icon"><span class="icon">✓</span>2-Year Warranty</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BEFORE/AFTER COMPARISON -->
+<section class="comparison" id="comparison">
+  <div class="comparison-img after">
+    <img src="https://picsum.photos/seed/compgold/1600/800" alt="Gold Headphones">
+  </div>
+  <div class="comparison-img before">
+    <img src="https://picsum.photos/seed/compred/1600/800" alt="Crimson Headphones">
+  </div>
+  <div class="comparison-handle" id="compHandle">
+    <div class="comparison-handle-circle">◂ ▸</div>
+  </div>
+  <span class="comparison-label left">Classic Gold</span>
+  <span class="comparison-label right">Crimson Edition</span>
+</section>
+
+<!-- BUNDLE BUILDER -->
+<section class="bundle-builder" id="bundle">
+  <div class="container">
+    <h2>Build Your Bundle</h2>
+    <p class="subtitle">Select 3 or more products and save 30%</p>
+    <div class="bundle-content">
+      <div class="bundle-products" id="bundleProducts">
+        <div class="bundle-product" onclick="toggleBundle(this)" data-name="Elite Pro Headphones" data-price="99">
+          <div class="bundle-checkbox">✓</div>
+          <img src="https://picsum.photos/seed/bundle1/140/140" alt="Product">
+          <div class="bundle-product-info">
+            <h4>Elite Pro Headphones</h4>
+            <p>$99</p>
+          </div>
+        </div>
+        <div class="bundle-product" onclick="toggleBundle(this)" data-name="Studio Earbuds" data-price="79">
+          <div class="bundle-checkbox">✓</div>
+          <img src="https://picsum.photos/seed/bundle2/140/140" alt="Product">
+          <div class="bundle-product-info">
+            <h4>Studio Earbuds</h4>
+            <p>$79</p>
+          </div>
+        </div>
+        <div class="bundle-product" onclick="toggleBundle(this)" data-name="Portable Speaker" data-price="149">
+          <div class="bundle-checkbox">✓</div>
+          <img src="https://picsum.photos/seed/bundle3/140/140" alt="Product">
+          <div class="bundle-product-info">
+            <h4>Portable Speaker</h4>
+            <p>$149</p>
+          </div>
+        </div>
+        <div class="bundle-product" onclick="toggleBundle(this)" data-name="DAC Amplifier" data-price="199">
+          <div class="bundle-checkbox">✓</div>
+          <img src="https://picsum.photos/seed/bundle4/140/140" alt="Product">
+          <div class="bundle-product-info">
+            <h4>DAC Amplifier</h4>
+            <p>$199</p>
+          </div>
+        </div>
+        <div class="bundle-product" onclick="toggleBundle(this)" data-name="Cable Kit" data-price="29">
+          <div class="bundle-checkbox">✓</div>
+          <img src="https://picsum.photos/seed/bundle5/140/140" alt="Product">
+          <div class="bundle-product-info">
+            <h4>Premium Cable Kit</h4>
+            <p>$29</p>
+          </div>
+        </div>
+        <div class="bundle-product" onclick="toggleBundle(this)" data-name="Carrying Case" data-price="49">
+          <div class="bundle-checkbox">✓</div>
+          <img src="https://picsum.photos/seed/bundle6/140/140" alt="Product">
+          <div class="bundle-product-info">
+            <h4>Carrying Case</h4>
+            <p>$49</p>
+          </div>
+        </div>
+      </div>
+      <div class="bundle-summary">
+        <h3>Your Bundle</h3>
+        <div class="bundle-progress">
+          <div class="bundle-progress-bar"><div class="bundle-progress-fill" id="bundleProgressFill"></div></div>
+          <span class="bundle-progress-text" id="bundleProgressText">Select 3 items to unlock 30% off</span>
+        </div>
+        <div class="bundle-items-list" id="bundleItemsList"></div>
+        <div class="bundle-discount" id="bundleDiscount"></div>
+        <div class="bundle-total-row">
+          <span>Total</span>
+          <span id="bundleTotal">$0</span>
+        </div>
+        <button class="bundle-add-btn" id="bundleAddBtn" onclick="addBundleToCart()">Add Bundle to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<section class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-text">Play anything.</span>
+    <span class="marquee-text">Play anything.</span>
+    <span class="marquee-text">Play anything.</span>
+    <span class="marquee-text">Play anything.</span>
+  </div>
+</section>
+
+<!-- SOCIAL FEED -->
+<section class="social-feed">
+  <div class="container">
+    <div class="social-feed-header">
+      <h2>Shop the Feed</h2>
+      <div class="handle">
+        <span>@Harmony</span>
+        <button class="follow-btn">Follow</button>
+      </div>
+    </div>
+    <div class="social-grid">
+      <div class="social-item">
+        <img src="https://picsum.photos/seed/social1/400/400" alt="Social 1">
+        <div class="social-item-overlay"><span class="bag-icon">🛍</span></div>
+      </div>
+      <div class="social-item">
+        <img src="https://picsum.photos/seed/social2/400/400" alt="Social 2">
+        <div class="social-item-overlay"><span class="bag-icon">🛍</span></div>
+      </div>
+      <div class="social-item">
+        <img src="https://picsum.photos/seed/social3/400/400" alt="Social 3">
+        <div class="social-item-overlay"><span class="bag-icon">🛍</span></div>
+      </div>
+      <div class="social-item">
+        <img src="https://picsum.photos/seed/social4/400/400" alt="Social 4">
+        <div class="social-item-overlay"><span class="bag-icon">🛍</span></div>
+      </div>
+      <div class="social-item">
+        <img src="https://picsum.photos/seed/social5/400/400" alt="Social 5">
+        <div class="social-item-overlay"><span class="bag-icon">🛍</span></div>
+      </div>
+      <div class="social-item">
+        <img src="https://picsum.photos/seed/social6/400/400" alt="Social 6">
+        <div class="social-item-overlay"><span class="bag-icon">🛍</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COUNTDOWN TIMER -->
+<section class="countdown-section">
+  <img src="https://picsum.photos/seed/countdown/1600/900" alt="Countdown BG">
+  <div class="countdown-overlay">
+    <h2>Limited Time Offer</h2>
+    <p class="promo-sub">Up to 50% off premium collection</p>
+    <div class="countdown-timer">
+      <div class="countdown-unit"><div class="number" id="countDays">00</div><div class="label">Days</div></div>
+      <div class="countdown-unit"><div class="number" id="countHours">00</div><div class="label">Hours</div></div>
+      <div class="countdown-unit"><div class="number" id="countMins">00</div><div class="label">Minutes</div></div>
+      <div class="countdown-unit"><div class="number" id="countSecs">00</div><div class="label">Seconds</div></div>
+    </div>
+    <button class="countdown-cta" onclick="addToCart()">Shop the Sale</button>
+  </div>
+</section>
+
+<!-- PRODUCT GRID -->
+<section class="product-grid-section">
+  <div class="container">
+    <h2 class="section-heading">Premium Speakers</h2>
+    <div class="product-grid">
+      <div class="product-card">
+        <div class="product-card-image">
+          <span class="product-badge sale">Sale</span>
+          <img src="https://picsum.photos/seed/speaker1/600/800" alt="Speaker 1">
+          <button class="quick-add" onclick="addToCart()">Quick Add</button>
+        </div>
+        <div class="product-card-info">
+          <h3>Arena Pro Speaker</h3>
+          <p class="price"><span class="sale-price">$199</span> <s>$349</s></p>
+          <div class="stars">★★★★★</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-image">
+          <span class="product-badge new">New</span>
+          <img src="https://picsum.photos/seed/speaker2/600/800" alt="Speaker 2">
+          <button class="quick-add" onclick="addToCart()">Quick Add</button>
+        </div>
+        <div class="product-card-info">
+          <h3>Pulse Mini</h3>
+          <p class="price">$129</p>
+          <div class="stars">★★★★☆</div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-card-image">
+          <img src="https://picsum.photos/seed/speaker3/600/800" alt="Speaker 3">
+          <button class="quick-add" onclick="addToCart()">Quick Add</button>
+        </div>
+        <div class="product-card-info">
+          <h3>Horizon Tower</h3>
+          <p class="price">$499</p>
+          <div class="stars">★★★★★</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<section class="testimonial">
+  <blockquote>"The Harmony Elite Pro completely changed how I experience music. The clarity is unreal, and the noise cancellation is the best I've ever used. Worth every penny."</blockquote>
+  <cite>— James Morrison, Music Producer</cite>
+</section>
+
+<!-- TABBED CATEGORIES -->
+<section class="tabbed-section">
+  <div class="container">
+    <h2 class="section-heading">Shop by Category</h2>
+    <div class="tab-nav">
+      <button class="tab-btn active" onclick="switchTab('headphones', this)">Headphones</button>
+      <button class="tab-btn" onclick="switchTab('earphones', this)">Earphones</button>
+      <button class="tab-btn" onclick="switchTab('speakers', this)">Speakers</button>
+      <button class="tab-btn" onclick="switchTab('accessories', this)">Accessories</button>
+    </div>
+    <div class="tab-panel active" id="tab-headphones">
+      <div class="tab-grid">
+        <div class="tab-product"><div class="tab-product-image"><img src="https://picsum.photos/seed/tabh1/400/400" alt="Product"></div><div class="tab-product-info"><h4>Studio Monitor Pro</h4><p class="price">$249</p></div></div>
+        <div class="tab-product"><div class="tab-product-image"><img src="https://picsum.photos/seed/tabh2/400/400" alt="Product"></div><div class="tab-product-info"><h4>Wireless Elite</h4><p class="price">$189</p></div></div>
+        <div class="tab-product"><div class="tab-product-image"><img src="https://picsum.photos/seed/tabh3/400/400" alt="Product"></div><div class="tab-product-info"><h4>Gaming Headset X</h4><p class="price">$159</p></div></div>
+        <div class="tab-product"><div class="tab-product-image"><img src="https://picsum.photos/seed/tabh4/400/400" alt="Product"></div><div class="tab-product-info"><h4>Classic Over-Ear</h4><p class="price">$119</p></div></div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-earphones">
+      <div class="tab-grid">
+        <div class="tab-product"><div class="tab-product-image"><img src="https://picsum.photos/seed/tabe1/400/400" alt="Product"></div><div class="tab-product-info"><h4>Pro Buds ANC</h4><p class="price">$129</p></div></div>
+        <div class="tab-product"><div class="tab-product-image"><img src="https://picsum.photos/seed/tabe2/400/400" alt="Product"></div><div class="tab-product-info"><h4>Sport Fit</h4><p class="price">$89</p></div></div>
+        <div class="tab-product"><div class="tab-product-image"><img src="https://picsum.photos/seed/tabe3/400/400" alt="Product"></div><div class="tab-product-info"><h4>Studio In-Ear</h4><p class="price">$199</p></div></div>
+        <div class="tab-product"><div class="tab-product-image"><img src="https://picsum.photos/seed/tabe4/400/400" alt="Product"></div><div class="tab-product-info"><h4>Wired Classic</h4><p class="price">$49</p></div></div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-speakers">
+      <div class="tab-grid">
+        <div class="tab-product"><div class="tab-product-image"><img src="https://picsum.photos/seed/tabs1/400/400" alt="Product"></div><div class="tab-product-info"><h4>Bookshelf Duo</h4><p class="price">$349</p></div></div>
+        <div class="tab-product"><div class="tab-product-image"><img src="https://picsum.photos/seed/tabs2/400/400" alt="Product"></div><div class="tab-product-info"><h4>Portable Boom</h4><p class="price">$99</p></div></div>
+        <div class="tab-product"><div class="tab-product-image"><img src="https://picsum.photos/seed/tabs3/400/400" alt="Product"></div><div class="tab-product-info"><h4>Soundbar Ultra</h4><p class="price">$449</p></div></div>
+        <div class="tab-product"><div class="tab-product-image"><img src="https://picsum.photos/seed/tabs4/400/400" alt="Product"></div><div class="tab-product-info"><h4>Subwoofer Pro</h4><p class="price">$279</p></div></div>
+      </div>
+    </div>
+    <div class="tab-panel" id="tab-accessories">
+      <div class="tab-grid">
+        <div class="tab-product"><div class="tab-product-image"><img src="https://picsum.photos/seed/taba1/400/400" alt="Product"></div><div class="tab-product-info"><h4>Premium Cable</h4><p class="price">$29</p></div></div>
+        <div class="tab-product"><div class="tab-product-image"><img src="https://picsum.photos/seed/taba2/400/400" alt="Product"></div><div class="tab-product-info"><h4>Headphone Stand</h4><p class="price">$59</p></div></div>
+        <div class="tab-product"><div class="tab-product-image"><img src="https://picsum.photos/seed/taba3/400/400" alt="Product"></div><div class="tab-product-info"><h4>Carry Case</h4><p class="price">$49</p></div></div>
+        <div class="tab-product"><div class="tab-product-image"><img src="https://picsum.photos/seed/taba4/400/400" alt="Product"></div><div class="tab-product-info"><h4>DAC Dongle</h4><p class="price">$79</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG GRID -->
+<section class="blog-section">
+  <div class="container">
+    <h2 class="section-heading">From the Journal</h2>
+    <div class="blog-grid">
+      <div class="blog-card blog-large">
+        <img src="https://picsum.photos/seed/blog1/800/600" alt="Blog 1">
+        <div class="blog-card-content">
+          <div class="blog-tag">Sound Design</div>
+          <h3>The Art of Crafting Perfect Audio Drivers</h3>
+          <div class="meta">March 15, 2026 · 8 min read</div>
+          <span class="read-more">Read More →</span>
+        </div>
+      </div>
+      <div class="blog-stack">
+        <div class="blog-card">
+          <img src="https://picsum.photos/seed/blog2/600/400" alt="Blog 2">
+          <div class="blog-card-content">
+            <div class="blog-tag">Lifestyle</div>
+            <h3>How Music Shapes Your Daily Routine</h3>
+            <div class="meta">March 10, 2026</div>
+            <span class="read-more">Read More →</span>
+          </div>
+        </div>
+        <div class="blog-card">
+          <img src="https://picsum.photos/seed/blog3/600/400" alt="Blog 3">
+          <div class="blog-card-content">
+            <div class="blog-tag">Technology</div>
+            <h3>Active Noise Cancellation Explained</h3>
+            <div class="meta">March 5, 2026</div>
+            <span class="read-more">Read More →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUE PROPS -->
+<section class="value-props">
+  <div class="container">
+    <div class="value-grid">
+      <div class="value-item">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h4>Customer Service</h4>
+        <p>24/7 expert support for all your audio needs</p>
+      </div>
+      <div class="value-item">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <h4>Free Shipping</h4>
+        <p>Complimentary shipping on orders over $75</p>
+      </div>
+      <div class="value-item">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h4>Refer a Friend</h4>
+        <p>Give $20, get $20 with our referral program</p>
+      </div>
+      <div class="value-item">
+        <div class="icon-circle">
+          <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        </div>
+        <h4>Secure Payment</h4>
+        <p>SSL encrypted checkout with multiple payment options</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <div class="footer-logo">Harmony Sound</div>
+        <p>Premium audio equipment crafted for those who demand excellence. Redefining the way you experience sound since 2018.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#">Shop All</a></li>
+          <li><a href="#">About Us</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Shipping & Returns</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="#">support@harmonysound.com</a></li>
+          <li><a href="#">1-800-HARMONY</a></li>
+          <li><a href="#">123 Audio Lane, Sound City</a></li>
+          <li><a href="#">Mon–Fri: 9am – 6pm EST</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p>Subscribe for exclusive offers and new releases.</p>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); this.reset(); alert('Subscribed!');">
+          <input type="email" placeholder="Your email address" required>
+          <button type="submit">Join</button>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Harmony Sound. All rights reserved.</p>
+      <div class="payment-icons">
+        <span class="payment-icon">VISA</span>
+        <span class="payment-icon">MC</span>
+        <span class="payment-icon">AMEX</span>
+        <span class="payment-icon">PAYPAL</span>
+        <span class="payment-icon">APPLE</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- NEWSLETTER POPUP -->
+<div class="newsletter-popup" id="newsletterPopup">
+  <div class="popup-content">
+    <span class="popup-close" onclick="closePopup()">✕</span>
+    <h3>Stay in the Loop</h3>
+    <p>Subscribe for 15% off your first order plus early access to new releases.</p>
+    <form class="popup-form" onsubmit="event.preventDefault(); closePopup(); alert('Welcome! Check your inbox for your discount code.');">
+      <input type="email" placeholder="Enter your email" required>
+      <button type="submit">Subscribe</button>
+    </form>
+  </div>
+</div>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+/* ===== PROMO BAR ===== */
+const promos = [
+  'Save up to 60% with code BLACKFRIDAY',
+  'Free shipping on all orders over $75',
+  'New arrivals — Shop the latest collection'
+];
+let promoIndex = 0;
+function changePromo(dir) {
+  promoIndex = (promoIndex + dir + promos.length) % promos.length;
+  document.getElementById('promoText').textContent = promos[promoIndex];
+}
+setInterval(() => changePromo(1), 4000);
+
+/* ===== STICKY HEADER ===== */
+window.addEventListener('scroll', () => {
+  const header = document.getElementById('header');
+  header.classList.toggle('scrolled', window.scrollY > 50);
+  document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 600);
+});
+
+/* ===== MOBILE MENU ===== */
+function toggleMenu() {
+  document.getElementById('hamburger').classList.toggle('active');
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+/* ===== HERO SLIDER ===== */
+let currentSlide = 0;
+let heroInterval;
+let paused = false;
+const slides = document.querySelectorAll('.hero-slide');
+const dots = document.querySelectorAll('.hero-dots button');
+
+function goToSlide(n) {
+  slides[currentSlide].classList.remove('active');
+  dots[currentSlide].classList.remove('active');
+  currentSlide = n;
+  slides[currentSlide].classList.add('active');
+  dots[currentSlide].classList.add('active');
+}
+function changeSlide(dir) {
+  goToSlide((currentSlide + dir + slides.length) % slides.length);
+  resetHeroTimer();
+}
+function resetHeroTimer() {
+  clearInterval(heroInterval);
+  if (!paused) heroInterval = setInterval(() => changeSlide(1), 5000);
+}
+function togglePause() {
+  paused = !paused;
+  document.getElementById('heroPause').textContent = paused ? '▶' : '⏸';
+  if (paused) clearInterval(heroInterval);
+  else resetHeroTimer();
+}
+heroInterval = setInterval(() => changeSlide(1), 5000);
+
+/* ===== PRODUCT IMAGE GALLERY ===== */
+const productImages = [
+  'https://picsum.photos/seed/prod1/800/800',
+  'https://picsum.photos/seed/prod2/800/800',
+  'https://picsum.photos/seed/prod3/800/800',
+  'https://picsum.photos/seed/prod4/800/800',
+  'https://picsum.photos/seed/prod5/800/800',
+  'https://picsum.photos/seed/prod6/800/800'
+];
+function switchImage(idx) {
+  const thumbs = document.querySelectorAll('.thumbnail-strip img');
+  thumbs.forEach(t => t.classList.remove('active'));
+  thumbs[idx].classList.add('active');
+  document.querySelector('.main-image img').src = productImages[idx];
+}
+
+/* ===== ZOOM ON HOVER ===== */
+const mainImageContainer = document.getElementById('mainImage');
+mainImageContainer.addEventListener('mousemove', (e) => {
+  const img = mainImageContainer.querySelector('img');
+  const rect = mainImageContainer.getBoundingClientRect();
+  const x = ((e.clientX - rect.left) / rect.width) * 100;
+  const y = ((e.clientY - rect.top) / rect.height) * 100;
+  img.style.transformOrigin = `${x}% ${y}%`;
+});
+
+/* ===== COLOR SWATCHES ===== */
+function selectColor(el, name, seed) {
+  document.querySelectorAll('.swatch').forEach(s => s.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('colorName').textContent = name;
+  document.querySelector('.main-image img').src = `https://picsum.photos/seed/${seed}/800/800`;
+}
+
+/* ===== ADD TO CART ===== */
+function addToCart() {
+  const count = document.getElementById('cartCount');
+  count.textContent = parseInt(count.textContent) + 1;
+  count.style.transform = 'scale(1.4)';
+  setTimeout(() => count.style.transform = 'scale(1)', 200);
+}
+
+/* ===== BEFORE/AFTER COMPARISON ===== */
+(function() {
+  const comp = document.getElementById('comparison');
+  const handle = document.getElementById('compHandle');
+  let isDragging = false;
+
+  function setPosition(x) {
+    const rect = comp.getBoundingClientRect();
+    let pos = ((x - rect.left) / rect.width) * 100;
+    pos = Math.max(5, Math.min(95, pos));
+    handle.style.left = pos + '%';
+    comp.querySelector('.after').style.clipPath = `inset(0 ${100 - pos}% 0 0)`;
+    comp.querySelector('.before').style.clipPath = `inset(0 0 0 ${pos}%)`;
+  }
+
+  comp.addEventListener('mousedown', (e) => { isDragging = true; setPosition(e.clientX); });
+  window.addEventListener('mousemove', (e) => { if (isDragging) setPosition(e.clientX); });
+  window.addEventListener('mouseup', () => { isDragging = false; });
+
+  comp.addEventListener('touchstart', (e) => { isDragging = true; setPosition(e.touches[0].clientX); }, {passive: true});
+  window.addEventListener('touchmove', (e) => { if (isDragging) setPosition(e.touches[0].clientX); }, {passive: true});
+  window.addEventListener('touchend', () => { isDragging = false; });
+})();
+
+/* ===== BUNDLE BUILDER ===== */
+let selectedBundles = [];
+function toggleBundle(el) {
+  el.classList.toggle('selected');
+  const name = el.dataset.name;
+  const price = parseInt(el.dataset.price);
+  const idx = selectedBundles.findIndex(b => b.name === name);
+  if (idx > -1) selectedBundles.splice(idx, 1);
+  else selectedBundles.push({name, price});
+  updateBundle();
+}
+function updateBundle() {
+  const count = selectedBundles.length;
+  const progress = Math.min(count / 3, 1) * 100;
+  document.getElementById('bundleProgressFill').style.width = progress + '%';
+  document.getElementById('bundleProgressText').textContent = count >= 3
+    ? `${count} items selected — 30% discount applied!`
+    : `Select ${3 - count} more item${3 - count !== 1 ? 's' : ''} to unlock 30% off`;
+
+  const listEl = document.getElementById('bundleItemsList');
+  listEl.innerHTML = selectedBundles.map(b =>
+    `<div class="bundle-item-row"><span>${b.name}</span><span>$${b.price}</span></div>`
+  ).join('');
+
+  const subtotal = selectedBundles.reduce((s, b) => s + b.price, 0);
+  const discount = count >= 3 ? 0.3 : 0;
+  const total = subtotal * (1 - discount);
+  document.getElementById('bundleDiscount').textContent = discount ? `You save $${(subtotal * discount).toFixed(0)}!` : '';
+  document.getElementById('bundleTotal').textContent = `$${total.toFixed(0)}`;
+
+  const btn = document.getElementById('bundleAddBtn');
+  btn.classList.toggle('active', count >= 3);
+}
+function addBundleToCart() {
+  if (selectedBundles.length < 3) return;
+  const count = document.getElementById('cartCount');
+  count.textContent = parseInt(count.textContent) + selectedBundles.length;
+  count.style.transform = 'scale(1.4)';
+  setTimeout(() => count.style.transform = 'scale(1)', 200);
+}
+
+/* ===== TABS ===== */
+function switchTab(tab, btn) {
+  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  btn.classList.add('active');
+}
+
+/* ===== COUNTDOWN TIMER ===== */
+const countdownEnd = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000);
+function updateCountdown() {
+  const now = new Date();
+  let diff = countdownEnd - now;
+  if (diff < 0) diff = 0;
+  const d = Math.floor(diff / (1000*60*60*24));
+  const h = Math.floor((diff % (1000*60*60*24)) / (1000*60*60));
+  const m = Math.floor((diff % (1000*60*60)) / (1000*60));
+  const s = Math.floor((diff % (1000*60)) / 1000);
+  document.getElementById('countDays').textContent = String(d).padStart(2, '0');
+  document.getElementById('countHours').textContent = String(h).padStart(2, '0');
+  document.getElementById('countMins').textContent = String(m).padStart(2, '0');
+  document.getElementById('countSecs').textContent = String(s).padStart(2, '0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+/* ===== VIDEO MODAL ===== */
+function openVideoModal() {
+  document.getElementById('videoModal').classList.add('active');
+  document.getElementById('videoIframe').src = 'https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1';
+}
+function closeVideoModal() {
+  document.getElementById('videoModal').classList.remove('active');
+  document.getElementById('videoIframe').src = '';
+}
+document.getElementById('videoModal').addEventListener('click', function(e) {
+  if (e.target === this) closeVideoModal();
+});
+
+/* ===== NEWSLETTER POPUP ===== */
+let popupShown = false;
+setTimeout(() => {
+  if (!popupShown && !sessionStorage.getItem('popupDismissed')) {
+    document.getElementById('newsletterPopup').classList.add('active');
+    popupShown = true;
+  }
+}, 3000);
+function closePopup() {
+  document.getElementById('newsletterPopup').classList.remove('active');
+  sessionStorage.setItem('popupDismissed', 'true');
+}
+document.getElementById('newsletterPopup').addEventListener('click', function(e) {
+  if (e.target === this) closePopup();
+});
+
+/* ===== SMOOTH SCROLL ANCHORS ===== */
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({behavior: 'smooth'});
+    }
+  });
+});
+</script>
+</body>
+</html>
