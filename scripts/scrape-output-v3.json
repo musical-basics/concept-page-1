@@ -1,0 +1,954 @@
+{
+  "url": "https://themes.shopify.com/themes/concept/presets/concept",
+  "scrapedAt": "2026-04-09T20:23:50.026Z",
+  "keyframes": {
+    "spin": [
+      {
+        "keyText": "0%",
+        "cssText": "0% { transform: rotate(0deg); }"
+      },
+      {
+        "keyText": "100%",
+        "cssText": "100% { transform: rotate(360deg); }"
+      }
+    ],
+    "fadeInSlide": [
+      {
+        "keyText": "0%",
+        "cssText": "0% { opacity: 0; }"
+      },
+      {
+        "keyText": "100%",
+        "cssText": "100% { opacity: 1; }"
+      }
+    ],
+    "tw-pulse": [
+      {
+        "keyText": "50%",
+        "cssText": "50% { opacity: 0.5; }"
+      }
+    ],
+    "tw-shimmer": [
+      {
+        "keyText": "0%",
+        "cssText": "0% { background-position: 100% 0%; }"
+      },
+      {
+        "keyText": "100%",
+        "cssText": "100% { background-position: -100% 0%; }"
+      }
+    ]
+  },
+  "transitionRules": [
+    {
+      "selector": ".turbo-progress-bar",
+      "transition": "width 300ms ease-out, opacity 150ms ease-in 150ms",
+      "animation": null,
+      "transform": "translate3d(0px, 0px, 0px)",
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .marketing-button",
+      "transition": "background-color 150ms, border-color, box-shadow, color",
+      "animation": null,
+      "transform": null,
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".marketing-form--is-loading button.ma .marketing-button::after",
+      "transition": null,
+      "animation": "1s linear 0s infinite normal none running spin",
+      "transform": null,
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .link__arrow-inner",
+      "transition": "transform 300ms cubic-bezier(0.4, 0.22, 0.28, 1)",
+      "animation": null,
+      "transform": "translateX(0px)",
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .marketing-input, .ma .marketing-textarea, .ma .marketing-select",
+      "transition": "padding 150ms",
+      "animation": null,
+      "transform": null,
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .marketing-radio-label::before, .ma .marketing-checkbox-label::before",
+      "transition": "border-color 150ms",
+      "animation": null,
+      "transform": null,
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .marketing-input-suffix",
+      "transition": "opacity 150ms",
+      "animation": null,
+      "transform": null,
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma img[data-srcset]",
+      "transition": "opacity 150ms linear",
+      "animation": null,
+      "transform": null,
+      "opacity": "0",
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .cookies-notice",
+      "transition": "300ms ease-in-out",
+      "animation": null,
+      "transform": "translateY(100%)",
+      "opacity": "0",
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .in-page-menu a",
+      "transition": "150ms",
+      "animation": null,
+      "transform": null,
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .modal-container",
+      "transition": "opacity 150ms",
+      "animation": null,
+      "transform": null,
+      "opacity": "0",
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .modal__close",
+      "transition": "opacity 300ms",
+      "animation": null,
+      "transform": null,
+      "opacity": "0.7",
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .modal",
+      "transition": "150ms ease-out",
+      "animation": null,
+      "transform": "scale(0.85)",
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .popover",
+      "transition": "opacity 300ms",
+      "animation": null,
+      "transform": null,
+      "opacity": "0",
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .marketing-nav__external-indicator",
+      "transition": "fill 300ms",
+      "animation": null,
+      "transform": null,
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .popover-wrapper--dropdown > .popover > .popover__content",
+      "transition": "width 300ms 100ms",
+      "animation": null,
+      "transform": null,
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .popover-wrapper--dropdown > .popover > .popover__content > .popover__list",
+      "transition": "border-color 300ms, min-height 300ms",
+      "animation": null,
+      "transform": null,
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .footer-link",
+      "transition": "color 300ms ease-in-out",
+      "animation": null,
+      "transform": null,
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .footer-link--external-icon",
+      "transition": "fill 300ms ease-in-out",
+      "animation": null,
+      "transform": null,
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .footer-bottom a",
+      "transition": "color 300ms ease-in-out",
+      "animation": null,
+      "transform": null,
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .footer-country-select__trigger",
+      "transition": "color 300ms ease-in-out",
+      "animation": null,
+      "transform": null,
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .footer-country-select__globe, .ma .footer-country-select__arrow",
+      "transition": "fill 300ms ease-in-out",
+      "animation": null,
+      "transform": null,
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .footer-social__icon .icon",
+      "transition": "fill 300ms ease-in-out",
+      "animation": null,
+      "transform": null,
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .drawer",
+      "transition": "transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+      "animation": null,
+      "transform": null,
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .drawer__item",
+      "transition": "color 300ms",
+      "animation": null,
+      "transform": null,
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma #PageContainer::before",
+      "transition": "visibility 0.4s linear, opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+      "animation": null,
+      "transform": "translateZ(0px)",
+      "opacity": "0",
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .stateful-form .js-is-pending::after",
+      "transition": null,
+      "animation": "0.5s linear 0s infinite normal none running spin",
+      "transform": null,
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".ma .cookies-notice",
+      "transition": "300ms ease-in-out",
+      "animation": null,
+      "transform": "translateY(100%)",
+      "opacity": "0",
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".merchant-base-main::before",
+      "transition": "visibility 0.4s linear, opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1)",
+      "animation": null,
+      "transform": null,
+      "opacity": "0",
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".flex-fader .slide.active",
+      "transition": null,
+      "animation": "1s ease-out 0s 1 normal none running fadeInSlide",
+      "transform": null,
+      "opacity": "100",
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".tw-animate-pulse",
+      "transition": null,
+      "animation": "2s cubic-bezier(0.4, 0, 0.6, 1) 0s infinite normal none running tw-pulse",
+      "transform": null,
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    },
+    {
+      "selector": ".tw-animate-shimmer",
+      "transition": null,
+      "animation": "1.5s linear 0s infinite normal none running tw-shimmer",
+      "transform": null,
+      "opacity": null,
+      "willChange": null,
+      "filter": null,
+      "clipPath": null
+    }
+  ],
+  "sectionLayout": [
+    {
+      "tag": "SECTION",
+      "id": "demo-container",
+      "classes": "tw-group/demo tw-transition-colors tw-duration-500 tw-ease-out [&.mode-maximized]:tw-relative mode-d",
+      "sectionType": null,
+      "transition": "color 0.5s cubic-bezier(0, 0, 0.2, 1), background-color 0.5s cubic-bezier(0, 0, 0.2, 1), border-colo",
+      "animation": "none",
+      "top": -32,
+      "height": 765,
+      "dataAttrs": "data-controller=\"demo-store\" data-demo-store-iframe-url-value=\"https://concept-theme-tech.myshopify.com\" data-action=\"demo-store-responder:activate-from-responder@window->demo-store#scrollAndActivate\""
+    },
+    {
+      "tag": "SECTION",
+      "id": "",
+      "classes": "bottomcta tw-bg-canvas-inverted-primary tw-py-2xl lg:tw-py-4xl",
+      "sectionType": null,
+      "transition": "all",
+      "animation": "none",
+      "top": 5627.375,
+      "height": 328.8125,
+      "dataAttrs": ""
+    },
+    {
+      "tag": "HEADER",
+      "id": "",
+      "classes": "tw-flex tw-gap-sm sm:tw-gap-md tw-items-start",
+      "sectionType": null,
+      "transition": "all",
+      "animation": "none",
+      "top": 3597.25,
+      "height": 26.09375,
+      "dataAttrs": ""
+    },
+    {
+      "tag": "HEADER",
+      "id": "",
+      "classes": "tw-flex tw-gap-sm sm:tw-gap-md tw-items-start",
+      "sectionType": null,
+      "transition": "all",
+      "animation": "none",
+      "top": 3686.4375,
+      "height": 26.09375,
+      "dataAttrs": ""
+    },
+    {
+      "tag": "HEADER",
+      "id": "",
+      "classes": "tw-flex tw-gap-sm sm:tw-gap-md tw-items-start",
+      "sectionType": null,
+      "transition": "all",
+      "animation": "none",
+      "top": 3827.8125,
+      "height": 26.09375,
+      "dataAttrs": ""
+    },
+    {
+      "tag": "HEADER",
+      "id": "",
+      "classes": "tw-flex tw-gap-sm sm:tw-gap-md tw-items-start",
+      "sectionType": null,
+      "transition": "all",
+      "animation": "none",
+      "top": 3995.28125,
+      "height": 26.09375,
+      "dataAttrs": ""
+    },
+    {
+      "tag": "FOOTER",
+      "id": "",
+      "classes": "tw-py-10 tw-text-body-md tw-bg-canvas-inverted-primary tw-text-fg-inverted-primary",
+      "sectionType": null,
+      "transition": "all",
+      "animation": "none",
+      "top": 5956.1875,
+      "height": 388.9375,
+      "dataAttrs": ""
+    },
+    {
+      "tag": "DIV",
+      "id": "",
+      "classes": "\n          theme-search__results-section\n          theme-search__results-section--empty\n          tw",
+      "sectionType": null,
+      "transition": "all",
+      "animation": "none",
+      "top": 0,
+      "height": 0,
+      "dataAttrs": ""
+    },
+    {
+      "tag": "DIV",
+      "id": "",
+      "classes": "\n          theme-search__results-section\n          theme-search__results-section--quick-links\n      ",
+      "sectionType": null,
+      "transition": "all",
+      "animation": "none",
+      "top": 0,
+      "height": 0,
+      "dataAttrs": ""
+    },
+    {
+      "tag": "DIV",
+      "id": "",
+      "classes": "\n          theme-search__results-section\n          theme-search__results-section--suggestions\n      ",
+      "sectionType": null,
+      "transition": "all",
+      "animation": "none",
+      "top": 0,
+      "height": 0,
+      "dataAttrs": ""
+    },
+    {
+      "tag": "DIV",
+      "id": "",
+      "classes": "tw-absolute tw-w-full tw-h-[var(--hero-height)] tw-min-h-[calc(var(--spacing-2xl)+var(--height--top-",
+      "sectionType": null,
+      "transition": "all",
+      "animation": "none",
+      "top": -32,
+      "height": 765,
+      "dataAttrs": ""
+    }
+  ],
+  "hoverEffects": [
+    {
+      "label": "Nav links",
+      "found": false,
+      "error": "locator.hover: Element is not visible\nCall log:\n\u001b[2m  - waiting for locator('hea"
+    },
+    {
+      "label": "Hero CTA",
+      "found": true,
+      "changed": false,
+      "before": {
+        "opacity": "1",
+        "transform": "none",
+        "transition": "all",
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "filter": "none",
+        "scale": "none"
+      },
+      "after": {
+        "opacity": "1",
+        "transform": "none",
+        "transition": "all",
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "filter": "none",
+        "scale": "none"
+      }
+    },
+    {
+      "label": "Product card",
+      "found": false
+    },
+    {
+      "label": "Product card image",
+      "found": true,
+      "changed": false,
+      "before": {
+        "opacity": "1",
+        "transform": "none",
+        "transition": "all",
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px",
+        "filter": "none",
+        "scale": "none"
+      },
+      "after": {
+        "opacity": "1",
+        "transform": "none",
+        "transition": "all",
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(0, 0, 0)",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px",
+        "filter": "none",
+        "scale": "none"
+      }
+    },
+    {
+      "label": "Quick-add button",
+      "found": false
+    },
+    {
+      "label": "Collection/category card",
+      "found": false
+    },
+    {
+      "label": "Generic button",
+      "found": false
+    },
+    {
+      "label": "Color swatch",
+      "found": false
+    },
+    {
+      "label": "Social grid item",
+      "found": false
+    },
+    {
+      "label": "Blog card",
+      "found": false
+    },
+    {
+      "label": "Footer link",
+      "found": true,
+      "changed": false,
+      "before": {
+        "opacity": "1",
+        "transform": "none",
+        "transition": "all",
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "filter": "none",
+        "scale": "none"
+      },
+      "after": {
+        "opacity": "1",
+        "transform": "none",
+        "transition": "all",
+        "background": "rgba(0, 0, 0, 0)",
+        "color": "rgb(255, 255, 255)",
+        "boxShadow": "none",
+        "filter": "none",
+        "scale": "none"
+      }
+    },
+    {
+      "label": "Tab button",
+      "found": false,
+      "error": "locator.hover: Element is not visible\nCall log:\n\u001b[2m  - waiting for locator('[cl"
+    },
+    {
+      "label": "Value prop icon",
+      "found": false
+    },
+    {
+      "label": "Testimonial",
+      "found": false
+    },
+    {
+      "label": "Announcement link",
+      "found": false
+    }
+  ],
+  "jsLibraries": {
+    "detected": [],
+    "scripts": [
+      "https://themes.shopify.com/cdn/shopifycloud/theme_store/assets/rails-eea5a08ed1f5538d6feea53699204748e841ba23d0cdf4e2251a5873eaefd80f.js",
+      "https://themes.shopify.com/cdn/shopifycloud/theme_store/bundles/assets/error-reporting-UbMdKvGa.js",
+      "https://themes.shopify.com/cdn/shopifycloud/theme_store/bundles/assets/merchant-d2CP9WI6.js",
+      "https://cdn.shopify.com/shopifycloud/dux/dux-portal-6.0.1.min.js"
+    ],
+    "inlineSnippets": []
+  },
+  "scrollRevealElements": [
+    {
+      "pattern": "[class*=\"animate\"]",
+      "tag": "DIV",
+      "classes": "tw-absolute tw-top-0 tw-left-0 tw-w-full tw-h-full tw-bg-transparent tw-opacity-0\n              tw-bg-gradient-to-r tw-f",
+      "computedOpacity": "0",
+      "computedTransform": "none",
+      "computedTransition": "opacity 0.5s cubic-bezier(0, 0, 0.2, 1)",
+      "computedAnimation": "1.5s linear infinite tw-shimmer",
+      "dataAttrs": "data-demo-store-target=\"shimmer\""
+    },
+    {
+      "pattern": "[class*=\"animate\"]",
+      "tag": "DIV",
+      "classes": "tw-bg-gray-200 tw-animate-pulse tw-rounded-sm tw-h-2xl  tw-w-full",
+      "computedOpacity": "1",
+      "computedTransform": "none",
+      "computedTransition": "all",
+      "computedAnimation": "2s cubic-bezier(0.4, 0, 0.6, 1) infinite tw-pulse",
+      "dataAttrs": ""
+    },
+    {
+      "pattern": "[class*=\"animate\"]",
+      "tag": "DIV",
+      "classes": "tw-bg-gray-200 tw-animate-pulse tw-rounded-sm tw-h-md last:tw-w-[80%]",
+      "computedOpacity": "1",
+      "computedTransform": "none",
+      "computedTransition": "all",
+      "computedAnimation": "2s cubic-bezier(0.4, 0, 0.6, 1) infinite tw-pulse",
+      "dataAttrs": ""
+    },
+    {
+      "pattern": "[class*=\"animate\"]",
+      "tag": "DIV",
+      "classes": "tw-bg-gray-200 tw-animate-pulse tw-rounded-sm tw-h-md last:tw-w-[80%]",
+      "computedOpacity": "1",
+      "computedTransform": "none",
+      "computedTransition": "all",
+      "computedAnimation": "2s cubic-bezier(0.4, 0, 0.6, 1) infinite tw-pulse",
+      "dataAttrs": ""
+    },
+    {
+      "pattern": "[class*=\"animate\"]",
+      "tag": "DIV",
+      "classes": "tw-bg-gray-200 tw-animate-pulse tw-rounded-sm tw-h-md last:tw-w-[80%]",
+      "computedOpacity": "1",
+      "computedTransform": "none",
+      "computedTransition": "all",
+      "computedAnimation": "2s cubic-bezier(0.4, 0, 0.6, 1) infinite tw-pulse",
+      "dataAttrs": ""
+    },
+    {
+      "pattern": "[class*=\"animate\"]",
+      "tag": "DIV",
+      "classes": "tw-bg-gray-200 tw-animate-pulse tw-rounded-sm tw-h-md last:tw-w-[80%]",
+      "computedOpacity": "1",
+      "computedTransform": "none",
+      "computedTransition": "all",
+      "computedAnimation": "2s cubic-bezier(0.4, 0, 0.6, 1) infinite tw-pulse",
+      "dataAttrs": ""
+    },
+    {
+      "pattern": "[class*=\"animate\"]",
+      "tag": "DIV",
+      "classes": "tw-bg-gray-200 tw-animate-pulse tw-rounded-sm tw-h-md last:tw-w-[80%]",
+      "computedOpacity": "1",
+      "computedTransform": "none",
+      "computedTransition": "all",
+      "computedAnimation": "2s cubic-bezier(0.4, 0, 0.6, 1) infinite tw-pulse",
+      "dataAttrs": ""
+    },
+    {
+      "pattern": "[class*=\"animate\"]",
+      "tag": "DIV",
+      "classes": "tw-bg-gray-200 tw-animate-pulse tw-rounded-sm tw-h-md last:tw-w-[80%]",
+      "computedOpacity": "1",
+      "computedTransform": "none",
+      "computedTransition": "all",
+      "computedAnimation": "2s cubic-bezier(0.4, 0, 0.6, 1) infinite tw-pulse",
+      "dataAttrs": ""
+    },
+    {
+      "pattern": "[class*=\"animate\"]",
+      "tag": "DIV",
+      "classes": "tw-bg-gray-200 tw-animate-pulse tw-rounded-sm tw-h-md last:tw-w-[80%]",
+      "computedOpacity": "1",
+      "computedTransform": "none",
+      "computedTransition": "all",
+      "computedAnimation": "2s cubic-bezier(0.4, 0, 0.6, 1) infinite tw-pulse",
+      "dataAttrs": ""
+    },
+    {
+      "pattern": "[class*=\"animate\"]",
+      "tag": "DIV",
+      "classes": "tw-bg-gray-200 tw-animate-pulse tw-rounded-sm tw-h-md last:tw-w-[80%]",
+      "computedOpacity": "1",
+      "computedTransform": "none",
+      "computedTransition": "all",
+      "computedAnimation": "2s cubic-bezier(0.4, 0, 0.6, 1) infinite tw-pulse",
+      "dataAttrs": ""
+    },
+    {
+      "pattern": "[class*=\"animate\"]",
+      "tag": "DIV",
+      "classes": "tw-bg-gray-200 tw-animate-pulse tw-rounded-sm tw-h-md last:tw-w-[80%]",
+      "computedOpacity": "1",
+      "computedTransform": "none",
+      "computedTransition": "all",
+      "computedAnimation": "2s cubic-bezier(0.4, 0, 0.6, 1) infinite tw-pulse",
+      "dataAttrs": ""
+    },
+    {
+      "pattern": "[class*=\"animate\"]",
+      "tag": "DIV",
+      "classes": "tw-bg-gray-200 tw-animate-pulse tw-rounded-sm tw-h-md last:tw-w-[80%]",
+      "computedOpacity": "1",
+      "computedTransform": "none",
+      "computedTransition": "all",
+      "computedAnimation": "2s cubic-bezier(0.4, 0, 0.6, 1) infinite tw-pulse",
+      "dataAttrs": ""
+    }
+  ],
+  "specificAnimations": {
+    "scroll_0": [
+      {
+        "classes": "tw-absolute tw-w-full tw-h-[var(--hero-height)] tw-min-h-[calc(var(--spacing-2xl",
+        "opacity": "1",
+        "transform": "none",
+        "transition": "all",
+        "animation": "none"
+      },
+      {
+        "classes": "tw-group/demo tw-transition-colors tw-duration-500 tw-ease-out [&.mode-maximized",
+        "opacity": "1",
+        "transform": "none",
+        "transition": "color 0.5s cubic-bezier(0, 0, 0.2, 1), background-color 0.5s cubic-bezier(0, 0, ",
+        "animation": "none"
+      },
+      {
+        "classes": "tw-absolute tw-top-0 tw-left-0 tw-w-full tw-h-full tw-bg-transparent tw-opacity-",
+        "opacity": "0",
+        "transform": "none",
+        "transition": "opacity 0.5s cubic-bezier(0, 0, 0.2, 1)",
+        "animation": "1.5s linear infinite tw-shimmer"
+      }
+    ],
+    "scroll_1200": [
+      {
+        "classes": "tw-absolute tw-top-0 tw-left-0 tw-w-full tw-h-full tw-bg-transparent tw-opacity-",
+        "opacity": "0",
+        "transform": "none",
+        "transition": "opacity 0.5s cubic-bezier(0, 0, 0.2, 1)",
+        "animation": "1.5s linear infinite tw-shimmer"
+      }
+    ],
+    "scroll_4800": [
+      {
+        "classes": "bottomcta tw-bg-canvas-inverted-primary tw-py-2xl lg:tw-py-4xl",
+        "opacity": "1",
+        "transform": "none",
+        "transition": "all",
+        "animation": "none"
+      }
+    ],
+    "scroll_6000": [
+      {
+        "classes": "bottomcta tw-bg-canvas-inverted-primary tw-py-2xl lg:tw-py-4xl",
+        "opacity": "1",
+        "transform": "none",
+        "transition": "all",
+        "animation": "none"
+      }
+    ],
+    "hero": [
+      {
+        "classes": "tw-absolute tw-w-full tw-h-[var(--hero-height)] tw-min-h-[calc(var(--spacing-2xl)+var(--height--top-",
+        "sectionType": null,
+        "transition": "all",
+        "animation": "none",
+        "children": [
+          {
+            "tag": "NAV",
+            "classes": "tw-group tw-transition-colors tw-duration-500 tw-ease-out tw-sticky tw-top-0 tw-",
+            "opacity": "1",
+            "transform": "none",
+            "transition": "color 0.5s cubic-bezier(0, 0, 0.2, 1), background-color 0.5s cubic-bezier(0, 0, 0.2, 1), border-colo",
+            "animation": "none"
+          }
+        ]
+      }
+    ],
+    "announcement": null,
+    "stickyHeader": {
+      "before": {
+        "classes": "tw-flex tw-gap-sm sm:tw-gap-md tw-items-start",
+        "position": "static",
+        "top": "auto",
+        "boxShadow": "none",
+        "transition": "all",
+        "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+        "height": "26.0938px",
+        "backdropFilter": "none"
+      },
+      "after": {
+        "classes": "tw-flex tw-gap-sm sm:tw-gap-md tw-items-start",
+        "position": "static",
+        "top": "auto",
+        "boxShadow": "none",
+        "transition": "all",
+        "background": "rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box",
+        "height": "26.0938px",
+        "backdropFilter": "none"
+      }
+    },
+    "backToTop": null,
+    "videoPlayBtn": {
+      "classes": " tw-rounded-full tw-cursor-pointer tw-no-underline tw-appearance-none tw-inline-block tw-text-center tw-border disabled:tw-cursor-not-allowed tw-outline-3 tw-outline-button-outline-focus focus-visible:tw-outline tw-button-secondary tw-whitespace-nowrap tw-px-md sm:tw-px-lg tw-py-sm tw-text-link-md tw-hidden 2xs:tw-block",
+      "animation": "none",
+      "transition": "all",
+      "transform": "none",
+      "borderRadius": "9999px"
+    },
+    "imageLazyLoad": [
+      {
+        "loading": "lazy",
+        "fetchpriority": "high",
+        "decoding": null,
+        "src": "q0or4wyfblogwygkut3615wjp.jpg?width=2400",
+        "classes": "tw-absolute tw-top-0 tw-left-0 tw-object-cover tw-object-top tw-w-full tw-h-full",
+        "opacity": "1",
+        "transition": "all",
+        "objectFit": "cover"
+      },
+      {
+        "loading": null,
+        "fetchpriority": "high",
+        "decoding": null,
+        "src": "gpq0or4wyfblogwygkut3615wjp.jpg?width=20",
+        "classes": "tw-absolute tw-top-0 tw-left-0 tw-object-cover tw-object-top tw-w-full tw-h-full",
+        "opacity": "0",
+        "transition": "opacity 0.5s cubic-bezier(0, 0, 0.2, 1)",
+        "objectFit": "cover"
+      },
+      {
+        "loading": "lazy",
+        "fetchpriority": null,
+        "decoding": null,
+        "src": "jm2c13f42m8mqesuj4ej5t9ww.jpg?width=1536",
+        "classes": "tw-absolute tw-top-0 tw-left-0 tw-object-cover tw-object-top tw-w-full tw-h-full",
+        "opacity": "0",
+        "transition": "all",
+        "objectFit": "cover"
+      },
+      {
+        "loading": null,
+        "fetchpriority": "high",
+        "decoding": null,
+        "src": "dujm2c13f42m8mqesuj4ej5t9ww.jpg?width=20",
+        "classes": "tw-absolute tw-top-0 tw-left-0 tw-object-cover tw-object-top tw-w-full tw-h-full",
+        "opacity": "0",
+        "transition": "opacity 0.5s cubic-bezier(0, 0, 0.2, 1)",
+        "objectFit": "cover"
+      },
+      {
+        "loading": null,
+        "fetchpriority": null,
+        "decoding": null,
+        "src": "youtube.com/vi/yRYmp9Ok0bU/hqdefault.jpg",
+        "classes": "tw-w-full tw-object-cover tw-aspect-[4/3] hover:tw-opacity-50 tw-transition-opac",
+        "opacity": "1",
+        "transition": "opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+        "objectFit": "cover"
+      },
+      {
+        "loading": null,
+        "fetchpriority": null,
+        "decoding": null,
+        "src": "e-store/s4d2cyq34gwsmq3exeb6koyp7ukf.jpg",
+        "classes": "tw-w-full tw-object-cover tw-aspect-[4/3] hover:tw-opacity-50 tw-transition-opac",
+        "opacity": "1",
+        "transition": "opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+        "objectFit": "cover"
+      },
+      {
+        "loading": null,
+        "fetchpriority": null,
+        "decoding": null,
+        "src": "e-store/s4d2cyq34gwsmq3exeb6koyp7ukf.jpg",
+        "classes": "md:tw-h-[65vh] tw-object-cover tw-object-top tw-aspect-[4/3]",
+        "opacity": "1",
+        "transition": "all",
+        "objectFit": "cover"
+      },
+      {
+        "loading": null,
+        "fetchpriority": null,
+        "decoding": null,
+        "src": "e-store/qvtr8vy4nue1rq56hjulnicwe24f.jpg",
+        "classes": "tw-w-full tw-object-cover tw-aspect-[4/3] hover:tw-opacity-50 tw-transition-opac",
+        "opacity": "1",
+        "transition": "opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+        "objectFit": "cover"
+      },
+      {
+        "loading": null,
+        "fetchpriority": null,
+        "decoding": null,
+        "src": "e-store/qvtr8vy4nue1rq56hjulnicwe24f.jpg",
+        "classes": "md:tw-h-[65vh] tw-object-cover tw-object-top tw-aspect-[4/3]",
+        "opacity": "1",
+        "transition": "all",
+        "objectFit": "cover"
+      },
+      {
+        "loading": null,
+        "fetchpriority": null,
+        "decoding": null,
+        "src": "e-store/ndujm2c13f42m8mqesuj4ej5t9ww.jpg",
+        "classes": "tw-w-full tw-h-auto tw-shadow-lg tw-rounded-lg",
+        "opacity": "1",
+        "transition": "all",
+        "objectFit": "fill"
+      }
+    ]
+  },
+  "mobileObservations": {
+    "burger": null,
+    "drawer": null,
+    "announcement": null
+  }
+}
