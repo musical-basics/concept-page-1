@@ -13,6 +13,7 @@ export default function Header({ cartCount }: CartCountProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [shopOpen, setShopOpen] = useState(false);
+  const [collectionsOpen, setCollectionsOpen] = useState(false);
   const shopLeaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleScroll = useCallback(() => {
@@ -42,10 +43,12 @@ export default function Header({ cartCount }: CartCountProps) {
     }, 120);
   }, []);
 
+  const megamenuOpen = shopOpen || collectionsOpen;
+
   return (
     <>
       <header
-        className={`header${scrolled ? " scrolled" : ""}${shopOpen ? " megamenu-active" : ""}`}
+        className={`header${scrolled ? " scrolled" : ""}${megamenuOpen ? " megamenu-active" : ""}`}
         id="header"
       >
         <div className="container">
@@ -62,7 +65,7 @@ export default function Header({ cartCount }: CartCountProps) {
                 Shop
               </a>
             </div>
-            <CollectionsMegamenu />
+            <CollectionsMegamenu onOpenChange={setCollectionsOpen} />
             <NavDropdown
               label="Features"
               items={[
@@ -122,6 +125,8 @@ export default function Header({ cartCount }: CartCountProps) {
           <ShopMegamenuAB isOpen={shopOpen} />
         </div>
       </header>
+
+      <div className={`header-megamenu-overlay${megamenuOpen ? " open" : ""}`} aria-hidden="true" />
 
       <div
         className={`mobile-overlay${menuOpen ? " open" : ""}`}

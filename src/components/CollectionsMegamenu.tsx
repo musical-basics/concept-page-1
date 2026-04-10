@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { COLLECTIONS, collectionHref } from "@/app/collections/collections-data";
@@ -8,7 +8,11 @@ import { COLLECTIONS, collectionHref } from "@/app/collections/collections-data"
 const FEATURED_COLLECTION_SLUGS = ["all", "digital", "new-arrivals", "lionels-picks"];
 const SECONDARY_COLLECTION_SLUGS = ["grand", "upright", "on-sale"];
 
-export default function CollectionsMegamenu() {
+interface CollectionsMegamenuProps {
+  onOpenChange?: (isOpen: boolean) => void;
+}
+
+export default function CollectionsMegamenu({ onOpenChange }: CollectionsMegamenuProps) {
   const [isOpen, setIsOpen] = useState(false);
   const leaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -33,6 +37,10 @@ export default function CollectionsMegamenu() {
     (slug) => COLLECTIONS.find((collection) => collection.slug === slug)!
   );
   const featuredCollection = COLLECTIONS.find((collection) => collection.slug === "all")!;
+
+  useEffect(() => {
+    onOpenChange?.(isOpen);
+  }, [isOpen, onOpenChange]);
 
   return (
     <div
