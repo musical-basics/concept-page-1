@@ -122,6 +122,10 @@ export default function Header({ cartCount }: CartCountProps) {
         </div>
       </header>
 
+      <div
+        className={`mobile-overlay${menuOpen ? " open" : ""}`}
+        onClick={toggleMenu}
+      />
       <div className={`mobile-menu${menuOpen ? " open" : ""}`} id="mobileMenu">
         <a href="/shop" onClick={toggleMenu}>Shop</a>
         <a href="#collections" onClick={toggleMenu}>Collections</a>

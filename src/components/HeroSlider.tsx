@@ -64,10 +64,14 @@ export default function HeroSlider() {
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={slide.img} alt={slide.alt} />
           <div className="hero-overlay">
-            <h1 dangerouslySetInnerHTML={{ __html: slide.heading }} />
-            <a href="#" className="hero-cta">
-              {slide.cta}
-            </a>
+            {i === currentSlide && (
+              <div key={currentSlide} className="hero-slide-text">
+                <h1 dangerouslySetInnerHTML={{ __html: slide.heading }} />
+                <a href="#" className="hero-cta">
+                  {slide.cta}
+                </a>
+              </div>
+            )}
           </div>
         </div>
       ))}

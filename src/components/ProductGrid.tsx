@@ -13,8 +13,15 @@ export default function ProductGrid({
               <span className="product-badge sale">Sale</span>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
+                className="product-img-primary"
                 src="https://picsum.photos/seed/speaker1/600/800"
                 alt="Speaker 1"
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className="product-img-hover"
+                src="https://picsum.photos/seed/speaker1b/600/800"
+                alt="Speaker 1 alternate"
               />
               <button className="quick-add" onClick={onAddToCart}>
                 Quick Add
@@ -33,8 +40,15 @@ export default function ProductGrid({
               <span className="product-badge new">New</span>
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
+                className="product-img-primary"
                 src="https://picsum.photos/seed/speaker2/600/800"
                 alt="Speaker 2"
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className="product-img-hover"
+                src="https://picsum.photos/seed/speaker2b/600/800"
+                alt="Speaker 2 alternate"
               />
               <button className="quick-add" onClick={onAddToCart}>
                 Quick Add
@@ -50,8 +64,15 @@ export default function ProductGrid({
             <div className="product-card-image">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
+                className="product-img-primary"
                 src="https://picsum.photos/seed/speaker3/600/800"
                 alt="Speaker 3"
+              />
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className="product-img-hover"
+                src="https://picsum.photos/seed/speaker3b/600/800"
+                alt="Speaker 3 alternate"
               />
               <button className="quick-add" onClick={onAddToCart}>
                 Quick Add
