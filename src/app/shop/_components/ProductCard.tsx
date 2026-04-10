@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo } from "react";
 import type { Product } from "../_lib/shop-types";
 import { EyeIcon } from "./icons";
 
@@ -10,12 +11,27 @@ interface ProductCardProps {
   onQuickView: (product: Product) => void;
 }
 
+/** Generate a deterministic variant image URL by appending color index to the seed */
+function variantImage(baseUrl: string, colorIndex: number): string {
+  if (colorIndex === 0) return baseUrl;
+  return baseUrl.replace(/\/seed\/([^/]+)\//, `/seed/$1-v${colorIndex}/`);
+}
+
 export default function ProductCard({
   product,
   activeColorIndex,
   onColorChange,
   onQuickView,
 }: ProductCardProps) {
+  const primarySrc = useMemo(
+    () => variantImage(product.image, activeColorIndex),
+    [product.image, activeColorIndex]
+  );
+  const hoverSrc = useMemo(
+    () => variantImage(product.hoverImage, activeColorIndex),
+    [product.hoverImage, activeColorIndex]
+  );
+
   return (
     <div className="shop-card">
       <div className="shop-card-image">
@@ -33,13 +49,13 @@ export default function ProductCard({
 
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={product.image}
+          src={primarySrc}
           alt={product.name}
           className="shop-img-primary"
         />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={product.hoverImage}
+          src={hoverSrc}
           alt={`${product.name} detail`}
           className="shop-img-hover"
         />

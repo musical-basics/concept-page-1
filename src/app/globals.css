@@ -24,12 +24,19 @@ ul { list-style: none; }
 .announcement-bar {
   background: var(--black);
   color: var(--white);
-  height: 40px;
+  height: var(--announcement-height, 40px);
   display: flex;
   align-items: center;
   font-size: 12px;
-  position: relative;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
   z-index: 1001;
+  transition: transform 0.5s cubic-bezier(0, 0, 0.2, 1);
+}
+.announcement-bar.hidden-up {
+  transform: translateY(-100%);
 }
 .announcement-bar .container {
   display: flex;
@@ -59,18 +66,20 @@ ul { list-style: none; }
 /* HEADER */
 .header {
   position: fixed;
-  top: 0;
+  top: var(--announcement-height, 40px);
   left: 0;
   right: 0;
   z-index: 1000;
   background: transparent;
   border-bottom: 1px solid transparent;
   transition:
+    top          500ms cubic-bezier(0, 0, 0.2, 1),
     background-color 500ms cubic-bezier(0, 0, 0.2, 1),
     border-color     500ms cubic-bezier(0, 0, 0.2, 1),
     box-shadow       500ms cubic-bezier(0, 0, 0.2, 1);
 }
 .header.scrolled {
+  top: 0;
   background: var(--white);
   border-bottom-color: var(--light-gray);
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
@@ -1580,6 +1589,14 @@ ul { list-style: none; }
   font-weight: 600;
 }
 
+/* Toolbar divider between filter toggle and category pills */
+.shop-toolbar-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--light-gray);
+  flex-shrink: 0;
+}
+
 /* Category quick-link pills */
 .shop-category-pill {
   font-size: 13px;
@@ -1604,20 +1621,6 @@ ul { list-style: none; }
   margin-left: 2px;
   opacity: 0.6;
 }
-
-/* Show on model button */
-.shop-model-btn {
-  font-size: 13px;
-  color: var(--charcoal);
-  padding: 8px 18px;
-  background: none;
-  border: none;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  transition: var(--transition);
-  white-space: nowrap;
-}
-.shop-model-btn:hover { color: var(--gold); }
 
 /* Result count */
 .shop-result-count {
@@ -1681,13 +1684,38 @@ ul { list-style: none; }
 .shop-filter-panel .shop-filter-group {
   min-width: 160px;
 }
+.shop-filter-group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 0 10px;
+  border-bottom: 1px solid var(--light-gray);
+  margin-bottom: 10px;
+  cursor: pointer;
+}
 .shop-filter-panel .shop-filter-group h4 {
   font-size: 12px;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 1.5px;
   color: var(--charcoal);
-  margin-bottom: 14px;
+  margin: 0;
+}
+.filter-accordion-chevron {
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+}
+.filter-accordion-chevron.open {
+  transform: rotate(180deg);
+}
+.shop-filter-group-body {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.shop-filter-group-body.open {
+  max-height: 300px;
 }
 .shop-filter-check {
   display: flex;
@@ -2138,10 +2166,26 @@ ul { list-style: none; }
   display: flex;
   flex-direction: column;
 }
+.qb-media {
+  position: relative;
+  overflow: hidden;
+}
+.qb-media .product-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  z-index: 1;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 4px 10px;
+}
 .qb-img {
   width: 100%;
   aspect-ratio: 4/5;
   object-fit: cover;
+  transition: opacity 0.4s ease;
 }
 .qb-details {
   padding: 28px 32px 40px;
@@ -2175,10 +2219,22 @@ ul { list-style: none; }
   color: #e74c3c;
   font-weight: 600;
 }
+.qb-color-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.qb-color-label {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--gray);
+}
 .qb-swatches {
   display: flex;
   gap: 8px;
-  padding: 4px 0;
+  padding: 0;
 }
 .qb-swatch {
   width: 28px;
@@ -2271,7 +2327,7 @@ ul { list-style: none; }
   .shop-toolbar-right { width: 100%; justify-content: space-between; }
   .shop-filter-panel-inner { flex-direction: column; gap: 24px; }
   .shop-category-pill { font-size: 12px; padding: 6px 14px; }
-  .shop-model-btn { display: none; }
+  .shop-toolbar-divider { display: none; }
   .shop-sort-label { display: none; }
   .shop-product-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
   .shop-card-title-row { flex-direction: column; gap: 2px; }

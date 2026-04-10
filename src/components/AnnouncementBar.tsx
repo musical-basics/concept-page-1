@@ -10,6 +10,7 @@ const promos = [
 
 export default function AnnouncementBar() {
   const [promoIndex, setPromoIndex] = useState(0);
+  const [hidden, setHidden] = useState(false);
 
   const changePromo = useCallback((dir: number) => {
     setPromoIndex((prev) => (prev + dir + promos.length) % promos.length);
@@ -20,8 +21,14 @@ export default function AnnouncementBar() {
     return () => clearInterval(interval);
   }, [changePromo]);
 
+  useEffect(() => {
+    const onScroll = () => setHidden(window.scrollY > 50);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <div className="announcement-bar">
+    <div className={`announcement-bar${hidden ? " hidden-up" : ""}`}>
       <div className="container">
         <div className="announcement-social">
           <a href="#">FB</a>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { FilterIcon } from "./icons";
 import {
   PRODUCTS,
@@ -42,6 +43,22 @@ function toggle(
   setter(arr.includes(val) ? arr.filter((v) => v !== val) : [...arr, val]);
 }
 
+function ChevronDown({ open }: { open: boolean }) {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      className={`filter-accordion-chevron${open ? " open" : ""}`}
+    >
+      <polyline points="6 9 12 15 18 9" />
+    </svg>
+  );
+}
+
 export default function ShopToolbar({
   filtersOpen,
   setFiltersOpen,
@@ -60,6 +77,15 @@ export default function ShopToolbar({
   activeFilterPills,
   onClearFilters,
 }: ShopToolbarProps) {
+  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({
+    category: true,
+    finish: true,
+    price: true,
+  });
+
+  const toggleGroup = (key: string) =>
+    setOpenGroups((prev) => ({ ...prev, [key]: !prev[key] }));
+
   return (
     <>
       <div className="shop-toolbar">
@@ -69,11 +95,13 @@ export default function ShopToolbar({
             onClick={() => setFiltersOpen(!filtersOpen)}
           >
             <FilterIcon />
-            <span>Show filters</span>
+            <span>{filtersOpen ? "Hide filters" : "Show filters"}</span>
             {activeFilterCount > 0 && (
               <span className="filter-count">{activeFilterCount}</span>
             )}
           </button>
+
+          <span className="shop-toolbar-divider" />
 
           {CATEGORIES.map((cat) => (
             <button
@@ -89,11 +117,12 @@ export default function ShopToolbar({
               <sup>{categoryCounts[cat]}</sup>
             </button>
           ))}
-
-          <button className="shop-model-btn">Show on model</button>
         </div>
 
         <div className="shop-toolbar-right">
+          <p className="shop-result-count">
+            {filteredCount} product{filteredCount !== 1 ? "s" : ""}
+          </p>
           <div className="shop-sort">
             <label htmlFor="shop-sort-sel" className="shop-sort-label">
               Sort by:
@@ -110,9 +139,6 @@ export default function ShopToolbar({
               ))}
             </select>
           </div>
-          <p className="shop-result-count">
-            {filteredCount} product{filteredCount !== 1 ? "s" : ""}
-          </p>
         </div>
       </div>
 
@@ -120,58 +146,82 @@ export default function ShopToolbar({
       <div className={`shop-filter-panel${filtersOpen ? " open" : ""}`}>
         <div className="shop-filter-panel-inner">
           <div className="shop-filter-group">
-            <h4>Category</h4>
-            {CATEGORIES.map((c) => (
-              <label key={c} className="shop-filter-check">
-                <input
-                  type="checkbox"
-                  checked={selectedCategories.includes(c)}
-                  onChange={() =>
-                    toggle(selectedCategories, c, setSelectedCategories)
-                  }
-                />
-                <span>{c}</span>
-                <span className="shop-filter-count">
-                  {PRODUCTS.filter((p) => p.category === c).length}
-                </span>
-              </label>
-            ))}
+            <button
+              className="shop-filter-group-header"
+              onClick={() => toggleGroup("category")}
+            >
+              <h4>Category</h4>
+              <ChevronDown open={!!openGroups.category} />
+            </button>
+            <div className={`shop-filter-group-body${openGroups.category ? " open" : ""}`}>
+              {CATEGORIES.map((c) => (
+                <label key={c} className="shop-filter-check">
+                  <input
+                    type="checkbox"
+                    checked={selectedCategories.includes(c)}
+                    onChange={() =>
+                      toggle(selectedCategories, c, setSelectedCategories)
+                    }
+                  />
+                  <span>{c}</span>
+                  <span className="shop-filter-count">
+                    {PRODUCTS.filter((p) => p.category === c).length}
+                  </span>
+                </label>
+              ))}
+            </div>
           </div>
 
           <div className="shop-filter-group">
-            <h4>Finish</h4>
-            {FINISHES.map((f) => (
-              <label key={f} className="shop-filter-check">
-                <input
-                  type="checkbox"
-                  checked={selectedFinishes.includes(f)}
-                  onChange={() =>
-                    toggle(selectedFinishes, f, setSelectedFinishes)
-                  }
-                />
-                <span>{f}</span>
-                <span className="shop-filter-count">
-                  {PRODUCTS.filter((p) => p.finish === f).length}
-                </span>
-              </label>
-            ))}
+            <button
+              className="shop-filter-group-header"
+              onClick={() => toggleGroup("finish")}
+            >
+              <h4>Finish</h4>
+              <ChevronDown open={!!openGroups.finish} />
+            </button>
+            <div className={`shop-filter-group-body${openGroups.finish ? " open" : ""}`}>
+              {FINISHES.map((f) => (
+                <label key={f} className="shop-filter-check">
+                  <input
+                    type="checkbox"
+                    checked={selectedFinishes.includes(f)}
+                    onChange={() =>
+                      toggle(selectedFinishes, f, setSelectedFinishes)
+                    }
+                  />
+                  <span>{f}</span>
+                  <span className="shop-filter-count">
+                    {PRODUCTS.filter((p) => p.finish === f).length}
+                  </span>
+                </label>
+              ))}
+            </div>
           </div>
 
           <div className="shop-filter-group">
-            <h4>Price Range</h4>
-            {PRICE_RANGES.map((r, i) => (
-              <label key={r.label} className="shop-filter-check">
-                <input
-                  type="radio"
-                  name="priceRange"
-                  checked={selectedPriceRange === i}
-                  onChange={() =>
-                    setSelectedPriceRange(selectedPriceRange === i ? null : i)
-                  }
-                />
-                <span>{r.label}</span>
-              </label>
-            ))}
+            <button
+              className="shop-filter-group-header"
+              onClick={() => toggleGroup("price")}
+            >
+              <h4>Price Range</h4>
+              <ChevronDown open={!!openGroups.price} />
+            </button>
+            <div className={`shop-filter-group-body${openGroups.price ? " open" : ""}`}>
+              {PRICE_RANGES.map((r, i) => (
+                <label key={r.label} className="shop-filter-check">
+                  <input
+                    type="radio"
+                    name="priceRange"
+                    checked={selectedPriceRange === i}
+                    onChange={() =>
+                      setSelectedPriceRange(selectedPriceRange === i ? null : i)
+                    }
+                  />
+                  <span>{r.label}</span>
+                </label>
+              ))}
+            </div>
           </div>
         </div>
 

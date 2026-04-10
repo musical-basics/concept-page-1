@@ -1,7 +1,13 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useMemo } from "react";
 import type { Product } from "../_lib/shop-types";
+
+/** Generate a deterministic variant image URL by appending color index to the seed */
+function variantImage(baseUrl: string, colorIndex: number): string {
+  if (colorIndex === 0) return baseUrl;
+  return baseUrl.replace(/\/seed\/([^/]+)\//, `/seed/$1-v${colorIndex}/`);
+}
 
 export function QuickBuyDrawer({
   product,
@@ -37,6 +43,11 @@ export function QuickBuyDrawer({
     };
   }, [open, handleEsc]);
 
+  const imageSrc = useMemo(
+    () => (product ? variantImage(product.image, selectedColor) : ""),
+    [product, selectedColor]
+  );
+
   if (!product) return null;
 
   return (
@@ -50,8 +61,15 @@ export function QuickBuyDrawer({
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12" /></svg>
         </button>
         <div className="qb-inner">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={product.image} alt={product.name} className="qb-img" />
+          <div className="qb-media">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={imageSrc} alt={product.name} className="qb-img" />
+            {product.badge && (
+              <span className={`product-badge ${product.badge === "lionels-pick" ? "lionels-pick" : product.badge === "sale" ? "sale" : "new-badge"}`}>
+                {product.badge === "lionels-pick" ? "Lionel\u2019s Pick" : product.badge === "sale" ? "Sale" : "New"}
+              </span>
+            )}
+          </div>
           <div className="qb-details">
             <p className="qb-vendor">DREAMPLAY</p>
             <h3>{product.name}</h3>
@@ -64,16 +82,19 @@ export function QuickBuyDrawer({
               </span>
             </p>
             {product.colors.length > 0 && (
-              <div className="qb-swatches">
-                {product.colors.map((color, i) => (
-                  <button
-                    key={i}
-                    className={`qb-swatch${selectedColor === i ? " active" : ""}`}
-                    style={{ background: color }}
-                    onClick={() => setSelectedColor(i)}
-                    aria-label={`Color ${i + 1}`}
-                  />
-                ))}
+              <div className="qb-color-section">
+                <p className="qb-color-label">Color</p>
+                <div className="qb-swatches">
+                  {product.colors.map((color, i) => (
+                    <button
+                      key={i}
+                      className={`qb-swatch${selectedColor === i ? " active" : ""}`}
+                      style={{ background: color }}
+                      onClick={() => setSelectedColor(i)}
+                      aria-label={`Color ${i + 1}`}
+                    />
+                  ))}
+                </div>
               </div>
             )}
             {product.stock <= 3 && (
