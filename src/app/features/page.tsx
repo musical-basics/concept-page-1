@@ -24,7 +24,7 @@ function useScrollReveal() {
 
     const revealAll = () => {
       document
-        .querySelectorAll(".scroll-reveal")
+        .querySelectorAll(".scroll-reveal, .scroll-reveal--from-left, .scroll-reveal--from-right")
         .forEach((el) => el.classList.add("revealed"));
     };
 
@@ -46,9 +46,11 @@ function useScrollReveal() {
     );
 
     requestAnimationFrame(() => {
-      document.querySelectorAll(".scroll-reveal").forEach((el) => {
-        observerRef.current?.observe(el);
-      });
+      document
+        .querySelectorAll(".scroll-reveal, .scroll-reveal--from-left, .scroll-reveal--from-right")
+        .forEach((el) => {
+          observerRef.current?.observe(el);
+        });
     });
 
     return () => observerRef.current?.disconnect();
@@ -241,16 +243,14 @@ function FeatureHighlight({
   image,
   imageAlt,
   reverse,
-  revealRef,
-}: HighlightProps & { revealRef?: (el: HTMLElement | null) => void }) {
+}: HighlightProps) {
   return (
     <section
-      className={`feat-highlight${reverse ? " feat-highlight--reverse" : ""} scroll-reveal`}
-      ref={revealRef}
+      className={`feat-highlight${reverse ? " feat-highlight--reverse" : ""}`}
     >
       <div className="container">
         <div className="feat-highlight-inner">
-          <div className="feat-highlight-text">
+          <div className={`feat-highlight-text ${reverse ? "scroll-reveal--from-right" : "scroll-reveal--from-left"}`}>
             {eyebrow && <span className="feat-eyebrow">{eyebrow}</span>}
             <div className="feat-highlight-icon">{icon}</div>
             <h2 className="feat-highlight-heading">{heading}</h2>
@@ -263,7 +263,7 @@ function FeatureHighlight({
               </ul>
             )}
           </div>
-          <div className="feat-highlight-media">
+          <div className={`feat-highlight-media ${reverse ? "scroll-reveal--from-left" : "scroll-reveal--from-right"}`}>
             <Image
               src={image}
               alt={imageAlt}
@@ -300,16 +300,16 @@ export default function FeaturesPage() {
       <section className="features-hero">
         <div className="features-hero-bg scroll-reveal scroll-reveal--zoom" ref={observe} />
         <div className="features-hero-overlay">
-          <div className="container features-hero-content scroll-reveal" ref={observe}>
-            <nav className="features-breadcrumb" aria-label="Breadcrumb">
+          <div className="container features-hero-content">
+            <nav className="features-breadcrumb scroll-reveal" aria-label="Breadcrumb">
               <Link href="/">Home</Link>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                 <polyline points="9 18 15 12 9 6" />
               </svg>
               <span>Features</span>
             </nav>
-            <h1>Features</h1>
-            <p className="features-hero-sub">
+            <h1 className="scroll-reveal" style={{ transitionDelay: "80ms" } as React.CSSProperties}>Features</h1>
+            <p className="features-hero-sub scroll-reveal" style={{ transitionDelay: "180ms" } as React.CSSProperties}>
               Every detail engineered for expression. Discover what makes DreamPlay instruments exceptional.
             </p>
           </div>
@@ -336,7 +336,6 @@ export default function FeaturesPage() {
         details={["12 velocity layers per note", "Sympathetic resonance modeling", "Concert-grade Steinway samples"]}
         image="/assets/dreamplay/pianist_hands.jpg"
         imageAlt="Pianist hands on DreamPlay keyboard"
-        revealRef={observe}
       />
 
       {/* Detail Features 1 — 6 cards */}
@@ -449,7 +448,7 @@ export default function FeaturesPage() {
       </section>
 
       {/* Specs Banner */}
-      <section className="feat-specs scroll-reveal" ref={observe}>
+      <section className="feat-specs">
         <div className="container">
           <div className="feat-specs-grid">
             {[
@@ -457,8 +456,12 @@ export default function FeaturesPage() {
               { number: "88", label: "Weighted Keys" },
               { number: "47", label: "Quality Checks" },
               { number: "5yr", label: "Warranty" },
-            ].map((s) => (
-              <div key={s.label} className="feat-spec-item">
+            ].map((s, i) => (
+              <div
+                key={s.label}
+                className="feat-spec-item scroll-reveal scroll-reveal--quick"
+                style={{ transitionDelay: `${i * 100}ms` } as React.CSSProperties}
+              >
                 <span className="feat-spec-number">{s.number}</span>
                 <span className="feat-spec-label">{s.label}</span>
               </div>
@@ -468,14 +471,14 @@ export default function FeaturesPage() {
       </section>
 
       {/* Craftsmanship Showcase — full-bleed */}
-      <section className="feat-fullbleed scroll-reveal" ref={observe}>
+      <section className="feat-fullbleed">
         <div
           className="feat-fullbleed-bg"
           style={{ backgroundImage: "url('/assets/factory-keys.jpg')" }}
         />
         <div className="feat-fullbleed-overlay">
           <div className="container">
-            <div className="feat-fullbleed-content">
+            <div className="feat-fullbleed-content scroll-reveal">
               <h2 className="feat-fullbleed-heading">Craftsmanship you can feel</h2>
               <p className="feat-fullbleed-desc">
                 Every DreamPlay instrument passes through 47 quality checkpoints
@@ -483,8 +486,12 @@ export default function FeaturesPage() {
               </p>
             </div>
             <div className="feat-fullbleed-points">
-              {CLOSING_FEATURES.map((f) => (
-                <div key={f.title} className="feat-fullbleed-point">
+              {CLOSING_FEATURES.map((f, i) => (
+                <div
+                  key={f.title}
+                  className="feat-fullbleed-point scroll-reveal"
+                  style={{ transitionDelay: `${100 + i * 100}ms` } as React.CSSProperties}
+                >
                   <h3>{f.title}</h3>
                   <p>{f.description}</p>
                 </div>
@@ -495,13 +502,13 @@ export default function FeaturesPage() {
       </section>
 
       {/* Closing CTA */}
-      <section className="feat-cta scroll-reveal" ref={observe}>
+      <section className="feat-cta">
         <div className="container feat-cta-inner">
-          <h2 className="feat-cta-heading">Experience DreamPlay</h2>
-          <p className="feat-cta-desc">
+          <h2 className="feat-cta-heading scroll-reveal">Experience DreamPlay</h2>
+          <p className="feat-cta-desc scroll-reveal" style={{ transitionDelay: "100ms" } as React.CSSProperties}>
             Discover an instrument crafted for every stage of your musical journey.
           </p>
-          <Link href="/shop" className="feat-cta-btn">
+          <Link href="/shop" className="feat-cta-btn scroll-reveal" style={{ transitionDelay: "200ms" } as React.CSSProperties}>
             Shop the Collection
           </Link>
         </div>

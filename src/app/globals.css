@@ -3280,8 +3280,44 @@ ul { list-style: none; }
   transform: scale(1);
 }
 
+/* Directional scroll-reveal variants — standalone classes, observed alongside .scroll-reveal */
+.scroll-reveal--from-left {
+  opacity: 0;
+  transform: translateX(-2rem);
+  transition:
+    opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.scroll-reveal--from-left.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scroll-reveal--from-right {
+  opacity: 0;
+  transform: translateX(2rem);
+  transition:
+    opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.scroll-reveal--from-right.revealed {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Quicker variant for compact staggered items (spec numbers, etc.) */
+.scroll-reveal--quick {
+  transition:
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .scroll-reveal {
+  .scroll-reveal,
+  .scroll-reveal--from-left,
+  .scroll-reveal--from-right {
     opacity: 1;
     transform: none;
     transition: none;
@@ -3481,6 +3517,7 @@ ul { list-style: none; }
 .feat-highlight-icon {
   color: var(--charcoal);
   opacity: 0.7;
+  transition: opacity 0.35s ease;
 }
 .feat-highlight-icon svg {
   width: 48px;
@@ -3536,6 +3573,9 @@ ul { list-style: none; }
 .feat-highlight:hover .feat-highlight-media img {
   transform: scale(1.05);
 }
+.feat-highlight:hover .feat-highlight-icon {
+  opacity: 1;
+}
 
 /* ── Responsive ── */
 @media (max-width: 1024px) {
@@ -3552,6 +3592,15 @@ ul { list-style: none; }
   }
   .feat-highlight-media {
     order: -1;
+  }
+  /* Directional variants collapse to vertical on tablet/mobile */
+  .scroll-reveal--from-left,
+  .scroll-reveal--from-right {
+    transform: translateY(1.5rem);
+  }
+  .scroll-reveal--from-left.revealed,
+  .scroll-reveal--from-right.revealed {
+    transform: translateY(0);
   }
 }
 
@@ -3823,12 +3872,13 @@ ul { list-style: none; }
   font-weight: 500;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  transition: background 0.3s ease, transform 0.3s ease;
+  transition: background 0.3s ease, transform 0.35s cubic-bezier(0.3, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.3, 1, 0.3, 1);
 }
 
 .feat-cta-btn:hover {
   background: #000;
-  transform: translateY(-1px);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
 }
 
 /* ── Eyebrow label ── */
