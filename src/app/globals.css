@@ -3389,11 +3389,11 @@ ul { list-style: none; }
   align-items: center;
 }
 
-.feat-highlight--reverse .feat-highlight-inner {
-  direction: rtl;
+.feat-highlight--reverse .feat-highlight-text {
+  order: 2;
 }
-.feat-highlight--reverse .feat-highlight-inner > * {
-  direction: ltr;
+.feat-highlight--reverse .feat-highlight-media {
+  order: 1;
 }
 
 .feat-highlight-text {
@@ -3451,8 +3451,9 @@ ul { list-style: none; }
     grid-template-columns: 1fr;
     gap: 40px;
   }
-  .feat-highlight--reverse .feat-highlight-inner {
-    direction: ltr;
+  .feat-highlight--reverse .feat-highlight-text,
+  .feat-highlight--reverse .feat-highlight-media {
+    order: unset;
   }
   .feat-highlight-media {
     order: -1;
