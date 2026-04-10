@@ -154,13 +154,23 @@ function useScrollReveal() {
       { threshold: 0.1, rootMargin: "0px 0px -6% 0px" }
     );
 
+    const fallbackTimer = window.setTimeout(revealAll, 1200);
+
     requestAnimationFrame(() => {
-      document
-        .querySelectorAll(".byb-reveal")
-        .forEach((el) => observerRef.current?.observe(el));
+      document.querySelectorAll(".byb-reveal").forEach((el) => {
+        const rect = (el as HTMLElement).getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.92) {
+          el.classList.add("byb-revealed");
+        } else {
+          observerRef.current?.observe(el);
+        }
+      });
     });
 
-    return () => observerRef.current?.disconnect();
+    return () => {
+      window.clearTimeout(fallbackTimer);
+      observerRef.current?.disconnect();
+    };
   }, []);
 }
 
@@ -287,10 +297,59 @@ export default function BuildYourBundlePage() {
       <section className="byb-builder" id="byb-builder">
         <div className="container">
           <div className="byb-grid">
-            {/* Left: product grid */}
+            {/* Left: editorial intro + product grid */}
             <div>
-              <p className="byb-section-label byb-reveal">Choose your items</p>
-              <div className="byb-products">
+              <div className="byb-intro-copy byb-reveal">
+                <h2 className="byb-intro-heading">
+                  Buy 3 and <em>save 30%</em>
+                </h2>
+                <p className="byb-intro-text">
+                  The choice is yours. Build a DreamPlay setup with any
+                  combination of essentials, accessories, and studio add-ons —
+                  then unlock the full bundle discount automatically.
+                </p>
+              </div>
+
+              <div
+                className="byb-selection-stage byb-reveal"
+                style={{ transitionDelay: "70ms" } as React.CSSProperties}
+              >
+                {[0, 1, 2].map((slot) => {
+                  const item = selectedProducts[slot];
+                  return (
+                    <div
+                      key={item?.id ?? `slot-${slot}`}
+                      className={`byb-selection-slot${item ? " is-filled" : ""}`}
+                    >
+                      {item ? (
+                        <>
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
+                            src={`https://picsum.photos/seed/${item.seed}/160/120`}
+                            alt={item.name}
+                            className="byb-selection-slot-image"
+                          />
+                          <div className="byb-selection-slot-copy">
+                            <span>{item.name}</span>
+                            <strong>${item.price.toLocaleString()}</strong>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <span className="byb-selection-slot-plus">+</span>
+                          <span className="byb-selection-slot-label">
+                            Select item {slot + 1}
+                          </span>
+                        </>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              <div className="byb-product-section byb-reveal" style={{ transitionDelay: "120ms" } as React.CSSProperties}>
+                <p className="byb-section-label">Build a custom set</p>
+                <div className="byb-products">
                 {PRODUCTS.map((prod, i) => {
                   const isSelected = selected.includes(prod.id);
                   return (
@@ -342,6 +401,7 @@ export default function BuildYourBundlePage() {
                     </div>
                   );
                 })}
+                </div>
               </div>
             </div>
 

@@ -44,17 +44,27 @@ function useScrollReveal() {
       { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
     );
 
+    const fallbackTimer = window.setTimeout(revealAll, 1200);
+
     requestAnimationFrame(() => {
       document
         .querySelectorAll(
           ".scroll-reveal, .scroll-reveal--from-left, .scroll-reveal--from-right"
         )
         .forEach((el) => {
-          observerRef.current?.observe(el);
+          const rect = (el as HTMLElement).getBoundingClientRect();
+          if (rect.top < window.innerHeight * 0.92) {
+            el.classList.add("revealed");
+          } else {
+            observerRef.current?.observe(el);
+          }
         });
     });
 
-    return () => observerRef.current?.disconnect();
+    return () => {
+      window.clearTimeout(fallbackTimer);
+      observerRef.current?.disconnect();
+    };
   }, []);
 
   return observe;
@@ -63,12 +73,19 @@ function useScrollReveal() {
 /* ── Data ── */
 
 type FaqItem = { q: string; a: string };
-type FaqCategory = { id: string; label: string; items: FaqItem[] };
+type FaqCategory = {
+  id: string;
+  label: string;
+  description: string;
+  items: FaqItem[];
+};
 
 const FAQ_CATEGORIES: FaqCategory[] = [
   {
     id: "shipping",
     label: "Shipping & Delivery",
+    description:
+      "Below are some common questions about shipping, returns, and exchanges.",
     items: [
       {
         q: "Do you offer international shipping?",
@@ -91,6 +108,7 @@ const FAQ_CATEGORIES: FaqCategory[] = [
   {
     id: "orders",
     label: "Orders & Returns",
+    description: "Below are some of our common questions about orders.",
     items: [
       {
         q: "How do I place an order?",
@@ -113,6 +131,7 @@ const FAQ_CATEGORIES: FaqCategory[] = [
   {
     id: "products",
     label: "Instruments & Products",
+    description: "Below are some common questions about our products.",
     items: [
       {
         q: "What key action does the DS\u00a06.0 use?",
@@ -207,7 +226,10 @@ export default function FAQPage() {
                   { transitionDelay: `${ci * 80}ms` } as React.CSSProperties
                 }
               >
-                <h2 className="faq-category-heading">{cat.label}</h2>
+                <div className="faq-category-header">
+                  <h2 className="faq-category-heading">{cat.label}</h2>
+                  <p className="faq-category-sub">{cat.description}</p>
+                </div>
                 <div className="faq-list" role="list">
                   {cat.items.map((item, i) => {
                     const itemId = `${cat.id}-${i}`;
@@ -233,9 +255,11 @@ export default function FAQPage() {
                             fill="none"
                             stroke="currentColor"
                             strokeWidth="1.5"
+                            strokeLinecap="round"
                             aria-hidden="true"
                           >
-                            <polyline points="6 9 12 15 18 9" />
+                            <path d="M12 5v14" />
+                            <path d="M5 12h14" />
                           </svg>
                         </button>
                         <div
