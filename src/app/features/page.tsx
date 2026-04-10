@@ -1,11 +1,53 @@
 "use client";
 
+import { useEffect, useRef, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import BackToTop from "@/components/BackToTop";
+
+/* ── Scroll-reveal hook ── */
+
+function useScrollReveal() {
+  const observerRef = useRef<IntersectionObserver | null>(null);
+
+  const observe = useCallback((el: HTMLElement | null) => {
+    if (!el || !observerRef.current) return;
+    observerRef.current.observe(el);
+  }, []);
+
+  useEffect(() => {
+    // Respect prefers-reduced-motion
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    observerRef.current = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            (entry.target as HTMLElement).classList.add("revealed");
+            observerRef.current?.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    // If reduced motion, reveal everything immediately
+    if (prefersReduced) {
+      document
+        .querySelectorAll(".scroll-reveal")
+        .forEach((el) => el.classList.add("revealed"));
+    }
+
+    return () => observerRef.current?.disconnect();
+  }, []);
+
+  return observe;
+}
 
 /* ── Feature data ── */
 
@@ -137,9 +179,21 @@ const CLOSING_FEATURES: Feature[] = [
 
 /* ── Feature Card component ── */
 
-function FeatureCard({ feature }: { feature: Feature }) {
+function FeatureCard({
+  feature,
+  revealRef,
+  delay = 0,
+}: {
+  feature: Feature;
+  revealRef?: (el: HTMLElement | null) => void;
+  delay?: number;
+}) {
   return (
-    <div className="feat-card">
+    <div
+      className="feat-card scroll-reveal"
+      ref={revealRef}
+      style={{ transitionDelay: `${delay}ms` } as React.CSSProperties}
+    >
       <div className="feat-card-media">
         <Image
           src={feature.image}
@@ -175,9 +229,13 @@ function FeatureHighlight({
   image,
   imageAlt,
   reverse,
-}: HighlightProps) {
+  revealRef,
+}: HighlightProps & { revealRef?: (el: HTMLElement | null) => void }) {
   return (
-    <section className={`feat-highlight${reverse ? " feat-highlight--reverse" : ""}`}>
+    <section
+      className={`feat-highlight${reverse ? " feat-highlight--reverse" : ""} scroll-reveal`}
+      ref={revealRef}
+    >
       <div className="container">
         <div className="feat-highlight-inner">
           <div className="feat-highlight-text">
@@ -232,6 +290,8 @@ const IconCraft = (
 /* ── Page ── */
 
 export default function FeaturesPage() {
+  const observe = useScrollReveal();
+
   return (
     <>
       <AnnouncementBar />
@@ -239,8 +299,9 @@ export default function FeaturesPage() {
 
       {/* Hero Banner */}
       <section className="features-hero">
+        <div className="features-hero-bg scroll-reveal scroll-reveal--zoom" ref={observe} />
         <div className="features-hero-overlay">
-          <div className="container features-hero-content">
+          <div className="container features-hero-content scroll-reveal" ref={observe}>
             <nav className="features-breadcrumb" aria-label="Breadcrumb">
               <Link href="/">Home</Link>
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -260,8 +321,8 @@ export default function FeaturesPage() {
       <section className="feat-section">
         <div className="container">
           <div className="feat-grid feat-grid--3">
-            {HERO_FEATURES.map((f) => (
-              <FeatureCard key={f.title} feature={f} />
+            {HERO_FEATURES.map((f, i) => (
+              <FeatureCard key={f.title} feature={f} revealRef={observe} delay={i * 100} />
             ))}
           </div>
         </div>
@@ -274,14 +335,15 @@ export default function FeaturesPage() {
         description="Recorded on a Steinway concert grand in a world-class studio, our multi-layer samples capture every subtlety of tone, from the softest pianissimo to the most commanding fortissimo. Advanced sympathetic resonance modeling adds the warmth and depth of a real acoustic piano."
         image="/assets/dreamplay/pianist_hands.jpg"
         imageAlt="Pianist hands on DreamPlay keyboard"
+        revealRef={observe}
       />
 
       {/* Detail Features 1 — 6 cards */}
       <section className="feat-section">
         <div className="container">
           <div className="feat-grid feat-grid--3">
-            {DETAIL_FEATURES_1.map((f) => (
-              <FeatureCard key={f.title} feature={f} />
+            {DETAIL_FEATURES_1.map((f, i) => (
+              <FeatureCard key={f.title} feature={f} revealRef={observe} delay={(i % 3) * 100} />
             ))}
           </div>
         </div>
@@ -295,14 +357,15 @@ export default function FeaturesPage() {
         image="/assets/dreamplay/starred/gold-ds-6.jpg"
         imageAlt="Gold DreamPlay DS 6 in modern room"
         reverse
+        revealRef={observe}
       />
 
       {/* Detail Features 2 — 6 cards */}
       <section className="feat-section">
         <div className="container">
           <div className="feat-grid feat-grid--3">
-            {DETAIL_FEATURES_2.map((f) => (
-              <FeatureCard key={f.title} feature={f} />
+            {DETAIL_FEATURES_2.map((f, i) => (
+              <FeatureCard key={f.title} feature={f} revealRef={observe} delay={(i % 3) * 100} />
             ))}
           </div>
         </div>
@@ -315,14 +378,15 @@ export default function FeaturesPage() {
         description="DreamPlay instruments are shaped by feedback from concert pianists, studio producers, and music educators around the world. Every feature — from touch sensitivity curves to pedal response — has been refined through thousands of hours of real-world performance testing."
         image="/assets/dreamplay/carol_leone.png"
         imageAlt="Carol Leone performing on DreamPlay piano"
+        revealRef={observe}
       />
 
       {/* Closing Features — 3 cards */}
       <section className="feat-section">
         <div className="container">
           <div className="feat-grid feat-grid--3">
-            {CLOSING_FEATURES.map((f) => (
-              <FeatureCard key={f.title} feature={f} />
+            {CLOSING_FEATURES.map((f, i) => (
+              <FeatureCard key={f.title} feature={f} revealRef={observe} delay={i * 100} />
             ))}
           </div>
         </div>
@@ -336,6 +400,7 @@ export default function FeaturesPage() {
         image="/assets/factory-keys.jpg"
         imageAlt="DreamPlay factory keyboard assembly"
         reverse
+        revealRef={observe}
       />
 
       <Footer />
