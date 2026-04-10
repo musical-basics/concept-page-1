@@ -1,15 +1,27 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
-import NavDropdown from "./NavDropdown";
+/**
+ * HeaderMegamenuAB — header variant for /nav-megamenu-ab sandbox.
+ *
+ * Extends HeaderTransparentAB with:
+ *   - Shop link triggers a full-width ShopMegamenuAB panel instead of NavDropdownAB
+ *   - Other dropdown links (Features, Resources) still use NavDropdownAB
+ *   - Same transparent-at-rest + sticky scroll behavior
+ */
 
-interface CartCountProps {
+import { useState, useEffect, useCallback, useRef } from "react";
+import NavDropdownAB from "./NavDropdownAB";
+import ShopMegamenuAB from "./ShopMegamenuAB";
+
+interface Props {
   cartCount: number;
 }
 
-export default function Header({ cartCount }: CartCountProps) {
+export default function HeaderMegamenuAB({ cartCount }: Props) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [shopOpen, setShopOpen] = useState(false);
+  const shopLeaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleScroll = useCallback(() => {
     setScrolled(window.scrollY > 50);
@@ -20,14 +32,26 @@ export default function Header({ cartCount }: CartCountProps) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
-  const toggleMenu = () => {
-    setMenuOpen((prev) => !prev);
-  };
+  const toggleMenu = () => setMenuOpen((prev) => !prev);
+
+  const openShop = useCallback(() => {
+    if (shopLeaveTimer.current) {
+      clearTimeout(shopLeaveTimer.current);
+      shopLeaveTimer.current = null;
+    }
+    setShopOpen(true);
+  }, []);
+
+  const closeShop = useCallback(() => {
+    shopLeaveTimer.current = setTimeout(() => {
+      setShopOpen(false);
+    }, 120);
+  }, []);
 
   return (
     <>
       <header
-        className={`header${scrolled ? " scrolled" : ""}`}
+        className={`header-ab${scrolled ? " scrolled" : ""}${shopOpen ? " megamenu-active" : ""}`}
         id="header"
       >
         <div className="container">
@@ -35,9 +59,20 @@ export default function Header({ cartCount }: CartCountProps) {
             DreamPlay
           </a>
           <nav className="nav-links">
-            <a href="/shop">Shop</a>
+            {/* Shop triggers full-width megamenu */}
+            <div
+              className="nav-megamenu-trigger"
+              onMouseEnter={openShop}
+              onMouseLeave={closeShop}
+            >
+              <a href="/shop" className={`nav-link${shopOpen ? " is-active" : ""}`}>
+                Shop
+              </a>
+            </div>
+
             <a href="#collections">Collections</a>
-            <NavDropdown
+
+            <NavDropdownAB
               label="Features"
               items={[
                 { text: "Grand 6", href: "/piano/grand-6" },
@@ -46,7 +81,7 @@ export default function Header({ cartCount }: CartCountProps) {
                 { text: "Digital 5", href: "/piano/digital-5" },
               ]}
             />
-            <NavDropdown
+            <NavDropdownAB
               label="Resources"
               items={[
                 { text: "Piano Guides", href: "/resources/piano-guides" },
@@ -72,9 +107,7 @@ export default function Header({ cartCount }: CartCountProps) {
             >
               &#8863;{" "}
               <span
-                className={`cart-count${
-                  cartCount === 0 ? " hidden" : ""
-                }`}
+                className={`cart-count${cartCount === 0 ? " hidden" : ""}`}
                 id="cartCount"
               >
                 {cartCount}
@@ -91,15 +124,35 @@ export default function Header({ cartCount }: CartCountProps) {
             </div>
           </div>
         </div>
+
+        {/* Megamenu panel sits inside header for mouse-leave continuity */}
+        <div
+          onMouseEnter={openShop}
+          onMouseLeave={closeShop}
+        >
+          <ShopMegamenuAB isOpen={shopOpen} />
+        </div>
       </header>
 
       <div className={`mobile-menu${menuOpen ? " open" : ""}`} id="mobileMenu">
-        <a href="/shop" onClick={toggleMenu}>Shop</a>
-        <a href="#collections" onClick={toggleMenu}>Collections</a>
-        <a href="#features" onClick={toggleMenu}>Features</a>
-        <a href="#resources" onClick={toggleMenu}>Resources</a>
-        <a href="/about" onClick={toggleMenu}>About</a>
-        <a href="/contact" onClick={toggleMenu}>Contact</a>
+        <a href="/shop" onClick={toggleMenu}>
+          Shop
+        </a>
+        <a href="#collections" onClick={toggleMenu}>
+          Collections
+        </a>
+        <a href="#features" onClick={toggleMenu}>
+          Features
+        </a>
+        <a href="#resources" onClick={toggleMenu}>
+          Resources
+        </a>
+        <a href="/about" onClick={toggleMenu}>
+          About
+        </a>
+        <a href="/contact" onClick={toggleMenu}>
+          Contact
+        </a>
       </div>
     </>
   );
