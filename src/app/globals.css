@@ -2164,3 +2164,39 @@ ul { list-style: none; }
   .shop-pagination { gap: 4px; }
   .shop-page-btn { width: 36px; height: 36px; font-size: 13px; }
 }
+
+/* ─── HEADER AB (transparent-at-rest A/B test variant) ───────────────────────
+ *  Used only by /home-header-ab. Does not affect .header on existing routes.
+ *  Reference behavior:
+ *    at rest  → position:fixed, transparent bg, dark text, no border
+ *    scrolled → white bg, border, box-shadow, height 80px→60px
+ *  Transition: background-color|border-color|box-shadow|height
+ *              500ms cubic-bezier(0,0,0.2,1)
+ * ──────────────────────────────────────────────────────────────────────────── */
+.header-ab {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: transparent;
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 500ms cubic-bezier(0, 0, 0.2, 1),
+    border-color     500ms cubic-bezier(0, 0, 0.2, 1),
+    box-shadow       500ms cubic-bezier(0, 0, 0.2, 1);
+}
+.header-ab .container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 80px;
+  transition: height 500ms cubic-bezier(0, 0, 0.2, 1);
+}
+.header-ab.scrolled {
+  background: var(--white);
+  border-bottom-color: var(--light-gray);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+}
+.header-ab.scrolled .container { height: 60px; }
+.header-ab.scrolled .logo { font-size: 18px; }
