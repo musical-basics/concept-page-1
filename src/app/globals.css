@@ -2079,6 +2079,114 @@ ul { list-style: none; }
   letter-spacing: 0.5px;
 }
 
+/* ── Collections Index Page ── */
+.collections-hero {
+  position: relative;
+  height: 340px;
+  background: url('https://picsum.photos/seed/coll-hero-piano/1600/600') center/cover no-repeat;
+  display: flex;
+  align-items: flex-end;
+  border-radius: 0 0 16px 16px;
+  overflow: hidden;
+}
+.collections-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.42);
+  display: flex;
+  align-items: flex-end;
+}
+.collections-hero-content {
+  padding-bottom: 48px;
+}
+.collections-hero-content h1 {
+  font-size: clamp(36px, 5vw, 64px);
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  color: var(--white);
+  line-height: 1.1;
+  font-style: italic;
+}
+
+.collections-section {
+  padding: 60px 0 100px;
+  background: var(--white);
+}
+
+.collections-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.collection-card {
+  display: block;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--bg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.collection-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+}
+
+.collection-card-image {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+.collection-card-image img {
+  transition: transform 0.5s ease;
+}
+.collection-card:hover .collection-card-image img {
+  transform: scale(1.04);
+}
+.collection-card-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.06);
+  transition: background 0.3s ease;
+}
+.collection-card:hover .collection-card-overlay {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+.collection-card-info {
+  padding: 24px 28px 28px;
+}
+.collection-card-name {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: -0.2px;
+  color: var(--charcoal);
+  margin-bottom: 4px;
+}
+.collection-card-count {
+  font-size: 13px;
+  color: var(--gray);
+  letter-spacing: 0.3px;
+  margin-bottom: 10px;
+}
+.collection-card-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #666;
+}
+
+@media (max-width: 1024px) {
+  .collections-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .collections-hero { height: 280px; border-radius: 0 0 12px 12px; }
+}
+@media (max-width: 640px) {
+  .collections-grid { grid-template-columns: 1fr; gap: 20px; }
+  .collections-hero { height: 220px; border-radius: 0 0 10px 10px; }
+  .collections-hero-content { padding-bottom: 32px; }
+  .collections-hero-content h1 { font-size: 28px; }
+  .collections-section { padding: 40px 0 60px; }
+  .collection-card-info { padding: 20px 22px 24px; }
+}
+
 /* ── Discover Pure Euphony ── */
 .euphony-section {
   position: relative;
