@@ -2589,9 +2589,9 @@ ul { list-style: none; }
   display: grid;
   grid-template-columns: 280px 1fr;
   gap: 40px;
-  padding-top: 32px;
+  padding-top: 40px;
   padding-bottom: 40px;
-  min-height: 460px;
+  min-height: 468px;
 }
 
 /* Left sidebar */
