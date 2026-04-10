@@ -2400,10 +2400,19 @@ ul { list-style: none; }
 }
 
 .megamenu-ab__tab-icon {
-  font-size: 22px;
-  width: 28px;
-  text-align: center;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex-shrink: 0;
+  color: var(--black);
+  opacity: 0.6;
+}
+
+.megamenu-ab__tab.is-active .megamenu-ab__tab-icon,
+.megamenu-ab__tab:hover .megamenu-ab__tab-icon {
+  opacity: 1;
 }
 
 .megamenu-ab__tab-label {
@@ -2438,26 +2447,30 @@ ul { list-style: none; }
   transform: translateX(4px);
 }
 
-/* Right panel: product cards */
+/* Right panel: product cards + featured highlight */
 .megamenu-ab__panel {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
 }
 
 .megamenu-ab__panel-title {
-  font-size: 14px;
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.5);
+  font-size: 13px;
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.45);
   margin: 0;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
+}
+
+.megamenu-ab__panel-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 20px;
 }
 
 .megamenu-ab__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  display: contents;
 }
 
 @keyframes megamenuCardIn {
@@ -2488,10 +2501,10 @@ ul { list-style: none; }
   background: var(--light-gray);
 }
 
-.megamenu-ab__card-placeholder {
+.megamenu-ab__card-img {
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 100%);
+  object-fit: cover;
 }
 
 .megamenu-ab__card:hover .megamenu-ab__card-image {
@@ -2513,4 +2526,83 @@ ul { list-style: none; }
 .megamenu-ab__card-subtitle {
   font-size: 13px;
   color: rgba(0, 0, 0, 0.5);
+}
+
+/* "Most Popular" featured highlight card */
+.megamenu-ab__featured {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-decoration: none;
+  color: var(--black);
+  background: linear-gradient(145deg, #f8f6f3 0%, #f0ece6 100%);
+  border-radius: 12px;
+  padding: 16px;
+  position: relative;
+  animation: megamenuCardIn 400ms cubic-bezier(0.4, 0.22, 0.28, 1) both;
+  transition: box-shadow 200ms ease;
+}
+
+.megamenu-ab__featured:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.megamenu-ab__featured-badge {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #8b6914;
+  background: rgba(139, 105, 20, 0.1);
+  padding: 4px 10px;
+  border-radius: 20px;
+  width: fit-content;
+}
+
+.megamenu-ab__featured-image {
+  aspect-ratio: 4 / 3;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--light-gray);
+}
+
+.megamenu-ab__featured-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.megamenu-ab__featured-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.megamenu-ab__featured-name {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.megamenu-ab__featured-price {
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.megamenu-ab__featured-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--black);
+  margin-top: auto;
+}
+
+.megamenu-ab__featured-cta svg {
+  transition: transform 200ms ease;
+}
+
+.megamenu-ab__featured:hover .megamenu-ab__featured-cta svg {
+  transform: translateX(3px);
 }

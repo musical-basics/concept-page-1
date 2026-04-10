@@ -1,143 +1,137 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
+import { PRODUCTS } from "@/app/shop/_lib/shop-constants";
 
 /**
- * Reference structure from Concept theme scrape (after-hover.json):
+ * DreamPlay megamenu — piano-specific content derived from shop-constants.
  *
- * The Shop mega menu is a full-width panel triggered on hover over "Shop".
  * Layout: two-column
- *   Left:  "Collections" heading + vertical tab buttons (icon + label)
- *          for Headphones, Earphones, Speakers, Accessories
- *          + "View All Products" footer link
- *   Right: product-card grid (switches per active tab)
- *
- * Animations:
- *   - Panel slides down + fades in (opacity 0→1, translateY(-8px)→0)
- *     300ms cubic-bezier(0.4, 0.22, 0.28, 1)
- *   - Tab items stagger-fade on panel open
- *   - Product cards stagger-fade when tab changes
- *   - No box-shadow on panel (reference: "no border, no shadow")
+ *   Left:  "Collections" heading + vertical tab buttons (SVG icon + label)
+ *          Grand / Upright / Digital / Best Sellers
+ *          + "View All Pianos" footer link
+ *   Right: product-card grid (2 cards) + "Most Popular" highlight card
  */
+
+/* ── Inline SVG icons for each category ─────────────────────────── */
+
+function GrandPianoIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M3 18V8a2 2 0 012-2h14a2 2 0 012 2v10" />
+      <path d="M1 18h22" />
+      <path d="M6 18v2M18 18v2" />
+      <path d="M7 6V4a1 1 0 011-1h8a1 1 0 011 1v2" />
+      <path d="M9 10v4M12 10v4M15 10v4" />
+    </svg>
+  );
+}
+
+function UprightPianoIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="2" width="16" height="18" rx="2" />
+      <path d="M4 20h16" />
+      <path d="M7 20v2M17 20v2" />
+      <path d="M8 14h8" />
+      <path d="M10 8v4M14 8v4" />
+    </svg>
+  );
+}
+
+function DigitalPianoIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="8" width="20" height="6" rx="1.5" />
+      <path d="M5 14v4M19 14v4" />
+      <path d="M3 18h4M17 18h4" />
+      <path d="M7 10v2M10 10v2M13 10v2M16 10v2" />
+      <circle cx="19" cy="11" r="0.5" fill="currentColor" />
+    </svg>
+  );
+}
+
+function BestSellersIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+    </svg>
+  );
+}
+
+const ICON_MAP: Record<string, () => React.JSX.Element> = {
+  Grand: GrandPianoIcon,
+  Upright: UprightPianoIcon,
+  Digital: DigitalPianoIcon,
+  "Best Sellers": BestSellersIcon,
+};
+
+/* ── Build megamenu data from shop-constants ─────────────────────── */
+
+interface MegamenuProduct {
+  title: string;
+  subtitle: string;
+  price: number;
+  href: string;
+  image: string;
+}
 
 interface CategoryTab {
   label: string;
   href: string;
-  /** Placeholder icon character or emoji — swap for SVG later */
-  icon: string;
-  products: ProductCard[];
+  products: MegamenuProduct[];
+  featured: MegamenuProduct;
 }
 
-interface ProductCard {
-  title: string;
-  subtitle: string;
-  href: string;
-  /** Placeholder image path */
-  image: string;
+function productToMega(p: (typeof PRODUCTS)[number]): MegamenuProduct {
+  return {
+    title: p.name,
+    subtitle: `${p.finish} finish`,
+    price: p.price,
+    href: "/shop",
+    image: p.image,
+  };
 }
 
-const CATEGORIES: CategoryTab[] = [
+// Pick the highest-rated (then most expensive) per category as "featured"
+function pickFeatured(items: (typeof PRODUCTS)[number][]) {
+  const sorted = [...items].sort((a, b) => b.rating - a.rating || b.price - a.price);
+  return sorted[0];
+}
+
+const grandProducts = PRODUCTS.filter((p) => p.category === "Grand");
+const uprightProducts = PRODUCTS.filter((p) => p.category === "Upright");
+const digitalProducts = PRODUCTS.filter((p) => p.category === "Digital");
+const bestSellers = PRODUCTS.filter((p) => p.badge === "lionels-pick" || p.rating === 5).slice(0, 4);
+
+const MEGA_CATEGORIES: CategoryTab[] = [
   {
-    label: "Headphones",
-    href: "/collections/headphones",
-    icon: "🎧",
-    products: [
-      {
-        title: "Studio Pro",
-        subtitle: "Over-ear wireless",
-        href: "/products/studio-pro",
-        image: "/placeholder-headphones-1.jpg",
-      },
-      {
-        title: "Bass Elite",
-        subtitle: "Noise cancelling",
-        href: "/products/bass-elite",
-        image: "/placeholder-headphones-2.jpg",
-      },
-      {
-        title: "AirWave",
-        subtitle: "Lightweight design",
-        href: "/products/airwave",
-        image: "/placeholder-headphones-3.jpg",
-      },
-    ],
+    label: "Grand",
+    href: "/shop?category=Grand",
+    products: grandProducts.slice(0, 2).map(productToMega),
+    featured: productToMega(pickFeatured(grandProducts)),
   },
   {
-    label: "Earphones",
-    href: "/collections/earphones",
-    icon: "🎵",
-    products: [
-      {
-        title: "BudPro X",
-        subtitle: "True wireless",
-        href: "/products/budpro-x",
-        image: "/placeholder-earphones-1.jpg",
-      },
-      {
-        title: "SoundPod",
-        subtitle: "Active noise control",
-        href: "/products/soundpod",
-        image: "/placeholder-earphones-2.jpg",
-      },
-      {
-        title: "FitBuds",
-        subtitle: "Sport edition",
-        href: "/products/fitbuds",
-        image: "/placeholder-earphones-3.jpg",
-      },
-    ],
+    label: "Upright",
+    href: "/shop?category=Upright",
+    products: uprightProducts.slice(0, 2).map(productToMega),
+    featured: productToMega(pickFeatured(uprightProducts)),
   },
   {
-    label: "Speakers",
-    href: "/collections/speakers",
-    icon: "🔊",
-    products: [
-      {
-        title: "SoundTower",
-        subtitle: "Floor standing",
-        href: "/products/soundtower",
-        image: "/placeholder-speakers-1.jpg",
-      },
-      {
-        title: "MiniBlast",
-        subtitle: "Portable bluetooth",
-        href: "/products/miniblast",
-        image: "/placeholder-speakers-2.jpg",
-      },
-      {
-        title: "HomePod Ultra",
-        subtitle: "Smart speaker",
-        href: "/products/homepod-ultra",
-        image: "/placeholder-speakers-3.jpg",
-      },
-    ],
+    label: "Digital",
+    href: "/shop?category=Digital",
+    products: digitalProducts.slice(0, 2).map(productToMega),
+    featured: productToMega(pickFeatured(digitalProducts)),
   },
   {
-    label: "Accessories",
-    href: "/collections/accessories",
-    icon: "🔌",
-    products: [
-      {
-        title: "Charging Case",
-        subtitle: "Universal fit",
-        href: "/products/charging-case",
-        image: "/placeholder-accessories-1.jpg",
-      },
-      {
-        title: "Cable Kit",
-        subtitle: "Premium braided",
-        href: "/products/cable-kit",
-        image: "/placeholder-accessories-2.jpg",
-      },
-      {
-        title: "Ear Tips Pack",
-        subtitle: "Memory foam",
-        href: "/products/ear-tips",
-        image: "/placeholder-accessories-3.jpg",
-      },
-    ],
+    label: "Best Sellers",
+    href: "/shop",
+    products: bestSellers.slice(0, 2).map(productToMega),
+    featured: productToMega(bestSellers[0]),
   },
 ];
+
+/* ── Component ──────────────────────────────────────────────────── */
 
 interface Props {
   isOpen: boolean;
@@ -155,7 +149,10 @@ export default function ShopMegamenuAB({ isOpen }: Props) {
     tabChangeTimer.current = setTimeout(() => setDisplayTab(idx), 50);
   }, []);
 
-  const category = CATEGORIES[displayTab];
+  const category = MEGA_CATEGORIES[displayTab];
+
+  const formatPrice = (price: number) =>
+    price.toLocaleString("en-US", { style: "currency", currency: "USD", minimumFractionDigits: 0 });
 
   return (
     <div className={`megamenu-ab${isOpen ? " is-open" : ""}`}>
@@ -164,25 +161,30 @@ export default function ShopMegamenuAB({ isOpen }: Props) {
         <div className="megamenu-ab__sidebar">
           <p className="megamenu-ab__heading">Collections</p>
           <div className="megamenu-ab__tabs">
-            {CATEGORIES.map((cat, idx) => (
-              <button
-                key={cat.label}
-                type="button"
-                className={`megamenu-ab__tab${activeTab === idx ? " is-active" : ""}`}
-                style={{
-                  transitionDelay: isOpen ? `${0.15 + idx * 0.06}s` : "0s",
-                }}
-                onMouseEnter={() => handleTabChange(idx)}
-                onClick={() => handleTabChange(idx)}
-              >
-                <span className="megamenu-ab__tab-icon">{cat.icon}</span>
-                <span className="megamenu-ab__tab-label">{cat.label}</span>
-              </button>
-            ))}
+            {MEGA_CATEGORIES.map((cat, idx) => {
+              const TabIcon = ICON_MAP[cat.label];
+              return (
+                <button
+                  key={cat.label}
+                  type="button"
+                  className={`megamenu-ab__tab${activeTab === idx ? " is-active" : ""}`}
+                  style={{
+                    transitionDelay: isOpen ? `${0.15 + idx * 0.06}s` : "0s",
+                  }}
+                  onMouseEnter={() => handleTabChange(idx)}
+                  onClick={() => handleTabChange(idx)}
+                >
+                  <span className="megamenu-ab__tab-icon">
+                    {TabIcon ? <TabIcon /> : null}
+                  </span>
+                  <span className="megamenu-ab__tab-label">{cat.label}</span>
+                </button>
+              );
+            })}
           </div>
           <div className="megamenu-ab__footer">
-            <a href="/collections/all" className="megamenu-ab__view-all">
-              View All Products
+            <a href="/shop" className="megamenu-ab__view-all">
+              View All Pianos
               <svg
                 viewBox="0 0 21 20"
                 width="16"
@@ -200,38 +202,71 @@ export default function ShopMegamenuAB({ isOpen }: Props) {
           </div>
         </div>
 
-        {/* Right column: product cards for active tab */}
+        {/* Right column: product cards + featured highlight */}
         <div className="megamenu-ab__panel" key={displayTab}>
-          <p className="megamenu-ab__panel-title">
-            {category.label}
-          </p>
-          <div className="megamenu-ab__grid">
-            {category.products.map((product, idx) => (
-              <a
-                key={product.title}
-                href={product.href}
-                className="megamenu-ab__card"
-                style={{
-                  animationDelay: `${0.1 + idx * 0.08}s`,
-                }}
-              >
-                <div className="megamenu-ab__card-image">
-                  {/* Placeholder colored box until real images are wired */}
-                  <div
-                    className="megamenu-ab__card-placeholder"
-                    aria-label={product.title}
-                  />
-                </div>
-                <div className="megamenu-ab__card-info">
-                  <span className="megamenu-ab__card-title">
-                    {product.title}
-                  </span>
-                  <span className="megamenu-ab__card-subtitle">
-                    {product.subtitle}
-                  </span>
-                </div>
-              </a>
-            ))}
+          <p className="megamenu-ab__panel-title">{category.label}</p>
+          <div className="megamenu-ab__panel-layout">
+            {/* Product cards */}
+            <div className="megamenu-ab__grid">
+              {category.products.map((product, idx) => (
+                <a
+                  key={product.title}
+                  href={product.href}
+                  className="megamenu-ab__card"
+                  style={{
+                    animationDelay: `${0.1 + idx * 0.08}s`,
+                  }}
+                >
+                  <div className="megamenu-ab__card-image">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={product.image}
+                      alt={product.title}
+                      className="megamenu-ab__card-img"
+                    />
+                  </div>
+                  <div className="megamenu-ab__card-info">
+                    <span className="megamenu-ab__card-title">
+                      {product.title}
+                    </span>
+                    <span className="megamenu-ab__card-subtitle">
+                      {product.subtitle} · {formatPrice(product.price)}
+                    </span>
+                  </div>
+                </a>
+              ))}
+            </div>
+
+            {/* "Most Popular" highlight card */}
+            <a
+              href={category.featured.href}
+              className="megamenu-ab__featured"
+              style={{ animationDelay: "0.18s" }}
+            >
+              <div className="megamenu-ab__featured-badge">Most Popular</div>
+              <div className="megamenu-ab__featured-image">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={category.featured.image}
+                  alt={category.featured.title}
+                  className="megamenu-ab__card-img"
+                />
+              </div>
+              <div className="megamenu-ab__featured-info">
+                <span className="megamenu-ab__featured-name">
+                  {category.featured.title}
+                </span>
+                <span className="megamenu-ab__featured-price">
+                  {formatPrice(category.featured.price)}
+                </span>
+              </div>
+              <span className="megamenu-ab__featured-cta">
+                Shop now
+                <svg viewBox="0 0 21 20" width="14" height="14" stroke="currentColor" fill="none">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 10H18M18 10L12.1667 4.16675M18 10L12.1667 15.8334" />
+                </svg>
+              </span>
+            </a>
           </div>
         </div>
       </div>
