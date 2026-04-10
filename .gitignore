@@ -31,3 +31,9 @@ next-env.d.ts
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# generated local research artifacts
+/screenshots/*.png
+/scripts/*.json
+/scripts/*.html
+/scripts/*.txt
