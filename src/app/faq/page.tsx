@@ -258,11 +258,9 @@ export default function FAQPage() {
           {/* Right column: help sidebar */}
           <aside className="faq-sidebar">
             <div className="faq-help-box scroll-reveal">
-              <p className="faq-help-label">Support</p>
               <h2 className="faq-help-heading">Didn&apos;t find your answer?</h2>
               <p className="faq-help-sub">
-                Don&apos;t hesitate to contact us. Our team is available
-                Monday–Friday, 9&nbsp;am–6&nbsp;pm PT.
+                Don&apos;t hesitate to contact us.
               </p>
               <form
                 className="faq-help-form"
