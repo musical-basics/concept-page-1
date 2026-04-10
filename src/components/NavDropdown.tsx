@@ -33,7 +33,7 @@ export default function NavDropdown({ label, items, children }: NavDropdownProps
         </span>
       </a>
       {isOpen && (
-        <ScrollReveal scrollReveal="slideDown" scrollRevealDelay="0.1">
+        <ScrollReveal animation="fadeIn" delay={100}>
           <ul className="nav-dropdown-menu">
             {items.map((item, idx) => (
               <li key={idx} className="nav-dropdown-item">
