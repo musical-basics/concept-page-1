@@ -2583,7 +2583,6 @@ ul { list-style: none; }
   pointer-events: auto;
   transform: translateY(0);
   transition-delay: 0s;
-  overflow: visible;
 }
 
 .megamenu-ab__inner {
@@ -2592,6 +2591,7 @@ ul { list-style: none; }
   gap: 40px;
   padding-top: 32px;
   padding-bottom: 40px;
+  min-height: 340px;
 }
 
 /* Left sidebar */
