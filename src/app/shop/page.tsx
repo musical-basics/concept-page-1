@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import Header from "@/components/Header";
@@ -78,8 +79,6 @@ function QuickBuyDrawer({
 
   useEffect(() => {
     if (open) {
-      setQty(1);
-      setSelectedColor(0);
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "";
@@ -280,15 +279,11 @@ export default function ShopPage() {
 
   /* Pagination */
   const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
+  const activePage = Math.min(currentPage, totalPages);
   const paginatedProducts = filtered.slice(
-    (currentPage - 1) * ITEMS_PER_PAGE,
-    currentPage * ITEMS_PER_PAGE
+    (activePage - 1) * ITEMS_PER_PAGE,
+    activePage * ITEMS_PER_PAGE
   );
-
-  // Reset to page 1 when filters change
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [selectedCategories, selectedFinishes, selectedPriceRange, sortBy]);
 
   const activeFilterCount =
     selectedCategories.length +
@@ -341,9 +336,9 @@ export default function ShopPage() {
         <div className="shop-hero-overlay">
           <div className="shop-hero-content container">
             <nav className="shop-breadcrumb" aria-label="Breadcrumb">
-              <a href="/"><HomeIcon /></a>
+              <Link href="/"><HomeIcon /></Link>
               <svg className="breadcrumb-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6" /></svg>
-              <a href="/shop">Collections</a>
+              <Link href="/shop">Collections</Link>
               <svg className="breadcrumb-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6" /></svg>
               <span>All products</span>
             </nav>
@@ -573,7 +568,7 @@ export default function ShopPage() {
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
                     <button
                       key={page}
-                      className={`shop-page-btn${currentPage === page ? " active" : ""}`}
+                      className={`shop-page-btn${activePage === page ? " active" : ""}`}
                       onClick={() => {
                         setCurrentPage(page);
                         window.scrollTo({ top: 0, behavior: "smooth" });
@@ -582,11 +577,11 @@ export default function ShopPage() {
                       {page}
                     </button>
                   ))}
-                  {currentPage < totalPages && (
+                  {activePage < totalPages && (
                     <button
                       className="shop-page-btn shop-page-next"
                       onClick={() => {
-                        setCurrentPage((p) => p + 1);
+                        setCurrentPage((p) => Math.min(p + 1, totalPages));
                         window.scrollTo({ top: 0, behavior: "smooth" });
                       }}
                     >
@@ -629,9 +624,9 @@ export default function ShopPage() {
                 perfect response of a key beneath your fingertip, in the moment
                 when practice transcends into art.
               </p>
-              <a href="/" className="euphony-cta">
+              <Link href="/" className="euphony-cta">
                 Explore Our Craft
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -665,6 +660,7 @@ export default function ShopPage() {
 
       {/* Quick View Drawer */}
       <QuickBuyDrawer
+        key={`${drawerProduct?.id ?? "none"}-${drawerOpen ? "open" : "closed"}`}
         product={drawerProduct}
         open={drawerOpen}
         onClose={() => setDrawerOpen(false)}
