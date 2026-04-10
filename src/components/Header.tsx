@@ -61,7 +61,18 @@ export default function Header({ cartCount }: CartCountProps) {
                 Shop
               </a>
             </div>
-            <a href="/collections">Collections</a>
+            <NavDropdown
+              label="Collections"
+              items={[
+                { text: "All Products", href: "/shop" },
+                { text: "Grand Pianos", href: "/shop?category=Grand" },
+                { text: "Upright Pianos", href: "/shop?category=Upright" },
+                { text: "Digital Pianos", href: "/shop?category=Digital" },
+                { text: "New Arrivals", href: "/shop?badge=new" },
+                { text: "On Sale", href: "/shop?badge=sale" },
+                { text: "Lionel's Picks", href: "/shop?badge=lionels-pick" },
+              ]}
+            />
             <NavDropdown
               label="Features"
               items={[
