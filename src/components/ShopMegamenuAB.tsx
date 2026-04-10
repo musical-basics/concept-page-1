@@ -74,6 +74,7 @@ interface MegamenuProduct {
   price: number;
   href: string;
   image: string;
+  featuredNote?: string;
 }
 
 interface CategoryTab {
@@ -83,13 +84,39 @@ interface CategoryTab {
   featured: MegamenuProduct;
 }
 
-function productToMega(p: (typeof PRODUCTS)[number]): MegamenuProduct {
+const DREAMPLAY_IMAGE_MAP: Record<string, string> = {
+  "Concert Grand S7": "/assets/piano-front.jpg",
+  "Parlour Grand P5": "/assets/dreamplay/lionel_performance.png",
+  "Ensemble Grand E7": "/assets/dreamplay/ds55_white.png",
+  "Salon Grand SL9": "/assets/dreamplay/ds60_black.png",
+  "Studio Upright U3": "/assets/factory-keys.jpg",
+  "Classic Upright U1": "/assets/dreamplay/ds55_white.png",
+  "Heritage Upright H4": "/assets/factory-exterior.jpg",
+  "Conservatory Upright C5": "/assets/dreamplay/keyboard_hero.jpg",
+  "Virtuoso Digital V9": "/assets/dreamplay/keyboard_studio.avif",
+  "Stage Digital SD5": "/assets/keyboard-led.jpg",
+  "Portable Digital PD3": "/assets/keyboard-ports.jpg",
+  "Hybrid Digital HX7": "/assets/dreamplay/pianist_hands.jpg",
+};
+
+const FEATURED_NOTES: Record<string, string> = {
+  Grand: "Concert-hall presence with Lionel's preferred premium voicing.",
+  Upright: "Apartment-friendly footprint with an acoustic-first touch profile.",
+  Digital: "Quiet practice, weighted action, and modern connectivity for daily play.",
+  "Best Sellers": "The most requested DreamPlay picks across studio, home, and stage setups.",
+};
+
+function productToMega(
+  p: (typeof PRODUCTS)[number],
+  featuredNote?: string,
+): MegamenuProduct {
   return {
     title: p.name,
     subtitle: `${p.finish} finish`,
     price: p.price,
     href: "/shop",
-    image: p.image,
+    image: DREAMPLAY_IMAGE_MAP[p.name] ?? p.image,
+    featuredNote,
   };
 }
 
@@ -108,26 +135,26 @@ const MEGA_CATEGORIES: CategoryTab[] = [
   {
     label: "Grand",
     href: "/shop?category=Grand",
-    products: grandProducts.slice(0, 2).map(productToMega),
-    featured: productToMega(pickFeatured(grandProducts)),
+    products: grandProducts.slice(0, 2).map((product) => productToMega(product)),
+    featured: productToMega(pickFeatured(grandProducts), FEATURED_NOTES.Grand),
   },
   {
     label: "Upright",
     href: "/shop?category=Upright",
-    products: uprightProducts.slice(0, 2).map(productToMega),
-    featured: productToMega(pickFeatured(uprightProducts)),
+    products: uprightProducts.slice(0, 2).map((product) => productToMega(product)),
+    featured: productToMega(pickFeatured(uprightProducts), FEATURED_NOTES.Upright),
   },
   {
     label: "Digital",
     href: "/shop?category=Digital",
-    products: digitalProducts.slice(0, 2).map(productToMega),
-    featured: productToMega(pickFeatured(digitalProducts)),
+    products: digitalProducts.slice(0, 2).map((product) => productToMega(product)),
+    featured: productToMega(pickFeatured(digitalProducts), FEATURED_NOTES.Digital),
   },
   {
     label: "Best Sellers",
     href: "/shop",
-    products: bestSellers.slice(0, 2).map(productToMega),
-    featured: productToMega(bestSellers[0]),
+    products: bestSellers.slice(0, 2).map((product) => productToMega(product)),
+    featured: productToMega(bestSellers[0], FEATURED_NOTES["Best Sellers"]),
   },
 ];
 
@@ -259,6 +286,11 @@ export default function ShopMegamenuAB({ isOpen }: Props) {
                 <span className="megamenu-ab__featured-price">
                   {formatPrice(category.featured.price)}
                 </span>
+                {category.featured.featuredNote ? (
+                  <span className="megamenu-ab__featured-note">
+                    {category.featured.featuredNote}
+                  </span>
+                ) : null}
               </div>
               <span className="megamenu-ab__featured-cta">
                 Shop now

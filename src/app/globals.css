@@ -2589,6 +2589,12 @@ ul { list-style: none; }
   color: rgba(0, 0, 0, 0.5);
 }
 
+.megamenu-ab__featured-note {
+  font-size: 12px;
+  line-height: 1.55;
+  color: rgba(0, 0, 0, 0.62);
+}
+
 .megamenu-ab__featured-cta {
   display: inline-flex;
   align-items: center;
