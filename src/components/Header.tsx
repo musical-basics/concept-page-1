@@ -52,7 +52,7 @@ export default function Header({ cartCount }: CartCountProps) {
         id="header"
       >
         <div className="container">
-          <a href="#" className="logo">
+          <a href="/" className="logo">
             DreamPlay
           </a>
           <nav className="nav-links">
