@@ -193,79 +193,111 @@ export default function FAQPage() {
         </div>
       </section>
 
-      {/* ── Accordion body ── */}
+      {/* ── Two-column body ── */}
       <section className="faq-body">
         <div className="container faq-body-container">
-          {FAQ_CATEGORIES.map((cat, ci) => (
-            <div
-              key={cat.id}
-              className="faq-category scroll-reveal"
-              style={
-                { transitionDelay: `${ci * 80}ms` } as React.CSSProperties
-              }
-            >
-              <h2 className="faq-category-heading">{cat.label}</h2>
-              <div className="faq-list" role="list">
-                {cat.items.map((item, i) => {
-                  const itemId = `${cat.id}-${i}`;
-                  const isOpen = openId === itemId;
-                  return (
-                    <div
-                      key={itemId}
-                      className={`faq-item${isOpen ? " faq-item--open" : ""}`}
-                      role="listitem"
-                    >
-                      <button
-                        className="faq-question"
-                        onClick={() => toggle(itemId)}
-                        aria-expanded={isOpen}
-                        aria-controls={`faq-answer-${itemId}`}
-                      >
-                        <span>{item.q}</span>
-                        <svg
-                          className="faq-chevron"
-                          width="18"
-                          height="18"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          aria-hidden="true"
-                        >
-                          <polyline points="6 9 12 15 18 9" />
-                        </svg>
-                      </button>
+
+          {/* Left column: accordion categories */}
+          <div className="faq-main">
+            {FAQ_CATEGORIES.map((cat, ci) => (
+              <div
+                key={cat.id}
+                className="faq-category scroll-reveal"
+                style={
+                  { transitionDelay: `${ci * 80}ms` } as React.CSSProperties
+                }
+              >
+                <h2 className="faq-category-heading">{cat.label}</h2>
+                <div className="faq-list" role="list">
+                  {cat.items.map((item, i) => {
+                    const itemId = `${cat.id}-${i}`;
+                    const isOpen = openId === itemId;
+                    return (
                       <div
-                        id={`faq-answer-${itemId}`}
-                        className="faq-answer"
-                        aria-hidden={!isOpen}
+                        key={itemId}
+                        className={`faq-item${isOpen ? " faq-item--open" : ""}`}
+                        role="listitem"
                       >
-                        <div className="faq-answer-inner">
-                          <p>{item.a}</p>
+                        <button
+                          className="faq-question"
+                          onClick={() => toggle(itemId)}
+                          aria-expanded={isOpen}
+                          aria-controls={`faq-answer-${itemId}`}
+                        >
+                          <span>{item.q}</span>
+                          <svg
+                            className="faq-chevron"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            aria-hidden="true"
+                          >
+                            <polyline points="6 9 12 15 18 9" />
+                          </svg>
+                        </button>
+                        <div
+                          id={`faq-answer-${itemId}`}
+                          className="faq-answer"
+                          aria-hidden={!isOpen}
+                        >
+                          <div className="faq-answer-inner">
+                            <p>{item.a}</p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Contact CTA ── */}
-      <section className="faq-contact">
-        <div className="container">
-          <div className="faq-contact-inner scroll-reveal">
-            <h2>Didn&apos;t find your answer?</h2>
-            <p className="faq-contact-sub">
-              Our support team is available Monday–Friday, 9&nbsp;am–6&nbsp;pm
-              PT.
-            </p>
-            <Link href="/contact" className="faq-contact-btn">
-              Contact Support
-            </Link>
+            ))}
           </div>
+
+          {/* Right column: help sidebar */}
+          <aside className="faq-sidebar">
+            <div className="faq-help-box scroll-reveal">
+              <p className="faq-help-label">Support</p>
+              <h2 className="faq-help-heading">Didn&apos;t find your answer?</h2>
+              <p className="faq-help-sub">
+                Don&apos;t hesitate to contact us. Our team is available
+                Monday–Friday, 9&nbsp;am–6&nbsp;pm PT.
+              </p>
+              <form
+                className="faq-help-form"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  window.location.href = "/contact";
+                }}
+              >
+                <input
+                  className="faq-help-input"
+                  type="text"
+                  name="name"
+                  placeholder="Name"
+                  autoComplete="name"
+                />
+                <input
+                  className="faq-help-input"
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  autoComplete="email"
+                />
+                <textarea
+                  className="faq-help-textarea"
+                  name="message"
+                  placeholder="Message"
+                  rows={4}
+                />
+                <button type="submit" className="faq-help-btn">
+                  Send message
+                </button>
+              </form>
+            </div>
+          </aside>
+
         </div>
       </section>
 
