@@ -61,7 +61,7 @@ export default function Header({ cartCount }: CartCountProps) {
                 Shop
               </a>
             </div>
-            <a href="#collections">Collections</a>
+            <a href="/collections">Collections</a>
             <NavDropdown
               label="Features"
               items={[
@@ -128,7 +128,7 @@ export default function Header({ cartCount }: CartCountProps) {
       />
       <div className={`mobile-menu${menuOpen ? " open" : ""}`} id="mobileMenu">
         <a href="/shop" onClick={toggleMenu}>Shop</a>
-        <a href="#collections" onClick={toggleMenu}>Collections</a>
+        <a href="/collections" onClick={toggleMenu}>Collections</a>
         <a href="#features" onClick={toggleMenu}>Features</a>
         <a href="#resources" onClick={toggleMenu}>Resources</a>
         <a href="/about" onClick={toggleMenu}>About</a>
