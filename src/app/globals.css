@@ -84,7 +84,8 @@ ul { list-style: none; }
   border-bottom-color: var(--light-gray);
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
 }
-.header.megamenu-active {
+.header.megamenu-active,
+.header:has(.nav-dropdown-collections.is-active) {
   background: var(--white);
   border-bottom-color: transparent;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
@@ -106,7 +107,9 @@ ul { list-style: none; }
 }
 .header.scrolled .logo { font-size: 18px; }
 .nav-links { display: flex; gap: 32px; }
-.nav-links a {
+.nav-links > a,
+.nav-links > .nav-dropdown > .nav-link,
+.nav-links > .nav-megamenu-trigger > .nav-link {
   font-size: 13px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
@@ -114,7 +117,9 @@ ul { list-style: none; }
   position: relative;
   transition: var(--transition);
 }
-.nav-links a::after {
+.nav-links > a::after,
+.nav-links > .nav-dropdown > .nav-link::after,
+.nav-links > .nav-megamenu-trigger > .nav-link::after {
   content: '';
   position: absolute;
   bottom: -4px;
@@ -124,7 +129,9 @@ ul { list-style: none; }
   background: var(--black);
   transition: var(--transition);
 }
-.nav-links a:hover::after { width: 100%; }
+.nav-links > a:hover::after,
+.nav-links > .nav-dropdown > .nav-link:hover::after,
+.nav-links > .nav-megamenu-trigger > .nav-link:hover::after { width: 100%; }
 .header-actions { display: flex; align-items: center; gap: 20px; }
 .header-actions button {
   font-size: 13px;
@@ -262,14 +269,14 @@ ul { list-style: none; }
 
 .collections-megamenu {
   position: absolute;
-  top: calc(100% + 18px);
-  left: 50%;
+  top: calc(100% + 8px);
+  left: 0;
   width: min(760px, calc(100vw - 48px));
   padding-top: 12px;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transform: translate3d(-50%, 8px, 0);
+  transform: translate3d(0, 8px, 0);
   transition:
     opacity 300ms cubic-bezier(0.4, 0.22, 0.28, 1),
     transform 300ms cubic-bezier(0.4, 0.22, 0.28, 1),
@@ -281,7 +288,7 @@ ul { list-style: none; }
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-  transform: translate3d(-50%, 0, 0);
+  transform: translate3d(0, 0, 0);
   transition-delay: 0s;
 }
 
