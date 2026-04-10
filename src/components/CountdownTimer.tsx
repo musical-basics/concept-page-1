@@ -7,11 +7,16 @@ export default function CountdownTimer({
 }: {
   onAddToCart: () => void;
 }) {
-  const endRef = useRef(new Date(Date.now() + 3 * 24 * 60 * 60 * 1000));
+  const endRef = useRef<Date | null>(null);
   const [time, setTime] = useState({ d: "00", h: "00", m: "00", s: "00" });
 
   useEffect(() => {
+    if (!endRef.current) {
+      endRef.current = new Date(Date.now() + 3 * 24 * 60 * 60 * 1000);
+    }
+
     const update = () => {
+      if (!endRef.current) return;
       let diff = endRef.current.getTime() - Date.now();
       if (diff < 0) diff = 0;
       const d = Math.floor(diff / (1000 * 60 * 60 * 24));
