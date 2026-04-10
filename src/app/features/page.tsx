@@ -222,18 +222,22 @@ function FeatureCard({
 /* ── Feature Highlight component ── */
 
 interface HighlightProps {
+  eyebrow?: string;
   icon: React.ReactNode;
   heading: string;
   description: string;
+  details?: string[];
   image: string;
   imageAlt: string;
   reverse?: boolean;
 }
 
 function FeatureHighlight({
+  eyebrow,
   icon,
   heading,
   description,
+  details,
   image,
   imageAlt,
   reverse,
@@ -247,9 +251,17 @@ function FeatureHighlight({
       <div className="container">
         <div className="feat-highlight-inner">
           <div className="feat-highlight-text">
+            {eyebrow && <span className="feat-eyebrow">{eyebrow}</span>}
             <div className="feat-highlight-icon">{icon}</div>
             <h2 className="feat-highlight-heading">{heading}</h2>
             <p className="feat-highlight-desc">{description}</p>
+            {details && details.length > 0 && (
+              <ul className="feat-highlight-details">
+                {details.map((d) => (
+                  <li key={d}>{d}</li>
+                ))}
+              </ul>
+            )}
           </div>
           <div className="feat-highlight-media">
             <Image
@@ -271,21 +283,6 @@ function FeatureHighlight({
 const IconSound = (
   <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
     <path d="M12 20v8M18 16v16M24 12v24M30 16v16M36 20v8" />
-  </svg>
-);
-
-const IconDesign = (
-  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="6" y="10" width="36" height="28" rx="3" />
-    <path d="M6 18h36" />
-    <path d="M16 10v8M24 10v8M32 10v8" />
-  </svg>
-);
-
-const IconMusician = (
-  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="24" cy="16" r="8" />
-    <path d="M8 42c0-8.837 7.163-16 16-16s16 7.163 16 16" />
   </svg>
 );
 
@@ -332,9 +329,11 @@ export default function FeaturesPage() {
 
       {/* Highlight 1 — Sound */}
       <FeatureHighlight
+        eyebrow="Sound Engine"
         icon={IconSound}
         heading="Sound that moves you"
         description="Recorded on a Steinway concert grand in a world-class studio, our multi-layer samples capture every subtlety of tone, from the softest pianissimo to the most commanding fortissimo. Advanced sympathetic resonance modeling adds the warmth and depth of a real acoustic piano."
+        details={["12 velocity layers per note", "Sympathetic resonance modeling", "Concert-grade Steinway samples"]}
         image="/assets/dreamplay/pianist_hands.jpg"
         imageAlt="Pianist hands on DreamPlay keyboard"
         revealRef={observe}
@@ -343,7 +342,7 @@ export default function FeaturesPage() {
       {/* Detail Features 1 — 6 cards */}
       <section className="feat-section">
         <div className="container">
-          <div className="feat-grid feat-grid--3">
+          <div className="feat-grid feat-grid--3 feat-grid--featured">
             {DETAIL_FEATURES_1.map((f, i) => (
               <FeatureCard key={f.title} feature={f} revealRef={observe} delay={(i % 3) * 100} />
             ))}
@@ -351,16 +350,44 @@ export default function FeaturesPage() {
         </div>
       </section>
 
-      {/* Highlight 2 — Design */}
-      <FeatureHighlight
-        icon={IconDesign}
-        heading="Designed for every space"
-        description="From concert stage to compact apartment, DreamPlay instruments are crafted to look and sound stunning in any environment. The slim-profile cabinet, premium finishes, and integrated cable management mean your piano is as beautiful silent as it is in full voice."
-        image="/assets/dreamplay/starred/gold-ds-6.jpg"
-        imageAlt="Gold DreamPlay DS 6 in modern room"
-        reverse
-        revealRef={observe}
-      />
+      {/* Editorial — Design */}
+      <section className="feat-editorial scroll-reveal" ref={observe}>
+        <div className="container">
+          <div className="feat-editorial-inner">
+            <div className="feat-editorial-media">
+              <Image
+                src="/assets/dreamplay/starred/gold-ds-6.jpg"
+                alt="Gold DreamPlay DS 6 in modern room"
+                fill
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+            <div className="feat-editorial-text">
+              <span className="feat-eyebrow">Design</span>
+              <h2 className="feat-editorial-heading">Designed for every space</h2>
+              <p className="feat-editorial-desc">
+                From concert stage to compact apartment, DreamPlay instruments are
+                crafted to look and sound stunning in any environment.
+              </p>
+              <div className="feat-editorial-details">
+                <div className="feat-editorial-detail">
+                  <h4>Slim Profile</h4>
+                  <p>Fits gracefully in apartments, studios, and practice rooms without compromising sound.</p>
+                </div>
+                <div className="feat-editorial-detail">
+                  <h4>Premium Finishes</h4>
+                  <p>Hand-finished matte lacquer with brushed metal accents and sustainably sourced wood veneer.</p>
+                </div>
+                <div className="feat-editorial-detail">
+                  <h4>Cable Management</h4>
+                  <p>Integrated routing keeps your setup clean and your focus on the music.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Feature Showcase — spotlights */}
       <section className="feat-section">
@@ -393,15 +420,32 @@ export default function FeaturesPage() {
         </div>
       </section>
 
-      {/* Highlight 3 — Musicians */}
-      <FeatureHighlight
-        icon={IconMusician}
-        heading="Built for musicians"
-        description="DreamPlay instruments are shaped by feedback from concert pianists, studio producers, and music educators around the world. Every feature — from touch sensitivity curves to pedal response — has been refined through thousands of hours of real-world performance testing."
-        image="/assets/dreamplay/carol_leone.png"
-        imageAlt="Carol Leone performing on DreamPlay piano"
-        revealRef={observe}
-      />
+      {/* Testimonial — Musicians */}
+      <section className="feat-testimonial scroll-reveal" ref={observe}>
+        <div className="container">
+          <div className="feat-testimonial-inner">
+            <div className="feat-testimonial-portrait">
+              <Image
+                src="/assets/dreamplay/carol_leone.png"
+                alt="Carol Leone"
+                fill
+                sizes="120px"
+                style={{ objectFit: "cover" }}
+              />
+            </div>
+            <span className="feat-eyebrow">Built for Musicians</span>
+            <blockquote className="feat-testimonial-quote">
+              &ldquo;Every feature — from touch sensitivity curves to pedal
+              response — has been refined through thousands of hours of
+              real-world performance testing.&rdquo;
+            </blockquote>
+            <p className="feat-testimonial-desc">
+              Shaped by feedback from concert pianists, studio producers, and
+              music educators around the world.
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Specs Banner */}
       <section className="feat-specs scroll-reveal" ref={observe}>

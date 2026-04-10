@@ -3831,6 +3831,167 @@ ul { list-style: none; }
   transform: translateY(-1px);
 }
 
+/* ── Eyebrow label ── */
+.feat-eyebrow {
+  font-size: 11px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  font-weight: 500;
+  opacity: 0.45;
+  display: block;
+}
+
+/* ── Highlight detail list ── */
+.feat-highlight-details {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+}
+.feat-highlight-details li {
+  font-size: 13px;
+  color: var(--gray);
+  padding-left: 16px;
+  position: relative;
+}
+.feat-highlight-details li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 7px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--charcoal);
+  opacity: 0.25;
+}
+
+/* ── Editorial Section ── */
+.feat-editorial {
+  padding: clamp(64px, 7vw, 120px) 0;
+  background: var(--bg);
+}
+
+.feat-editorial-inner {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: clamp(40px, 5vw, 72px);
+  align-items: start;
+}
+
+.feat-editorial-media {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  border-radius: clamp(10px, 1.2vw, 18px);
+  overflow: hidden;
+  background: #e8e5df;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+.feat-editorial-media img {
+  transition: transform 0.6s cubic-bezier(0.3, 1, 0.3, 1);
+}
+.feat-editorial:hover .feat-editorial-media img {
+  transform: scale(1.03);
+}
+
+.feat-editorial-text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: clamp(16px, 3vw, 48px);
+}
+
+.feat-editorial-heading {
+  font-size: clamp(28px, 3vw, 44px);
+  font-weight: 400;
+  font-style: italic;
+  letter-spacing: -0.5px;
+  line-height: 1.1;
+  color: var(--charcoal);
+}
+
+.feat-editorial-desc {
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--gray);
+  max-width: 440px;
+}
+
+.feat-editorial-details {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 8px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.feat-editorial-detail h4 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--charcoal);
+  margin-bottom: 4px;
+  letter-spacing: -0.2px;
+}
+
+.feat-editorial-detail p {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--gray);
+}
+
+/* ── Testimonial Section ── */
+.feat-testimonial {
+  padding: clamp(64px, 7vw, 120px) 0;
+  background: var(--white);
+}
+
+.feat-testimonial-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 24px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.feat-testimonial-portrait {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.10);
+}
+
+.feat-testimonial-quote {
+  font-size: clamp(20px, 2.2vw, 28px);
+  font-weight: 400;
+  font-style: italic;
+  line-height: 1.45;
+  letter-spacing: -0.3px;
+  color: var(--charcoal);
+  margin: 0;
+}
+
+.feat-testimonial-desc {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--gray);
+  max-width: 480px;
+}
+
+/* ── Featured grid variant ── */
+.feat-grid--featured > .feat-card:first-child {
+  grid-column: span 2;
+}
+.feat-grid--featured > .feat-card:first-child .feat-card-media {
+  aspect-ratio: 21 / 9;
+}
+
 /* ── New section responsive ── */
 @media (max-width: 1024px) {
   .feat-showcase-duo {
@@ -3846,6 +4007,19 @@ ul { list-style: none; }
   .feat-fullbleed-points {
     grid-template-columns: 1fr;
     gap: 24px;
+  }
+  .feat-editorial-inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+  .feat-editorial-text {
+    padding-top: 0;
+  }
+  .feat-editorial-media {
+    aspect-ratio: 3 / 2;
+  }
+  .feat-grid--featured > .feat-card:first-child {
+    grid-column: span 2;
   }
 }
 
@@ -3868,5 +4042,11 @@ ul { list-style: none; }
   }
   .feat-fullbleed-points {
     grid-template-columns: 1fr;
+  }
+  .feat-grid--featured > .feat-card:first-child {
+    grid-column: span 1;
+  }
+  .feat-grid--featured > .feat-card:first-child .feat-card-media {
+    aspect-ratio: 4 / 3;
   }
 }
