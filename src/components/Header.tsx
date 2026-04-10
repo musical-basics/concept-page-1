@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import NavDropdown from "./NavDropdown";
+import ShopMegamenuAB from "./ShopMegamenuAB";
 
 interface CartCountProps {
   cartCount: number;
@@ -10,6 +11,8 @@ interface CartCountProps {
 export default function Header({ cartCount }: CartCountProps) {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [shopOpen, setShopOpen] = useState(false);
+  const shopLeaveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const handleScroll = useCallback(() => {
     setScrolled(window.scrollY > 50);
@@ -24,10 +27,24 @@ export default function Header({ cartCount }: CartCountProps) {
     setMenuOpen((prev) => !prev);
   };
 
+  const openShop = useCallback(() => {
+    if (shopLeaveTimer.current) {
+      clearTimeout(shopLeaveTimer.current);
+      shopLeaveTimer.current = null;
+    }
+    setShopOpen(true);
+  }, []);
+
+  const closeShop = useCallback(() => {
+    shopLeaveTimer.current = setTimeout(() => {
+      setShopOpen(false);
+    }, 120);
+  }, []);
+
   return (
     <>
       <header
-        className={`header${scrolled ? " scrolled" : ""}`}
+        className={`header${scrolled ? " scrolled" : ""}${shopOpen ? " megamenu-active" : ""}`}
         id="header"
       >
         <div className="container">
@@ -35,7 +52,15 @@ export default function Header({ cartCount }: CartCountProps) {
             DreamPlay
           </a>
           <nav className="nav-links">
-            <a href="/shop">Shop</a>
+            <div
+              className="nav-megamenu-trigger"
+              onMouseEnter={openShop}
+              onMouseLeave={closeShop}
+            >
+              <a href="/shop" className={`nav-link${shopOpen ? " is-active" : ""}`}>
+                Shop
+              </a>
+            </div>
             <a href="#collections">Collections</a>
             <NavDropdown
               label="Features"
@@ -90,6 +115,10 @@ export default function Header({ cartCount }: CartCountProps) {
               <span></span>
             </div>
           </div>
+        </div>
+
+        <div onMouseEnter={openShop} onMouseLeave={closeShop}>
+          <ShopMegamenuAB isOpen={shopOpen} />
         </div>
       </header>
 

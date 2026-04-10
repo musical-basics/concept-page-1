@@ -75,6 +75,11 @@ ul { list-style: none; }
   border-bottom-color: var(--light-gray);
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
 }
+.header.megamenu-active {
+  background: var(--white);
+  border-bottom-color: transparent;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+}
 .header .container {
   display: flex;
   align-items: center;
