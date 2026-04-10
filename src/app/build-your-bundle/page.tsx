@@ -545,29 +545,33 @@ export default function BuildYourBundlePage() {
                     className="byb-preset-img"
                   />
                   <div className="byb-preset-content">
-                    <span className="byb-preset-save-badge">
-                      Save ${saving.toLocaleString()}
-                    </span>
-                    <h3 className="byb-preset-name">{preset.label}</h3>
-                    <ul className="byb-preset-items">
-                      {preset.items.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                    <div className="byb-preset-pricing">
-                      <span className="byb-preset-original">
-                        ${preset.originalTotal.toLocaleString()}
+                    <div>
+                      <span className="byb-preset-save-badge">
+                        Save ${saving.toLocaleString()}
                       </span>
-                      <span className="byb-preset-bundle">
-                        ${preset.bundlePrice.toLocaleString()}
-                      </span>
+                      <h3 className="byb-preset-name">{preset.label}</h3>
+                      <ul className="byb-preset-items">
+                        {preset.items.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
                     </div>
-                    <button
-                      className="byb-preset-load-btn"
-                      onClick={() => applyPreset(preset.ids)}
-                    >
-                      Load this bundle
-                    </button>
+                    <div className="byb-preset-meta">
+                      <div className="byb-preset-pricing">
+                        <span className="byb-preset-original">
+                          ${preset.originalTotal.toLocaleString()}
+                        </span>
+                        <span className="byb-preset-bundle">
+                          ${preset.bundlePrice.toLocaleString()}
+                        </span>
+                      </div>
+                      <button
+                        className="byb-preset-load-btn"
+                        onClick={() => applyPreset(preset.ids)}
+                      >
+                        Load this bundle
+                      </button>
+                    </div>
                   </div>
                 </div>
               );
