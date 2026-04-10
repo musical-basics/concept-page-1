@@ -27,7 +27,7 @@ export default function CollectionsMegamenu({ onOpenChange }: CollectionsMegamen
   const close = useCallback(() => {
     leaveTimer.current = setTimeout(() => {
       setIsOpen(false);
-    }, 80);
+    }, 120);
   }, []);
 
   const primaryCollections = FEATURED_COLLECTION_SLUGS.map(
