@@ -14,10 +14,22 @@ export default function CollectionsPage() {
       <AnnouncementBar />
       <Header cartCount={0} />
 
-      {/* Page Title */}
-      <section className="collections-title-section">
-        <div className="container">
-          <h1 className="collections-heading">Collections</h1>
+      {/* Collections Banner */}
+      <section className="collections-hero">
+        <div className="collections-hero-overlay">
+          <div className="container collections-hero-content">
+            <nav className="collections-breadcrumb" aria-label="Breadcrumb">
+              <Link href="/">Home</Link>
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polyline points="9 18 15 12 9 6" />
+              </svg>
+              <span>Collections</span>
+            </nav>
+            <h1>Collections</h1>
+            <p className="collections-hero-sub">
+              Explore DreamPlay&rsquo;s full range of concert grands, studio uprights, and digital instruments.
+            </p>
+          </div>
         </div>
       </section>
 
