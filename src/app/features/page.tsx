@@ -289,12 +289,6 @@ const IconMusician = (
   </svg>
 );
 
-const IconCraft = (
-  <svg width="48" height="48" viewBox="0 0 48 48" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M24 4l6 12 13 2-9.5 9 2.5 13L24 34l-12 6 2.5-13L5 18l13-2z" />
-  </svg>
-);
-
 /* ── Page ── */
 
 export default function FeaturesPage() {
@@ -368,12 +362,32 @@ export default function FeaturesPage() {
         revealRef={observe}
       />
 
-      {/* Detail Features 2 — 6 cards */}
+      {/* Feature Showcase — spotlights */}
       <section className="feat-section">
         <div className="container">
-          <div className="feat-grid feat-grid--3">
-            {DETAIL_FEATURES_2.map((f, i) => (
-              <FeatureCard key={f.title} feature={f} revealRef={observe} delay={(i % 3) * 100} />
+          <h2 className="feat-section-heading scroll-reveal">Technology &amp; Connectivity</h2>
+          <div className="feat-showcase-duo">
+            {DETAIL_FEATURES_2.slice(0, 2).map((f, i) => (
+              <div key={f.title} className="feat-showcase-card scroll-reveal" style={{ transitionDelay: `${i * 120}ms` } as React.CSSProperties}>
+                <div className="feat-showcase-media">
+                  <Image src={f.image} alt={f.title} fill sizes="(max-width: 768px) 100vw, 50vw" style={{ objectFit: "cover" }} />
+                </div>
+                <div className="feat-showcase-content">
+                  <h3>{f.title}</h3>
+                  <p>{f.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Compact feature strip */}
+      <section className="feat-section feat-section--warm">
+        <div className="container">
+          <div className="feat-grid feat-grid--4">
+            {DETAIL_FEATURES_2.slice(2).map((f, i) => (
+              <FeatureCard key={f.title} feature={f} revealRef={observe} delay={(i % 4) * 80} />
             ))}
           </div>
         </div>
@@ -389,27 +403,64 @@ export default function FeaturesPage() {
         revealRef={observe}
       />
 
-      {/* Closing Features — 3 cards */}
-      <section className="feat-section">
+      {/* Specs Banner */}
+      <section className="feat-specs scroll-reveal" ref={observe}>
         <div className="container">
-          <div className="feat-grid feat-grid--3">
-            {CLOSING_FEATURES.map((f, i) => (
-              <FeatureCard key={f.title} feature={f} revealRef={observe} delay={i * 100} />
+          <div className="feat-specs-grid">
+            {[
+              { number: "12", label: "Velocity Layers" },
+              { number: "88", label: "Weighted Keys" },
+              { number: "47", label: "Quality Checks" },
+              { number: "5yr", label: "Warranty" },
+            ].map((s) => (
+              <div key={s.label} className="feat-spec-item">
+                <span className="feat-spec-number">{s.number}</span>
+                <span className="feat-spec-label">{s.label}</span>
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Highlight 4 — Craftsmanship */}
-      <FeatureHighlight
-        icon={IconCraft}
-        heading="Craftsmanship you can feel"
-        description="Every DreamPlay instrument passes through 47 quality checkpoints before leaving our workshop. Hand-finished surfaces, precision-weighted keys, and meticulously tuned audio circuits ensure an instrument that performs as beautifully on day one thousand as it does on day one."
-        image="/assets/factory-keys.jpg"
-        imageAlt="DreamPlay factory keyboard assembly"
-        reverse
-        revealRef={observe}
-      />
+      {/* Craftsmanship Showcase — full-bleed */}
+      <section className="feat-fullbleed scroll-reveal" ref={observe}>
+        <div
+          className="feat-fullbleed-bg"
+          style={{ backgroundImage: "url('/assets/factory-keys.jpg')" }}
+        />
+        <div className="feat-fullbleed-overlay">
+          <div className="container">
+            <div className="feat-fullbleed-content">
+              <h2 className="feat-fullbleed-heading">Craftsmanship you can feel</h2>
+              <p className="feat-fullbleed-desc">
+                Every DreamPlay instrument passes through 47 quality checkpoints
+                before leaving our workshop.
+              </p>
+            </div>
+            <div className="feat-fullbleed-points">
+              {CLOSING_FEATURES.map((f) => (
+                <div key={f.title} className="feat-fullbleed-point">
+                  <h3>{f.title}</h3>
+                  <p>{f.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Closing CTA */}
+      <section className="feat-cta scroll-reveal" ref={observe}>
+        <div className="container feat-cta-inner">
+          <h2 className="feat-cta-heading">Experience DreamPlay</h2>
+          <p className="feat-cta-desc">
+            Discover an instrument crafted for every stage of your musical journey.
+          </p>
+          <Link href="/shop" className="feat-cta-btn">
+            Shop the Collection
+          </Link>
+        </div>
+      </section>
 
       <Footer />
       <BackToTop />
