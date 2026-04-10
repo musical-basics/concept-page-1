@@ -69,18 +69,21 @@ export default function Header({ cartCount }: CartCountProps) {
               </Link>
             </div>
             <CollectionsMegamenu onOpenChange={setCollectionsOpen} />
-            <Link href="/features" className={pathname === "/features" ? "is-active" : ""}>Features</Link>
+            <NavDropdown
+              label="Features"
+              items={[
+                { text: "Features", href: "/features" },
+                { text: "Piano Guides", href: "/resources/piano-guides" },
+                { text: "Comparison Charts", href: "/resources/comparisons" },
+              ]}
+            />
             <NavDropdown
               label="Resources"
               items={[
-                { text: "Piano Guides", href: "/resources/piano-guides" },
-                { text: "Comparison Charts", href: "/resources/comparisons" },
-                { text: "FAQs", href: "/resources/faqs" },
-                {
-                  text: "Documentation",
-                  href: "/help/docs",
-                  isExternal: true,
-                },
+                { text: "Our Story", href: "/our-story" },
+                { text: "Our Journal", href: "/journal" },
+                { text: "FAQ", href: "/faq" },
+                { text: "Build Your Bundle", href: "/build-your-bundle" },
               ]}
             />
             <Link href="/about" className={pathname === "/about" ? "is-active" : ""}>About</Link>
