@@ -21,7 +21,7 @@ export default function ShopHero() {
             >
               <polyline points="9 18 15 12 9 6" />
             </svg>
-            <Link href="/shop">Collections</Link>
+            <Link href="/collections">Collections</Link>
             <svg
               className="breadcrumb-chevron"
               width="12"

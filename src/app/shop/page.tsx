@@ -209,8 +209,8 @@ export default function ShopPage() {
         <div className="euphony-bg">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="https://picsum.photos/seed/euphony-piano/1600/800"
-            alt="Live performance"
+            src="/assets/dreamplay/starred/gold-ds-6.jpg"
+            alt="DreamPlay Gold DS 6.0"
           />
         </div>
         <div className="euphony-overlay">
