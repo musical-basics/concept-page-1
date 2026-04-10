@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useCallback, useRef, useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import AnnouncementBar from "@/components/AnnouncementBar";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -10,12 +10,14 @@ import type { Product, SortOption } from "./_lib/shop-types";
 import {
   PRODUCTS,
   CATEGORIES,
-  FINISHES,
   PRICE_RANGES,
-  SORT_OPTIONS,
   ITEMS_PER_PAGE,
 } from "./_lib/shop-constants";
-import { EyeIcon, FilterIcon, HomeIcon } from "./_components/icons";
+import ShopHero from "./_components/ShopHero";
+import ShopToolbar from "./_components/ShopToolbar";
+import ProductCard from "./_components/ProductCard";
+import ShopPagination from "./_components/ShopPagination";
+import RecentlyViewed from "./_components/RecentlyViewed";
 import { QuickBuyDrawer } from "./_components/QuickBuyDrawer";
 
 /* ─── Shop Page ─── */
@@ -38,7 +40,6 @@ export default function ShopPage() {
 
   /* Recently Viewed */
   const [recentlyViewed, setRecentlyViewed] = useState<Product[]>([]);
-  const recentRef = useRef<HTMLDivElement>(null);
 
   /* Active color per card */
   const [activeColors, setActiveColors] = useState<Record<number, number>>({});
@@ -54,15 +55,6 @@ export default function ShopPage() {
       const without = prev.filter((p) => p.id !== product.id);
       return [product, ...without].slice(0, 8);
     });
-  };
-
-  /* Toggle helpers */
-  const toggle = (
-    arr: string[],
-    val: string,
-    setter: React.Dispatch<React.SetStateAction<string[]>>
-  ) => {
-    setter(arr.includes(val) ? arr.filter((v) => v !== val) : [...arr, val]);
   };
 
   /* Category counts */
@@ -156,144 +148,29 @@ export default function ShopPage() {
       <AnnouncementBar />
       <Header cartCount={cartCount} />
 
-      {/* ── Collection Banner (Hero) with breadcrumbs overlay ── */}
-      <section className="shop-hero">
-        <div className="shop-hero-overlay">
-          <div className="shop-hero-content container">
-            <nav className="shop-breadcrumb" aria-label="Breadcrumb">
-              <Link href="/"><HomeIcon /></Link>
-              <svg className="breadcrumb-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6" /></svg>
-              <Link href="/shop">Collections</Link>
-              <svg className="breadcrumb-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6" /></svg>
-              <span>All products</span>
-            </nav>
-            <h1>All products</h1>
-          </div>
-        </div>
-      </section>
+      <ShopHero />
 
-      {/* ── Main shop section ── */}
       <section className="shop-section">
         <div className="container">
-          {/* Toolbar */}
-          <div className="shop-toolbar">
-            <div className="shop-toolbar-left">
-              <button
-                className={`shop-filter-toggle${filtersOpen ? " active" : ""}`}
-                onClick={() => setFiltersOpen(!filtersOpen)}
-              >
-                <FilterIcon />
-                <span>Show filters</span>
-                {activeFilterCount > 0 && (
-                  <span className="filter-count">{activeFilterCount}</span>
-                )}
-              </button>
+          <ShopToolbar
+            filtersOpen={filtersOpen}
+            setFiltersOpen={setFiltersOpen}
+            activeFilterCount={activeFilterCount}
+            selectedCategories={selectedCategories}
+            setSelectedCategories={setSelectedCategories}
+            selectedFinishes={selectedFinishes}
+            setSelectedFinishes={setSelectedFinishes}
+            selectedPriceRange={selectedPriceRange}
+            setSelectedPriceRange={setSelectedPriceRange}
+            sortBy={sortBy}
+            setSortBy={setSortBy}
+            filteredCount={filtered.length}
+            categoryCounts={categoryCounts}
+            selectCategory={selectCategory}
+            activeFilterPills={activeFilterPills}
+            onClearFilters={clearFilters}
+          />
 
-              {/* Category quick-link pills */}
-              {CATEGORIES.map((cat) => (
-                <button
-                  key={cat}
-                  className={`shop-category-pill${selectedCategories.length === 1 && selectedCategories[0] === cat ? " active" : ""}`}
-                  onClick={() => selectCategory(cat)}
-                >
-                  {cat}<sup>{categoryCounts[cat]}</sup>
-                </button>
-              ))}
-
-              {/* Show on model placeholder */}
-              <button className="shop-model-btn">
-                Show on model
-              </button>
-            </div>
-
-            <div className="shop-toolbar-right">
-              <div className="shop-sort">
-                <select
-                  id="shop-sort-sel"
-                  value={sortBy}
-                  onChange={(e) => setSortBy(e.target.value as SortOption)}
-                >
-                  {SORT_OPTIONS.map((opt) => (
-                    <option key={opt.value} value={opt.value}>
-                      {opt.label}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              <p className="shop-result-count">
-                {filtered.length} product{filtered.length !== 1 ? "s" : ""}
-              </p>
-            </div>
-          </div>
-
-          {/* ── Horizontal Filter Panel (dropdown) ── */}
-          <div className={`shop-filter-panel${filtersOpen ? " open" : ""}`}>
-            <div className="shop-filter-panel-inner">
-              <div className="shop-filter-group">
-                <h4>Category</h4>
-                {CATEGORIES.map((c) => (
-                  <label key={c} className="shop-filter-check">
-                    <input
-                      type="checkbox"
-                      checked={selectedCategories.includes(c)}
-                      onChange={() => toggle(selectedCategories, c, setSelectedCategories)}
-                    />
-                    <span>{c}</span>
-                    <span className="shop-filter-count">
-                      {PRODUCTS.filter((p) => p.category === c).length}
-                    </span>
-                  </label>
-                ))}
-              </div>
-
-              <div className="shop-filter-group">
-                <h4>Finish</h4>
-                {FINISHES.map((f) => (
-                  <label key={f} className="shop-filter-check">
-                    <input
-                      type="checkbox"
-                      checked={selectedFinishes.includes(f)}
-                      onChange={() => toggle(selectedFinishes, f, setSelectedFinishes)}
-                    />
-                    <span>{f}</span>
-                    <span className="shop-filter-count">
-                      {PRODUCTS.filter((p) => p.finish === f).length}
-                    </span>
-                  </label>
-                ))}
-              </div>
-
-              <div className="shop-filter-group">
-                <h4>Price Range</h4>
-                {PRICE_RANGES.map((r, i) => (
-                  <label key={r.label} className="shop-filter-check">
-                    <input
-                      type="radio"
-                      name="priceRange"
-                      checked={selectedPriceRange === i}
-                      onChange={() => setSelectedPriceRange(selectedPriceRange === i ? null : i)}
-                    />
-                    <span>{r.label}</span>
-                  </label>
-                ))}
-              </div>
-            </div>
-
-            {/* Active filter pills */}
-            {activeFilterPills.length > 0 && (
-              <div className="shop-active-filters">
-                {activeFilterPills.map((pill) => (
-                  <button key={pill.label} className="shop-filter-pill" onClick={pill.onRemove}>
-                    {pill.label}
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 6L6 18M6 6l12 12" /></svg>
-                  </button>
-                ))}
-                <button className="shop-clear-all" onClick={clearFilters}>Clear all</button>
-              </div>
-            )}
-          </div>
-
-          {/* ── Product Grid ── */}
           {filtered.length === 0 ? (
             <div className="shop-empty">
               <p>No products match your filters.</p>
@@ -305,122 +182,29 @@ export default function ShopPage() {
             <>
               <div className="shop-product-grid">
                 {paginatedProducts.map((product) => (
-                  <div className="shop-card" key={product.id}>
-                    <div className="shop-card-image">
-                      {/* Badges */}
-                      {product.badge === "lionels-pick" && (
-                        <span className="product-badge lionels-pick">
-                          Lionel&apos;s Pick
-                        </span>
-                      )}
-                      {product.badge === "sale" && (
-                        <span className="product-badge sale">Sale</span>
-                      )}
-                      {product.badge === "new" && (
-                        <span className="product-badge new-badge">New</span>
-                      )}
-
-                      {/* Image swap on hover */}
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="shop-img-primary"
-                      />
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
-                        src={product.hoverImage}
-                        alt={`${product.name} detail`}
-                        className="shop-img-hover"
-                      />
-
-                      {/* Quick View eye icon — top-right on hover */}
-                      <button
-                        className="quick-view-btn"
-                        onClick={() => openQuickView(product)}
-                        aria-label={`Quick view ${product.name}`}
-                      >
-                        <EyeIcon />
-                      </button>
-                    </div>
-
-                    <div className="shop-card-info">
-                      <p className="shop-card-vendor">DREAMPLAY</p>
-                      <div className="shop-card-title-row">
-                        <h3>{product.name}</h3>
-                        <p className="price">
-                          {product.comparePrice && (
-                            <>
-                              <s>${product.comparePrice.toLocaleString()}</s>
-                              <span className="sale-price">
-                                ${product.price.toLocaleString()}
-                              </span>
-                            </>
-                          )}
-                          {!product.comparePrice &&
-                            `$${product.price.toLocaleString()}`}
-                        </p>
-                      </div>
-                      {/* Color swatches */}
-                      {product.colors.length > 0 && (
-                        <div className="shop-card-swatches">
-                          {product.colors.map((color, i) => (
-                            <button
-                              key={i}
-                              className={`shop-swatch${(activeColors[product.id] ?? 0) === i ? " active" : ""}`}
-                              style={{ background: color }}
-                              onClick={() =>
-                                setActiveColors((prev) => ({ ...prev, [product.id]: i }))
-                              }
-                              aria-label={`Color variant ${i + 1}`}
-                            />
-                          ))}
-                        </div>
-                      )}
-                      {product.stock <= 5 && (
-                        <p className="shop-stock-label">
-                          Only {product.stock} left
-                        </p>
-                      )}
-                    </div>
-                  </div>
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    activeColorIndex={activeColors[product.id] ?? 0}
+                    onColorChange={(id, i) =>
+                      setActiveColors((prev) => ({ ...prev, [id]: i }))
+                    }
+                    onQuickView={openQuickView}
+                  />
                 ))}
               </div>
 
-              {/* ── Pagination ── */}
-              {totalPages > 1 && (
-                <nav className="shop-pagination" aria-label="Pagination">
-                  {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                    <button
-                      key={page}
-                      className={`shop-page-btn${activePage === page ? " active" : ""}`}
-                      onClick={() => {
-                        setCurrentPage(page);
-                        window.scrollTo({ top: 0, behavior: "smooth" });
-                      }}
-                    >
-                      {page}
-                    </button>
-                  ))}
-                  {activePage < totalPages && (
-                    <button
-                      className="shop-page-btn shop-page-next"
-                      onClick={() => {
-                        setCurrentPage((p) => Math.min(p + 1, totalPages));
-                        window.scrollTo({ top: 0, behavior: "smooth" });
-                      }}
-                    >
-                      Next &rarr;
-                    </button>
-                  )}
-                </nav>
-              )}
+              <ShopPagination
+                totalPages={totalPages}
+                activePage={activePage}
+                onPageChange={setCurrentPage}
+              />
             </>
           )}
         </div>
       </section>
 
-      {/* ── Discover Pure Euphony ── */}
+      {/* Discover Pure Euphony */}
       <section className="euphony-section">
         <div className="euphony-bg">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -457,33 +241,14 @@ export default function ShopPage() {
         </div>
       </section>
 
-      {/* ── Recently Viewed ── */}
-      {recentlyViewed.length > 0 && (
-        <section className="shop-recent-section">
-          <div className="container">
-            <h2 className="section-heading">Recently Viewed</h2>
-            <div className="shop-recent-scroller" ref={recentRef}>
-              {recentlyViewed.map((p) => (
-                <div
-                  className="shop-recent-card"
-                  key={p.id}
-                  onClick={() => openQuickView(p)}
-                >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.image} alt={p.name} />
-                  <h4>{p.name}</h4>
-                  <p>${p.price.toLocaleString()}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-      )}
+      <RecentlyViewed
+        products={recentlyViewed}
+        onOpenQuickView={openQuickView}
+      />
 
       <Footer />
       <BackToTop />
 
-      {/* Quick View Drawer */}
       <QuickBuyDrawer
         key={`${drawerProduct?.id ?? "none"}-${drawerOpen ? "open" : "closed"}`}
         product={drawerProduct}
