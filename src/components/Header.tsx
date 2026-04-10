@@ -66,15 +66,7 @@ export default function Header({ cartCount }: CartCountProps) {
               </a>
             </div>
             <CollectionsMegamenu onOpenChange={setCollectionsOpen} />
-            <NavDropdown
-              label="Features"
-              items={[
-                { text: "Grand 6", href: "/piano/grand-6" },
-                { text: "Digital Piano", href: "/piano/digital-piano" },
-                { text: "Upright 4", href: "/piano/upright-4" },
-                { text: "Digital 5", href: "/piano/digital-5" },
-              ]}
-            />
+            <a href="/features">Features</a>
             <NavDropdown
               label="Resources"
               items={[
@@ -135,7 +127,7 @@ export default function Header({ cartCount }: CartCountProps) {
       <div className={`mobile-menu${menuOpen ? " open" : ""}`} id="mobileMenu">
         <a href="/shop" onClick={toggleMenu}>Shop</a>
         <a href="/collections" onClick={toggleMenu}>Collections</a>
-        <a href="#features" onClick={toggleMenu}>Features</a>
+        <a href="/features" onClick={toggleMenu}>Features</a>
         <a href="#resources" onClick={toggleMenu}>Resources</a>
         <a href="/about" onClick={toggleMenu}>About</a>
         <a href="/contact" onClick={toggleMenu}>Contact</a>
