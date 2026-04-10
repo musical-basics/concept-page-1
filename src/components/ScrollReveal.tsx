@@ -85,12 +85,14 @@ export default function ScrollReveal({
   // We type the ref as HTMLDivElement for the common case; for other tag types
   // the underlying DOM element still conforms to HTMLElement for IO purposes.
   const ref = useRef<HTMLDivElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  });
 
   useEffect(() => {
     // Respect the user's motion preference — skip all transforms/fades.
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      setIsVisible(true);
       return;
     }
 

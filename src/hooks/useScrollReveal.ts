@@ -23,13 +23,15 @@ export function useScrollReveal(
   rootMargin: string = IO_OPTIONS.rootMargin
 ) {
   const ref = useRef<HTMLElement | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  });
 
   useEffect(() => {
     // Skip animations when the user prefers reduced motion.
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (mq.matches) {
-      setIsVisible(true);
       return;
     }
 
