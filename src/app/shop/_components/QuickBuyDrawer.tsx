@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import type { Product } from "../_lib/shop-types";
 
 export function QuickBuyDrawer({
@@ -17,16 +17,25 @@ export function QuickBuyDrawer({
   const [qty, setQty] = useState(1);
   const [selectedColor, setSelectedColor] = useState(0);
 
+  const handleEsc = useCallback(
+    (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    },
+    [onClose]
+  );
+
   useEffect(() => {
     if (open) {
       document.body.style.overflow = "hidden";
+      document.addEventListener("keydown", handleEsc);
     } else {
       document.body.style.overflow = "";
     }
     return () => {
       document.body.style.overflow = "";
+      document.removeEventListener("keydown", handleEsc);
     };
-  }, [open]);
+  }, [open, handleEsc]);
 
   if (!product) return null;
 

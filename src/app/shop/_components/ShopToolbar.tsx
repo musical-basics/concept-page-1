@@ -95,6 +95,9 @@ export default function ShopToolbar({
 
         <div className="shop-toolbar-right">
           <div className="shop-sort">
+            <label htmlFor="shop-sort-sel" className="shop-sort-label">
+              Sort by:
+            </label>
             <select
               id="shop-sort-sel"
               value={sortBy}
