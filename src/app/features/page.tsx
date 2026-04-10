@@ -433,6 +433,7 @@ export default function FeaturesPage() {
                 style={{ objectFit: "cover" }}
               />
             </div>
+            <div className="feat-testimonial-separator" />
             <span className="feat-eyebrow">Built for Musicians</span>
             <blockquote className="feat-testimonial-quote">
               &ldquo;Every feature — from touch sensitivity curves to pedal
