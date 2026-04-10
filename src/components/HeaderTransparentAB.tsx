@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
-import NavDropdown from "./NavDropdown";
+import NavDropdownAB from "./NavDropdownAB";
 
 interface Props {
   cartCount: number;
@@ -35,7 +35,7 @@ export default function HeaderTransparentAB({ cartCount }: Props) {
           <nav className="nav-links">
             <a href="/shop">Shop</a>
             <a href="#collections">Collections</a>
-            <NavDropdown
+            <NavDropdownAB
               label="Features"
               items={[
                 { text: "Grand 6", href: "/piano/grand-6" },
@@ -44,7 +44,7 @@ export default function HeaderTransparentAB({ cartCount }: Props) {
                 { text: "Digital 5", href: "/piano/digital-5" },
               ]}
             />
-            <NavDropdown
+            <NavDropdownAB
               label="Resources"
               items={[
                 { text: "Piano Guides", href: "/resources/piano-guides" },
@@ -90,12 +90,24 @@ export default function HeaderTransparentAB({ cartCount }: Props) {
       </header>
 
       <div className={`mobile-menu${menuOpen ? " open" : ""}`} id="mobileMenu">
-        <a href="/shop" onClick={toggleMenu}>Shop</a>
-        <a href="#collections" onClick={toggleMenu}>Collections</a>
-        <a href="#features" onClick={toggleMenu}>Features</a>
-        <a href="#resources" onClick={toggleMenu}>Resources</a>
-        <a href="/about" onClick={toggleMenu}>About</a>
-        <a href="/contact" onClick={toggleMenu}>Contact</a>
+        <a href="/shop" onClick={toggleMenu}>
+          Shop
+        </a>
+        <a href="#collections" onClick={toggleMenu}>
+          Collections
+        </a>
+        <a href="#features" onClick={toggleMenu}>
+          Features
+        </a>
+        <a href="#resources" onClick={toggleMenu}>
+          Resources
+        </a>
+        <a href="/about" onClick={toggleMenu}>
+          About
+        </a>
+        <a href="/contact" onClick={toggleMenu}>
+          Contact
+        </a>
       </div>
     </>
   );
