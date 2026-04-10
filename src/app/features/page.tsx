@@ -13,16 +13,25 @@ import BackToTop from "@/components/BackToTop";
 function useScrollReveal() {
   const observerRef = useRef<IntersectionObserver | null>(null);
 
-  const observe = useCallback((el: HTMLElement | null) => {
-    if (!el || !observerRef.current) return;
-    observerRef.current.observe(el);
+  const observe = useCallback(() => {
+    // Elements are observed centrally after mount.
   }, []);
 
   useEffect(() => {
-    // Respect prefers-reduced-motion
     const prefersReduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches;
+
+    const revealAll = () => {
+      document
+        .querySelectorAll(".scroll-reveal")
+        .forEach((el) => el.classList.add("revealed"));
+    };
+
+    if (prefersReduced) {
+      revealAll();
+      return;
+    }
 
     observerRef.current = new IntersectionObserver(
       (entries) => {
@@ -33,15 +42,14 @@ function useScrollReveal() {
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
     );
 
-    // If reduced motion, reveal everything immediately
-    if (prefersReduced) {
-      document
-        .querySelectorAll(".scroll-reveal")
-        .forEach((el) => el.classList.add("revealed"));
-    }
+    requestAnimationFrame(() => {
+      document.querySelectorAll(".scroll-reveal").forEach((el) => {
+        observerRef.current?.observe(el);
+      });
+    });
 
     return () => observerRef.current?.disconnect();
   }, []);

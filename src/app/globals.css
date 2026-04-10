@@ -153,9 +153,11 @@ ul { list-style: none; }
 .nav-links > a:hover::after,
 .nav-links > .nav-dropdown > .nav-link:hover::after,
 .nav-links > .nav-megamenu-trigger > .nav-link:hover::after,
+.nav-links > a.is-active::after,
 .nav-links > .nav-dropdown.is-active > .nav-link::after,
 .nav-links > .nav-megamenu-trigger > .nav-link.is-active::after { width: 100%; }
 
+.nav-links > a.is-active,
 .nav-links > .nav-dropdown.is-active > .nav-link,
 .nav-links > .nav-megamenu-trigger > .nav-link.is-active {
   color: var(--charcoal);
@@ -3382,6 +3384,11 @@ ul { list-style: none; }
   display: flex;
   flex-direction: column;
   gap: 20px;
+  transition: transform 0.45s cubic-bezier(0.3, 1, 0.3, 1),
+              box-shadow 0.45s cubic-bezier(0.3, 1, 0.3, 1);
+}
+.feat-card:hover {
+  transform: translateY(-3px);
 }
 
 .feat-card-media {
@@ -3391,6 +3398,27 @@ ul { list-style: none; }
   overflow: hidden;
   background: #f0ede8;
   border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.4s ease,
+              box-shadow 0.45s cubic-bezier(0.3, 1, 0.3, 1);
+}
+.feat-card:hover .feat-card-media {
+  border-color: rgba(0, 0, 0, 0.10);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+/* Subtle dark overlay on hover for depth */
+.feat-card-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.4s ease;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+}
+.feat-card:hover .feat-card-media::after {
+  background: rgba(0, 0, 0, 0.03);
 }
 .feat-card-media img {
   transition: transform 0.5s cubic-bezier(0.3, 1, 0.3, 1);
@@ -3411,6 +3439,10 @@ ul { list-style: none; }
   letter-spacing: -0.3px;
   line-height: 1.25;
   color: var(--charcoal);
+  transition: color 0.3s ease;
+}
+.feat-card:hover .feat-card-title {
+  color: var(--black, #000);
 }
 
 .feat-card-desc {
@@ -3478,6 +3510,25 @@ ul { list-style: none; }
   border-radius: clamp(8px, 1vw, 14px);
   overflow: hidden;
   background: #e8e5df;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.45s cubic-bezier(0.3, 1, 0.3, 1);
+}
+.feat-highlight:hover .feat-highlight-media {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.10);
+}
+/* Subtle overlay on hover */
+.feat-highlight-media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.4s ease;
+  z-index: 1;
+  pointer-events: none;
+  border-radius: inherit;
+}
+.feat-highlight:hover .feat-highlight-media::after {
+  background: rgba(0, 0, 0, 0.03);
 }
 .feat-highlight-media img {
   transition: transform 0.5s cubic-bezier(0.3, 1, 0.3, 1);

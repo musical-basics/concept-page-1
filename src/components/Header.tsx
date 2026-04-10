@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
+import { usePathname } from "next/navigation";
+import Link from "next/link";
 import NavDropdown from "./NavDropdown";
 import ShopMegamenuAB from "./ShopMegamenuAB";
 import CollectionsMegamenu from "./CollectionsMegamenu";
@@ -44,6 +46,7 @@ export default function Header({ cartCount }: CartCountProps) {
   }, []);
 
   const megamenuOpen = shopOpen || collectionsOpen;
+  const pathname = usePathname();
 
   return (
     <>
@@ -52,21 +55,21 @@ export default function Header({ cartCount }: CartCountProps) {
         id="header"
       >
         <div className="container">
-          <a href="/" className="logo">
+          <Link href="/" className="logo">
             DreamPlay
-          </a>
+          </Link>
           <nav className="nav-links">
             <div
               className="nav-megamenu-trigger"
               onMouseEnter={openShop}
               onMouseLeave={closeShop}
             >
-              <a href="/shop" className={`nav-link${shopOpen ? " is-active" : ""}`}>
+              <Link href="/shop" className={`nav-link${shopOpen || pathname === "/shop" ? " is-active" : ""}`}>
                 Shop
-              </a>
+              </Link>
             </div>
             <CollectionsMegamenu onOpenChange={setCollectionsOpen} />
-            <a href="/features">Features</a>
+            <Link href="/features" className={pathname === "/features" ? "is-active" : ""}>Features</Link>
             <NavDropdown
               label="Resources"
               items={[
@@ -80,8 +83,8 @@ export default function Header({ cartCount }: CartCountProps) {
                 },
               ]}
             />
-            <a href="/about">About</a>
-            <a href="/contact">Contact</a>
+            <Link href="/about" className={pathname === "/about" ? "is-active" : ""}>About</Link>
+            <Link href="/contact" className={pathname === "/contact" ? "is-active" : ""}>Contact</Link>
           </nav>
           <div className="header-actions">
             <button className="search-btn">&#128269;</button>
@@ -125,12 +128,12 @@ export default function Header({ cartCount }: CartCountProps) {
         onClick={toggleMenu}
       />
       <div className={`mobile-menu${menuOpen ? " open" : ""}`} id="mobileMenu">
-        <a href="/shop" onClick={toggleMenu}>Shop</a>
-        <a href="/collections" onClick={toggleMenu}>Collections</a>
-        <a href="/features" onClick={toggleMenu}>Features</a>
+        <Link href="/shop" onClick={toggleMenu}>Shop</Link>
+        <Link href="/collections" onClick={toggleMenu}>Collections</Link>
+        <Link href="/features" onClick={toggleMenu}>Features</Link>
         <a href="#resources" onClick={toggleMenu}>Resources</a>
-        <a href="/about" onClick={toggleMenu}>About</a>
-        <a href="/contact" onClick={toggleMenu}>Contact</a>
+        <Link href="/about" onClick={toggleMenu}>About</Link>
+        <Link href="/contact" onClick={toggleMenu}>Contact</Link>
       </div>
     </>
   );
