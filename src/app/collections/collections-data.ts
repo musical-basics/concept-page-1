@@ -18,53 +18,53 @@ export const COLLECTIONS: CollectionMeta[] = [
     name: "All Products",
     description: "Browse the complete DreamPlay piano collection.",
     productCount: PRODUCTS.length,
-    image: "https://picsum.photos/seed/coll-all/800/600",
+    image: "/assets/dreamplay/starred/dreamplay-hero-2-4.jpg",
   },
   {
     slug: "grand",
     name: "Grand Pianos",
     description:
-      "Concert and salon grands crafted for uncompromising tone and projection.",
+      "Concert-inspired silhouettes and statement finishes for premium spaces.",
     productCount: countByCategory("Grand"),
-    image: "https://picsum.photos/seed/coll-grand/800/600",
+    image: "/assets/dreamplay/starred/gold-ds-6.0-full.png",
   },
   {
     slug: "upright",
     name: "Upright Pianos",
     description:
-      "Space-efficient uprights with rich acoustic character for home and studio.",
+      "Clean studio-ready forms designed to fit beautifully into modern rooms.",
     productCount: countByCategory("Upright"),
-    image: "https://picsum.photos/seed/coll-upright/800/600",
+    image: "/assets/dreamplay/starred/piano-front-2.jpg",
   },
   {
     slug: "digital",
     name: "Digital Pianos",
     description:
-      "Advanced digital instruments with authentic touch and modern connectivity.",
+      "Interactive instruments with light-guided keys, apps, and modern connectivity.",
     productCount: countByCategory("Digital"),
-    image: "https://picsum.photos/seed/coll-digital/800/600",
+    image: "/assets/dreamplay/starred/dreamplay-piano-with-midi-app-copy.png",
   },
   {
     slug: "new-arrivals",
     name: "New Arrivals",
-    description: "The latest additions to the DreamPlay lineup.",
+    description: "The newest DreamPlay releases and latest product drops.",
     productCount: PRODUCTS.filter((p) => p.badge === "new").length,
-    image: "https://picsum.photos/seed/coll-new/800/600",
+    image: "/assets/dreamplay/starred/1775208361276_0_3714669420931421.jpg",
   },
   {
     slug: "on-sale",
     name: "On Sale",
-    description: "Premium instruments at exceptional value.",
+    description: "Bundles and special-value offers on our most giftable setups.",
     productCount: PRODUCTS.filter((p) => p.badge === "sale").length,
-    image: "https://picsum.photos/seed/coll-sale/800/600",
+    image: "/assets/dreamplay/starred/piano-bench-frontal-bundle.png",
   },
   {
     slug: "lionels-picks",
     name: "Lionel's Picks",
     description:
-      "Hand-selected favorites from our founder for discerning players.",
+      "A founder-led shortlist of DreamPlay favorites chosen for feel and finish.",
     productCount: PRODUCTS.filter((p) => p.badge === "lionels-pick").length,
-    image: "https://picsum.photos/seed/coll-picks/800/600",
+    image: "/assets/dreamplay/starred/gold-ds-6.jpg",
   },
 ];
 

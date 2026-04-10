@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import NavDropdown from "./NavDropdown";
 import ShopMegamenuAB from "./ShopMegamenuAB";
+import CollectionsMegamenu from "./CollectionsMegamenu";
 
 interface CartCountProps {
   cartCount: number;
@@ -61,18 +62,7 @@ export default function Header({ cartCount }: CartCountProps) {
                 Shop
               </a>
             </div>
-            <NavDropdown
-              label="Collections"
-              items={[
-                { text: "All Products", href: "/shop" },
-                { text: "Grand Pianos", href: "/shop?category=Grand" },
-                { text: "Upright Pianos", href: "/shop?category=Upright" },
-                { text: "Digital Pianos", href: "/shop?category=Digital" },
-                { text: "New Arrivals", href: "/shop?badge=new" },
-                { text: "On Sale", href: "/shop?badge=sale" },
-                { text: "Lionel's Picks", href: "/shop?badge=lionels-pick" },
-              ]}
-            />
+            <CollectionsMegamenu />
             <NavDropdown
               label="Features"
               items={[

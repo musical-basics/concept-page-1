@@ -256,6 +256,198 @@ ul { list-style: none; }
   opacity: 1;
 }
 
+.nav-dropdown-collections {
+  position: relative;
+}
+
+.collections-megamenu {
+  position: absolute;
+  top: calc(100% + 18px);
+  left: 50%;
+  width: min(760px, calc(100vw - 48px));
+  padding-top: 12px;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translate3d(-50%, 8px, 0);
+  transition:
+    opacity 300ms cubic-bezier(0.4, 0.22, 0.28, 1),
+    transform 300ms cubic-bezier(0.4, 0.22, 0.28, 1),
+    visibility 0s linear 300ms;
+  z-index: 120;
+}
+
+.collections-megamenu.is-open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translate3d(-50%, 0, 0);
+  transition-delay: 0s;
+}
+
+.collections-megamenu-inner {
+  display: grid;
+  grid-template-columns: 1.15fr 1.2fr 0.95fr;
+  gap: 26px;
+  padding: 24px;
+  background: rgba(255, 255, 255, 0.97);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 18px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(12px);
+}
+
+.collections-megamenu-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.collections-megamenu-label,
+.collections-megamenu-featured-kicker {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.48);
+}
+
+.collections-megamenu-copy h3 {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--charcoal);
+}
+
+.collections-megamenu-copy p,
+.collections-megamenu-featured-copy p {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: rgba(0, 0, 0, 0.62);
+}
+
+.collections-megamenu-all-link {
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--charcoal);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.collections-megamenu-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.collections-megamenu-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.collections-megamenu-link {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(0, 0, 0, 0.03);
+  color: var(--charcoal);
+  text-decoration: none;
+  opacity: 0;
+  transform: translateY(10px);
+  transition:
+    opacity 300ms cubic-bezier(0.4, 0.22, 0.28, 1),
+    transform 300ms cubic-bezier(0.4, 0.22, 0.28, 1),
+    background 180ms ease;
+}
+
+.collections-megamenu.is-open .collections-megamenu-link {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.collections-megamenu-link:hover {
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.collections-megamenu-link-title {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+.collections-megamenu-link-meta {
+  font-size: 12px;
+  color: rgba(0, 0, 0, 0.52);
+}
+
+.collections-megamenu-featured {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.collections-megamenu-featured-image {
+  position: relative;
+  min-height: 220px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #efefef;
+}
+
+.collections-megamenu-featured-image img {
+  transition: transform 0.45s ease;
+}
+
+.collections-megamenu-featured:hover .collections-megamenu-featured-image img {
+  transform: scale(1.03);
+}
+
+.collections-megamenu-featured-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.collections-megamenu-featured-copy strong {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--charcoal);
+}
+
+@media (max-width: 1180px) {
+  .collections-megamenu {
+    left: auto;
+    right: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+
+  .collections-megamenu.is-open {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (max-width: 960px) {
+  .collections-megamenu {
+    width: min(680px, calc(100vw - 32px));
+  }
+
+  .collections-megamenu-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .collections-megamenu-featured-image {
+    min-height: 180px;
+  }
+}
+
 /* MOBILE OVERLAY */
 .mobile-overlay {
   position: fixed;
