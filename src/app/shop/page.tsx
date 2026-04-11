@@ -336,10 +336,15 @@ export default function ShopPage() {
       <AnnouncementBar />
       <Header cartCount={cartCount} />
 
-      {/* ── Collection Banner (Hero) with breadcrumbs overlay ── */}
+      {/* ── Collection Banner (Hero) ── */}
       <section className="shop-hero">
-        <div className="shop-hero-overlay">
-          <div className="shop-hero-content container">
+        <div className="shop-hero-overlay" />
+      </section>
+
+      {/* ── Main shop section ── */}
+      <section className="shop-section">
+        <div className="container">
+          <div className="shop-page-intro">
             <nav className="shop-breadcrumb" aria-label="Breadcrumb">
               <a href="/"><HomeIcon /></a>
               <svg className="breadcrumb-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6" /></svg>
@@ -347,14 +352,8 @@ export default function ShopPage() {
               <svg className="breadcrumb-chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6" /></svg>
               <span>All products</span>
             </nav>
-            <h1>All products</h1>
+            <h1 className="shop-page-title">All products</h1>
           </div>
-        </div>
-      </section>
-
-      {/* ── Main shop section ── */}
-      <section className="shop-section">
-        <div className="container">
           {/* Toolbar */}
           <div className="shop-toolbar">
             <div className="shop-toolbar-left">
