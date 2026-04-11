@@ -25,10 +25,10 @@ export default function Footer() {
           <div className="footer-col">
             <h4>Contact</h4>
             <ul>
-              <li><a href="#">support@dreamplay.com</a></li>
-              <li><a href="#">1-800-DREAMPLAY</a></li>
-              <li><a href="#">123 Audio Lane, Sound City</a></li>
-              <li><a href="#">Mon&ndash;Fri: 9am &ndash; 6pm EST</a></li>
+              <li><a href="mailto:support@dreamplay.com">support@dreamplay.com</a></li>
+              <li><a href="mailto:concierge@dreamplay.com">concierge@dreamplay.com</a></li>
+              <li><a href="tel:+14158200180">+1 (415) 820-0180</a></li>
+              <li><a href="https://maps.google.com/?q=1825+Market+Street+San+Francisco+CA+94103" target="_blank" rel="noreferrer">1825 Market Street, San Francisco, CA 94103</a></li>
             </ul>
           </div>
           <div className="footer-col">
